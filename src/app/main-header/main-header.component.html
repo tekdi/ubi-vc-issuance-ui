@@ -1,0 +1,15 @@
+<header>
+    <div class="header-content">
+      <div  class="search-bar fs-16 lh-24 fw-400">
+        <span *ngIf="isSearch">
+        <i class="fa fa-search search-icon"></i>
+        <input type="text" class="px-4 fs-16 lh-24 fw-400" placeholder="Search..." (keyup.enter)="searchData($event)">
+      </span> </div>
+      <div class="header-icons mr-3">
+        <!-- <i class="fa fa-bell-o"></i> -->
+        <div class="user-avatar">
+          {{ getInitials(username) }}
+        </div>
+      </div>
+    </div>
+  </header>

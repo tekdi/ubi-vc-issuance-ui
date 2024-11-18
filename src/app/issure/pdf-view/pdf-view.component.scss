@@ -1,0 +1,19 @@
+.menuPdf{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pdfDisplay{
+height: 600px;
+width: 100%;
+padding-top: 20px;
+}
+
+ .modal-dialog {
+    max-width: 700px;
+    margin: 1.75rem auto;
+}
+

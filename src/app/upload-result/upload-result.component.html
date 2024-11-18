@@ -1,0 +1,256 @@
+<div
+  class="modal fade"
+  id="uploadResult"
+  tabindex="-1"
+  aria-labelledby="modalTitle"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <!-- <div class="modal-header justify-content-end modalHeader"> -->
+    <!-- <img src="assets/images/cross.png" alt="Close" data-bs-dismiss="modal" aria-label="Close"
+                class="close-icon tn-close float-end pointerCursor "/> -->
+    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+    <!-- </div> -->
+    <div *ngIf="!confirmToupload" class="modal-content">
+      <div
+        class="d-flex flex-column align-items-center justify-content-center p-0"
+      >
+        <div *ngIf="!uploadComplete" class="d-flex w-100">
+          <div class="bg-container rounded d-flex">
+            <div class="bordered-box p-4 mx-4 rounded w-100 pb-0">
+              <div>
+                <label class="fs-16 lh-22 fw-bold text-primary-color mb-25"
+                  >Upload Results</label
+                >
+                <img
+                  src="assets/images/cross.png"
+                  alt="Close"
+                  data-bs-dismiss="modal"
+                  class="close-icon tn-close float-end mr-2"
+                  (click)="onCancel()"
+                />
+
+                <div *ngIf="!isUploading">
+                  <div class="text-left">
+                    <span class="fs-14 mb-3 lh-16 fw-400 ff-rubik labelsUploadResult"
+                      >Kindly Select Academic Session</span
+                    >
+                    <select
+                      [(ngModel)]="selectedAcademicYear"
+                      class="form-select mt-2"
+                    >
+                      <option
+                        class="fs-16"
+                        *ngFor="let year of years"
+                        [value]="year"
+                      >
+                        {{ year }}
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="showAcademicYearError"
+                      class="text-danger fs-12"
+                    >
+                      Academic Year is required.
+                    </div>
+                  </div>
+
+                  <div class="text-left mt-2">
+                    <span class="fs-14 mb-3 lh-16 fw-400 ff-rubik labelsUploadResult">Select Class Type</span>
+                    <select
+                      [(ngModel)]="selectedClassType"
+                      class="form-select mt-2"
+                    >
+                      <option
+                        *ngFor="let classType of classTypes"
+                        [value]="classType"
+                      >
+                        {{ classType }}
+                      </option>
+                    </select>
+                    <div *ngIf="showClassTypeError" class="text-danger fs-12">
+                      Class Type is Required.
+                    </div>
+                  </div>
+                  <div
+                    class="drag-drop p-4 mt-16"
+                    (dragover)="onDragOver($event)"
+                    (dragleave)="onDragLeave($event)"
+                    (drop)="onDrop($event)"
+                    [class.dragging]="isDragging"
+                  >
+                    <div class="file-upload1 mt-4 text-center">
+                      <img src="assets/images/File-fill.png" /><br />
+                      <span class="mt-2 fs-14">Drag and Drop here</span> <br />
+                      <span class="fs-14">Or</span><br />
+                      <label
+                        class="fs-14 fw-bold text-primary-color pointerCursor"
+                        (click)="fileInput.click()"
+                        >Browse</label
+                      >
+                    </div>
+
+                    <p *ngIf="selectedFile">
+                      <!-- <img src="assets/images/Image-fill.png" /> -->
+                       
+                      <span class="file-name"  title="{{ selectedFile.name }}">{{ selectedFile.name }}</span>
+                      <span *ngIf="showFileError" class="text-danger fs-12"
+                        >Please Select a Valid CSV File.</span
+                      >
+                    </p>
+                  </div>
+
+                  <div *ngIf="isUploading" class="mb-2">
+                    <p>
+                      <img src="assets/images/Image-fill.png" />
+                      <span class="file-name">{{ selectedFile.name }}</span>
+                    </p>
+                    <div class="progress">
+                      <div
+                        class="progress-bar"
+                        role="progressbar"
+                        [style.width.%]="uploadProgress"
+                        aria-valuenow="{{ uploadProgress }}"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      >
+                        {{ uploadProgress }}%
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-2">
+                  <input
+                    type="file"
+                    accept=".csv"
+                    #fileInput
+                    (change)="onFileSelected($event)"
+                    class="d-none"
+                  />
+                  <button
+                    [disabled]="!selectedFile || isUploading"
+                    class="btn btn-primary mt-2 fs-14 w-100"
+                    (click)="validateAndUpload()"
+                  >
+                    Upload File</button
+                  ><br />
+                  <p
+                    class="my-4 text-center fs-14"
+                    data-bs-dismiss="modal"
+                    (click)="onCancel()"
+                  >
+                    Cancel
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <app-success-modal
+            *ngIf="!isError"
+            [modalInfo]="modalInfo"
+          ></app-success-modal>
+        </div>
+
+        <div *ngIf="uploadComplete" class="p-2">
+          <div
+            class="modal-body p-4 d-flex flex-column justify-content-center align-items-center text-center"
+          >
+            <img *ngIf="subSuccess" width="50" [src]="modalInfo?.image" />
+            <br />
+            <p *ngIf="subSuccess" class="fs-24">{{ modalInfo?.title }}</p>
+            <p *ngIf="!subSuccess" class="fs-24">
+              No records uploaded. Please check the records in the uploaded
+              file.
+            </p>
+
+            <div>
+              <div *ngIf="subSuccess" class="mb-2 mt-1 mr-1">
+                <i
+                  class="fa fa-check-circle"
+                  style="color: green"
+                  aria-hidden="true"
+                ></i>
+
+                <div *ngIf="subSuccess" class="p14 mb-2 mt-2 fw-bold">
+                  {{ subSuccess }}
+                  {{ 'RECORDS_SUCCESSFULLY_UPLOADED' | translate }}
+                </div>
+              </div>
+            </div>
+            <div *ngIf="subFailed" class="d-flex">
+              <div class="mb-2 mt-1 mr-1">
+                <i class="fa fa-info-circle" style="color: red"></i>
+              </div>
+              <div class="p14 mb-2 mt-2 fw-bold">
+                {{ subFailed }} {{ 'RECORDS_FAILED' | translate }}
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary fs-18"
+              [routerLink]="[modalInfo?.redirectTo]"
+              data-bs-dismiss="modal"
+            >
+              {{ modalInfo?.Buttons[0].title }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="confirmToupload" class="modal-content bg-container">
+      <div class="modal-header justify-content-end modalHeader bg-container">
+        <img
+          src="assets/images/cross.png"
+          alt="Close"
+          data-bs-dismiss="modal"
+          class="close-icon tn-close float-end mr-2"
+          (click)="onCancel()"
+        />
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+      </div>
+
+      <div class="m-4 p-3 bordered-box">
+        <h5
+          class="modal-title fs-16 m-3 fw-700"
+          [ngClass]="cmodalInfo?.titleCss"
+          *ngIf="cmodalInfo?.title"
+          id="modalTitle"
+        >
+          {{ cmodalInfo?.title }}
+        </h5>
+
+        <div
+          class="modal-body m-3 p-6 confirmdotted-box rounded d-flex flex-column justify-content-center align-items-center text-center"
+        >
+          <!-- <img width="50" [src]="cmodalInfo?.image" /> <br /> -->
+          <p class="fs-16 mb-0 lh-26 fw-400">{{ cmodalInfo?.message }}</p>
+        </div>
+        <div class="text-center my-4">
+          <div>
+            <button
+              type="button"
+              class="btn fs-16 mb-2 btn-primary dsn-g-btn w-100"
+              (click)="uploadFile()"
+            >
+              Yes
+            </button>
+            <button
+              type="button"
+              class="btn fs-16 mb-2"
+              [ngClass]="btnList?.classes"
+              data-bs-dismiss="modal"
+              (click)="onCancel()"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

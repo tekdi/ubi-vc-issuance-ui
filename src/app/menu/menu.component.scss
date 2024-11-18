@@ -1,0 +1,53 @@
+.layout-container {
+  display: flex;
+}
+
+app-side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  padding: 20px;
+}
+
+.main-content {
+  margin-left: 290px;
+  width: calc(100% - 290px);
+  display: flex;
+  flex-direction: column;
+}
+
+app-header {
+  position: fixed;
+  top: 0;
+  left: 290px;
+  width: calc(100% - 290px);
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+}
+
+app-subheader {
+  position: fixed;
+  top: 55px;
+  /* Height of header */
+  left: 290px;
+  width: calc(100% - 290px);
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+}
+
+.content-body {
+  margin-top: 70px;
+  /* Height of header + subheader */
+  padding: 20px;
+  flex: 1;
+}

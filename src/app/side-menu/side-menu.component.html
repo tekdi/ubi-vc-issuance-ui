@@ -1,0 +1,29 @@
+<div class="side-menu">
+  <div class="app-icon">
+    <img src="assets/images/educert_logo.png" alt="App Icon">
+  </div>
+  <ul>
+    <li class="fs-16 p-2" *ngFor="let menuItem of menuConfig?.menus"
+     [class.active]="activeMenu === menuItem?.title" >
+      <a [routerLink]="menuItem?.redirectTo"  (click)="setActiveMenu(menuItem?.title)">
+        <i *ngIf="menuItem?.icon" [class]="menuItem?.icon + ' inline-flex'" aria-hidden="true"></i>
+        <img *ngIf="menuItem?.image" [src]="menuItem?.image" class="inline-flex" />
+        &nbsp;{{menuItem.title}}
+      </a>
+    </li>
+  </ul>
+  <ul class="logout-menu">
+    <li>
+      <i *ngIf="menuConfig?.logout?.icon" [class]="menuConfig?.logout.icon + ' fs-16 inline-flex'" aria-hidden="true">
+      </i>
+      <!-- <a [routerLink]="menuConfig?.logout?.redirectTo"; -->
+        <a  (click)="doLogout()">
+
+
+        &nbsp; {{menuConfig?.logout?.title}}
+      </a>
+
+    </li>
+  </ul>
+</div>
+<app-confirm-modal  [cmodalInfo]="modalInfo" ></app-confirm-modal>

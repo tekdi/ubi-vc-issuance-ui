@@ -1,0 +1,62 @@
+.side-menu {
+  position: fixed;
+  top: 30px;
+  left: 0px;
+  width: 255px;
+  height: 80vh;
+  background-color: #ffff;
+  // box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+
+  .app-icon {
+    margin-left: 23px !important;
+  }
+}
+
+.app-icon img {
+  display: block;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 37px;
+}
+
+li {
+  margin-bottom: 10px;
+  padding: 10px 33px !important;
+}
+
+a {
+  text-decoration: none;
+  color: #707070;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.logout-menu {
+  position: absolute;
+  bottom: 0;
+  margin-left: 8px
+}
+.side-menu ul li.active {
+  background-color: #f1f5f8; /* Light grey background */
+}
+
+.side-menu ul li.active a {
+  color: #000 !important; /* Optional: Change text color if needed */
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+}
+
+.side-menu ul li a {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}

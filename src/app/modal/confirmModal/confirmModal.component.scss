@@ -1,0 +1,50 @@
+.modal-header,
+.modal-footer,
+.modal-body {
+  border: none; /* Removes borders around the modal sections */
+}
+
+.dotted-box {
+  border: 1px dashed #828282;
+  padding: 60px;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.bordered-box {
+  border: 2px solid #bdbdbd;
+  // background-color: #F1F5F8;
+  margin: 0 70px !important;
+}
+
+// .btn-primary {
+//   width: 325px !important;
+// }
+
+.modal-content {
+  // height: 500px;
+  height: auto;
+}
+
+.modalBoxInside {
+  padding: 16px 20px;
+  padding-bottom: 5px;
+
+  .modal-title {
+    margin-bottom: 33px;
+  }
+
+  .modal-body {
+    margin-bottom: 29px;
+  }
+}
+
+.modalHeader {
+  position: absolute;
+  right: 19px;
+  top: 20px;
+  padding: 0px;
+}
+
+.modalContentWrapper {
+  padding: 31px 0px;
+}

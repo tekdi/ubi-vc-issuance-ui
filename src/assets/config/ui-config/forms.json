@@ -1,0 +1,315 @@
+{
+    "type": "opensaberLayoutSchema",
+    "version": "0.1",
+    "forms": [
+        {
+            "student-signup": {
+                "api": "/Student/invite",
+                "type": "entity",
+                "formclass": "row",
+                "header": "default",
+                "title": "CREACT_AN_ACCOUNT",
+                "description": "PLEASE_ENTER_FOLLOWING_DETAILS",
+                "isSignupForm": "true",
+                "langKey": "student",
+                "fieldsets": [
+                    {
+                        "definition": "Student",
+                        "formclass": " row form-div line",
+
+                        "fields": [
+                            {
+                                "name": "studentJssId",
+
+                                "class": "col-md-6 align-top",
+                                "expressionProperties": {
+                                    "templateOptions.required": "!model.studentSssId"
+                                  }
+                            },
+                            {
+                                "name": "studentSssId",
+
+                                "class": "col-md-6 align-top",
+                                "expressionProperties": {
+                                    "templateOptions.required": "!model.studentJssId"
+                                  }
+                            },
+                            {
+                                "name": "firstName",
+                                "required": true,
+                                "class": "col-md-6 align-top"
+
+                            },
+                            {
+                                "name": "middleName",
+                                "class": "col-md-6 align-top"
+
+                            },
+                            {
+                                "name": "lastName",
+                                "required": true,
+                                "class": "col-md-6 align-top"
+                            },
+                            {
+                                "name": "school",
+                                "required": true,
+                                "class": "col-md-6 align-top"
+                            },
+                            {
+                                "name": "class",
+                                "class": "col-md-6 align-top"
+                            },
+                            {
+                                "name": "email",
+                                "class": "col-md-6 align-top",
+                                "required": true,
+                                "validation": {
+                                    "pattern": "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z0-9.-]+$",
+                                    "message": "EMAILT_NOT_VALID"
+                                }
+                            },
+                            {
+                                "name": "phoneNumber",
+                                "required": true,
+                                "class": "col-md-6 align-top"
+                            },
+                            {
+                                "name": "nin",
+                                "class": "col-md-6 align-top"
+                            },
+                            {
+                                "name": "password",
+                                "required": true,
+                                "class": "col-md-6 align-top",
+                                "type": "password",
+                                "validators": "fieldMatch"
+                            },
+                            {
+                                "name": "passwordConfirm",
+                                "custom": true,
+                                "required": true,
+                                "validators": {
+                                    "validation": [
+                                        {
+                                            "name": "fieldMatch",
+                                            "options": {
+                                                "errorPath": "passwordConfirm"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "element": {
+                                    "title": "Re-password",
+                                    "widget": {
+                                        "formlyConfig": {
+                                            "title": "Re-password",
+                                            "type": "string",
+                                            "className": "col-md-6 align-top",
+                                            "templateOptions": {
+                                                "type": "password",
+                                                "required": true
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "name": "parentEmail",
+                                "class": "col-md-6 align-top"
+                            },
+                            {
+                                "name": "guardianEmail",
+                                "class": "col-md-6 align-top"
+
+                            }
+                        ]
+                    }
+                ],
+                "modal" : {
+                    "title": "You have successfully create an account, Proceed to Login into your dashbord",
+                    "redirectTo": "/login",
+                    "Buttons" : [{
+                        "title": "Proceed to Login"
+                    }]
+                }
+            }
+        },
+        {
+            "examiner-signup": {
+                "api": "/Examiner/invite",
+                "type": "entity",
+                "formclass": "row",
+                "header": "default",
+                "title": "CREACT_AN_ACCOUNT",
+                "description": "PLEASE_ENTER_FOLLOWING_DETAILS",
+                "isSignupForm": "true",
+                "langKey": "student",
+                "fieldsets": [
+                    {
+                        "definition": "Examiner",
+                        "formclass": " row form-div line",
+
+                        "fields": [
+
+                            {
+                                "name": "name",
+                                "required": true,
+                                "class": "col-md-6 align-top"
+
+                            },
+                            {
+                                "name": "email",
+                                "class": "col-md-6 align-top",
+                                "required": true,
+                                "validation": {
+                                    "pattern": "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z0-9.-]+$",
+                                    "message": "EMAILT_NOT_VALID"
+                                }
+                            },
+                            {
+                                "name": "phoneNumber",
+                                "required": true,
+                                "class": "col-12"
+                            },
+                            {
+                                "name": "password",
+                                "type": "password",
+                                "required": true,
+                                "class": "col-md-6 align-top"
+                            },
+                            {
+                                "name": "passwordConfirm",
+                                "custom": true,
+                                "required": true,
+                                "validators": {
+                                    "validation": [
+                                        {
+                                            "name": "fieldMatch",
+                                            "options": {
+                                                "errorPath": "passwordConfirm"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "element": {
+                                    "title": "Re-password",
+                                    "widget": {
+                                        "formlyConfig": {
+                                            "title": "Re-password",
+                                            "type": "string",
+                                            "className": "col-md-6 align-top",
+                                            "templateOptions": {
+                                                "type": "password",
+                                                "required": true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "redirectTo": "Examiner/list/Examiner",
+                "modal" : {
+                    "title": "You have successfully create an account, Proceed to Login into your dashbord",
+                    "redirectTo": "/Examiner/list/Examiner",
+                    "Buttons" : [{
+                        "title": "Procced to login"
+                    }]
+                }
+            }
+        },
+        {
+            "verifier": {
+                "api": "/Verifier/invite",
+                "type": "entity",
+                "formclass": "row",
+                "header": "default",
+                "title": "CREACT_AN_ACCOUNT",
+                "description": "PLEASE_ENTER_FOLLOWING_DETAILS",
+                "isSignupForm": "true",
+                "langKey": "student",
+                "fieldsets": [
+                    {
+                        "definition": "Verifier",
+                        "formclass": " row form-div line",
+
+                        "fields": [
+                            {
+                                "name": "institution",
+                                "custom": true,
+                                "required": true,
+                                "element": {
+                                    "title": "Institution (Optional)",
+                                    "widget": {
+                                        "formlyConfig": {
+                                            "type": "string",
+                                            "className": "col-12"
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "name": "name",
+                                "required": true,
+                                "class": "col-12"
+
+                            },
+                            {
+                                "name": "email",
+                                "required": true,
+                                "class": "col-12",
+                                "validation": {
+                                    "pattern": "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z0-9.-]+$",
+                                    "message": "EMAILT_NOT_VALID"
+                                }
+                            },
+                            {
+                                "name": "password",
+                                "type": "password",
+                                "required": true,
+                                "class": "col-md-6 align-top"
+                            }, {
+                                "name": "passwordConfirm",
+                                "custom": true,
+                                "required": true,
+                                "validators": {
+                                    "validation": [
+                                        {
+                                            "name": "fieldMatch",
+                                            "options": {
+                                                "errorPath": "passwordConfirm"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "element": {
+                                    "title": "Re-password",
+                                    "widget": {
+                                        "formlyConfig": {
+                                            "title": "Re-password",
+                                            "type": "string",
+                                            "className": "col-md-6 align-top",
+                                            "templateOptions": {
+                                                "type": "password",
+                                                "required": true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "redirectTo": "/login",
+                "modal" : {
+                    "title": "You have successfully create an account, Proceed to Login into your dashbord",
+                    "redirectTo": "/login",
+                    "Buttons" : [{
+                        "title": "Procced to login"
+                    }]
+                }
+            }
+        }
+    ]
+}

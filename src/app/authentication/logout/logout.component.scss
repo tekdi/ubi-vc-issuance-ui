@@ -1,0 +1,7 @@
+.loader-container {
+    position: fixed;
+    top: 20%; /* Adjust this value to position the loader higher or lower */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999; /* Ensure it stays on top of other content */
+}
