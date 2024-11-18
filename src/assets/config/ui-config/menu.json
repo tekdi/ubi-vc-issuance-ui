@@ -1,0 +1,285 @@
+{
+    "type": "opensaberLayoutSchema",
+    "version": "0.1",
+    "menus": [
+        {
+            "Student": {
+                "name": "firstName",
+                "lastname": "lastName",
+                "acadmicYearStartWith" : "2019",
+                "menus": [
+                    {
+                        "title": "Dashboard",
+                        "redirectTo": "Student/list/Student",
+                        "icon": "fa fa-th-large",
+                        "activeTab" : "active"
+
+                    }
+                ],
+                "logout": 
+                    {
+                        "title": "Logout",
+                        "redirectTo": "/logout",
+                        "className" : "font-weight-bold",
+                        "icon": "fa fa-sign-out"
+
+                    },
+                    "subMenus": {
+                        "left" : [{
+                            "type" : "button",
+                            "title": "Preview Result",
+                            "action" : "redirect",
+                            "cssClass" : "dsn-m-btn",
+                            "redirectTo": "/pdf-view/credentials/:id/:certificateId",
+                            "iscorrectPathToshowBtn" : ["Student/list/Student"]
+                        }
+                        ],
+                        "right": [{
+                            "type" : "button",
+                            "title": "Academic Session",
+                            "icon": "fa fa-database",
+                            "cssClass" : "dsn-g-btn ",
+                            "bodyVal": "*",
+                            "action": "acadmicYear",
+                            "iscorrectPathToshowBtn" : ["Student/list/Student"]
+
+                        }, {
+                            "type" : "button",
+                            "title": "Class Type",
+                            "icon": "fa fa-database",
+                            "cssClass" : "dsn-g-btn ",
+                            "bodyVal": "*",
+                            "action": "classType",
+                            "iscorrectPathToshowBtn" : ["Student/list/Student"]
+                        }]
+
+                    }
+                    
+                
+            }
+        },
+        {
+            "Examiner": {
+                "name": "name",
+                "acadmicYearStartWith" : "2019",
+                "menus": [
+                    {
+                        "title": "Dashboard",
+                        "redirectTo": "/Examiner/list/Examiner",
+                        "icon": "fa fa-th-large",
+                        "activeTab" : "active"
+                    },
+                    {
+                        "title": "Download Template",
+                        "redirectTo": "/download-sample",
+                        "icon": "fa fa-file-text-o",
+                        "isSearch" : false
+                    }
+                ],
+                "logout": 
+                    {
+                        "title": "Logout",
+                        "redirectTo": "/logout",
+                        "className" : "font-weight-bold",
+                        "icon": "fa fa-sign-out"
+
+                    },
+                    "subMenus": {
+                        "left" : [],
+                        "right": [{
+                            "type" : "button",
+                            "title": "Upload Result",
+                            "icon": "fa fa-database",
+                            "cssClass" : "dsn-g-btn ",
+                            "bodyVal": "*",
+                            "action": "redirect",
+                            "redirectTo": "/Examiner/list/Examiner/action/upload-result",
+                            "iscorrectPathToshowBtn" : ["/Examiner/list/Examiner"]
+                        },
+                        {
+                            "type" : "button",
+                            "title": "Academic Session",
+                            "icon": "fa fa-database",
+                            "cssClass" : "dsn-g-btn ",
+                            "bodyVal": "*",
+                            "action": "acadmicYear",
+                            "iscorrectPathToshowBtn" : ["/Examiner/list/uploadstudents"]
+
+                        }, {
+                            "type" : "button",
+                            "title": "Class Type",
+                            "icon": "fa fa-database",
+                            "cssClass" : "dsn-g-btn ",
+                            "bodyVal": "*",
+                            "action": "classType",
+                            "iscorrectPathToshowBtn" : ["/Examiner/list/uploadstudents"]
+                        }]
+
+                        
+                    }
+                    
+                
+            }
+        },
+        {
+            "Inspector": {
+                "name": "name",
+                "acadmicYearStartWith" : "2019",
+                "subHeaderTitleNotshow" : ["/Inspector/list/Inspector"],
+                "menus": [
+                    {
+                        "title": "Dashboard",
+                        "redirectTo": "/Inspector/list/Inspector",
+                        "icon": "fa fa-th-large",
+                        "activeTab" : "active"
+                    }
+                ],
+                "logout": 
+                    {
+                        "title": "Logout",
+                        "redirectTo": "/logout",
+                        "className" : "font-weight-bold",
+                        "icon": "fa fa-sign-out"
+
+                    },
+                    "subMenus": {
+                        "left" : [],
+                        "right": [
+                        {
+                            "type" : "button",
+                            "title": "Academic Session",
+                            "icon": "fa fa-database",
+                            "cssClass" : "dsn-g-btn ",
+                            "bodyVal": "*",
+                            "action": "acadmicYear",
+                            "iscorrectPathToshowBtn" : ["/Inspector/list/studentresult"]
+
+                        }, {
+                            "type" : "button",
+                            "title": "Class Type",
+                            "icon": "fa fa-database",
+                            "cssClass" : "dsn-g-btn ",
+                            "bodyVal": "*",
+                            "action": "classType",
+                            "iscorrectPathToshowBtn" : ["/Inspector/list/studentresult"]
+                        },{
+                            "type" : "button",
+                            "title": "Bulk Approval",
+                            "call": "post",
+                            "icon": "fa fa-database",
+                            "cssClass" : "dsn-g-btn ",
+                            "bodyVal": "*",
+                            "action": "confirmModal",
+                            "iscorrectPathToshowBtn" : ["/Inspector/list/studentresult"],
+                            "modal": {
+                                "title": "Confirm Bulk Approval",
+                                "titleCss": "titleClr-g",
+                               
+                                "message": "Confirm you are approving bulk certificate for all students",
+                                "redirectTo": "/login",
+                                "buttons": [
+                                    {
+                                        "title": "Yes",
+                                        "classes": "btn-primary dsn-g-btn",
+                                        "action": "requestCall",
+                                        "call": "post",
+                                        "api": "api/inspector/bulkIssuance",
+                                        "successModal": true,
+                                        "modal": {
+                                          
+                                            "title": "You have successfully approved bulk certificate for all students",
+                                            "redirectTo": "/Inspector/list/studentresult",
+                                            "image": "assets/images/success.png",
+                                            "Buttons": [
+                                                {
+                                                    "title": "Done",
+                                                    "redirectTo": "/Inspector/list/studentresult"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "title": "Cancel"
+                                    }
+                                ]
+                            }
+
+                        },
+                        {
+                            "type" : "button",
+                            "title": "Bulk Decline",
+                            "call": "post",
+                            "bodyVal": "*",
+                            "icon": "fa fa-database",
+                            "cssClass" : "dsn-r-btn ",
+                            "classes": "dsn-r-btn",
+                            "action": "confirmModal",
+                            "iscorrectPathToshowBtn" : ["/Inspector/list/studentresult"],
+                            "modal": {
+                                "title": "Bulk Decline Student Certificate",
+                                "titleCss": "titleClr-r",
+                               
+                                "message": "Confirm you are Declining bulk result for all students",
+                                "buttons": [
+                                    {
+                                        "title": "Yes",
+                                        "classes": "btn-primary dsn-r-btn",
+                                        "action": "requestCall",
+                                        "call": "post",
+                                        "api": "api/inspector/bulkDecline",
+                                        "successModal": true,
+                                        "modal": {
+                                          
+                                            "title": "You have successfully decline bulk certificate for all students",
+                                            "redirectTo": "/Inspector/list/studentresult",
+                                            "image": "assets/images/success.png",
+                                            "Buttons": [
+                                                {
+                                                    "title": "Done",
+                                                    "redirectTo": "/Inspector/list/studentresult"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "title": "Cancel"
+                                    }
+                                ]
+                            }
+
+                        }]
+
+                        
+                    }
+                    
+                
+            }
+        },
+        {
+            "Verifier": {
+                "name": "name",
+                "menus": [
+                    {
+                        "title": "Dashboard",
+                        "redirectTo": "/verify",
+                        "icon": "fa fa-th-large",
+                        "activeTab" : "active"
+                    }
+                ],
+                "logout": 
+                    {
+                        "title": "Logout",
+                        "redirectTo": "/logout",
+                        "className" : "font-weight-bold",
+                        "icon": "fa fa-sign-out"
+
+                    },
+                    "subMenus": {
+                        "left" : [],
+                        "right": []
+                    }
+            }
+        }
+        
+    ]
+}

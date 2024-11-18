@@ -1,0 +1,195 @@
+<div class="subheader">
+  <div class="subheader-title ff-poppins text-capitalize">
+    <span *ngIf="displayUserName"> {{ username }} </span>
+    <span *ngIf="!displayUserName"> {{ subHeaderTitle }} </span>
+    <span *ngFor="let lmenuItem of menuConfig?.subMenus?.left">
+      <span *ngIf="lmenuItem?.showButton">
+        <a *ngIf="lmenuItem?.action == 'redirect'">
+          <button 
+            *ngIf="lmenuItem.title === 'Preview Result'"
+            [routerLink]="isDataAvailable ? lmenuItem?.redirectTo : null"
+            [disabled]="!isDataAvailable"
+            [class]="
+              lmenuItem?.cssClass +
+              ' ' +
+              'btn btn-style text-primary-color text-end fw-bold text-capitalize mr-3'
+            "
+            (click)="isDataAvailable && $event.preventDefault()"
+          >
+            <i
+              *ngIf="lmenuItem?.icon"
+              [class]="lmenuItem?.icon + ' inline-flex'"
+              aria-hidden="true"
+            ></i>
+            <img
+              *ngIf="lmenuItem?.image"
+              [src]="lmenuItem?.image"
+              class="inline-flex"
+            />
+            &nbsp; {{ lmenuItem.title }}
+          </button>
+        </a>
+
+        <button
+          *ngIf="rmenuItem?.action == 'requestCall'"
+          [class]="
+            lmenuItem?.cssClass +
+            ' ' +
+            'btn btn-style ml-3 text-primary-color text-end fw-bold text-capitalize'
+          "
+        >
+          <i
+            *ngIf="lmenuItem?.icon"
+            [class]="lmenuItem?.icon + ' inline-flex'"
+            aria-hidden="true"
+          ></i>
+          <img
+            *ngIf="lmenuItem?.image"
+            [src]="lmenuItem?.image"
+            class="inline-flex"
+          />
+          &nbsp;
+          {{ lmenuItem.title }}
+        </button>
+      </span>
+    </span>
+  </div>
+  <div class="actions">
+  <!-- Wrap all the select dropdowns in one div -->
+  <div class="dropdownsWrapper">
+    <span
+      *ngFor="let rmenuItem of menuConfig?.subMenus?.right"
+    >
+      <!-- Academic Year Select -->
+      <span
+        *ngIf="rmenuItem?.action == 'acadmicYear' && rmenuItem?.showButton"
+        class="text-left"
+      >
+        <div class="dropdown-container">
+          <select
+            class="form-select mt-2"
+            (change)="onYearChange($event)"
+          >
+            <option value="">Academic Session</option>
+            <option
+              class="fs-16"
+              *ngFor="let year of years"
+              [value]="year"
+            >
+              {{ year }}
+            </option>
+          </select>
+        </div>
+      </span>
+
+      <!-- Class Type Select -->
+      <span
+        *ngIf="rmenuItem?.action == 'classType' && rmenuItem?.showButton"
+        class="text-left mx-1"
+      >
+        <div class="dropdown-container">
+          <select
+            class="form-select mt-2"
+            (change)="onClassChange($event)"
+          >
+            <option value="" selected>Class Type</option>
+            <option
+              class="fs-16"
+              *ngFor="let class of classTypes"
+              [value]="class?.value"
+            >
+              {{ class?.title }}
+            </option>
+          </select>
+        </div>
+      </span>
+    </span>
+  </div>
+
+  <!-- Wrap all buttons in one div -->
+  <div class="buttonsWrappers">
+    <span
+      *ngFor="let rmenuItem of menuConfig?.subMenus?.right"
+    >
+      <!-- Redirect Button -->
+      <a
+        *ngIf="rmenuItem?.action == 'redirect' && rmenuItem?.showButton"
+        [routerLink]="rmenuItem?.redirectTo"
+      >
+        <button
+          [class]="
+            rmenuItem?.cssClass +
+            ' ' +
+            'btn btn-style text-primary-color text-end fw-bold text-capitalize mr-3'
+          "
+        >
+          <i
+            *ngIf="rmenuItem?.icon"
+            [class]="rmenuItem?.icon + ' inline-flex'"
+            aria-hidden="true"
+          ></i>
+          <img
+            *ngIf="rmenuItem?.image"
+            [src]="rmenuItem?.image"
+            class="inline-flex"
+          />
+          &nbsp; {{ rmenuItem.title }}
+        </button>
+      </a>
+
+      <!-- Request Call Button -->
+      <a
+        *ngIf="rmenuItem?.action == 'requestCall' && rmenuItem?.showButton"
+      >
+        <button
+          (click)="doAction(rmenuItem)"
+          [class]="
+            rmenuItem?.cssClass +
+            ' ' +
+            'btn btn-style text-primary-color text-end fw-bold text-capitalize mr-3'
+          "
+        >
+          <i
+            *ngIf="rmenuItem?.icon"
+            [class]="rmenuItem?.icon + ' inline-flex'"
+            aria-hidden="true"
+          ></i>
+          <img
+            *ngIf="rmenuItem?.image"
+            [src]="rmenuItem?.image"
+            class="inline-flex"
+          />
+          &nbsp; {{ rmenuItem.title }}
+        </button>
+      </a>
+
+      <!-- Confirm Modal Button -->
+      <a
+        *ngIf="rmenuItem?.action == 'confirmModal' && rmenuItem?.showButton"
+      >
+        <button
+          (click)="confirmModalFun(rmenuItem)"
+          [class]="
+            rmenuItem?.cssClass +
+            ' ' +
+            'btn btn-style text-primary-color text-end fw-bold text-capitalize mr-3'
+          "
+        >
+          <i
+            *ngIf="rmenuItem?.icon"
+            [class]="rmenuItem?.icon + ' inline-flex'"
+            aria-hidden="true"
+          ></i>
+          <img
+            *ngIf="rmenuItem?.image"
+            [src]="rmenuItem?.image"
+            class="inline-flex"
+          />
+          &nbsp; {{ rmenuItem.title }}
+        </button>
+      </a>
+    </span>
+  </div>
+</div>
+
+</div>

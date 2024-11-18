@@ -1,0 +1,131 @@
+header {
+  position: fixed;
+  top: 0px;
+  left: 290px;
+  /* Width of the side menu */
+  width: calc(100% - 290px);
+  background: white;
+  /* White background */
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+}
+
+.header-content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  /* Space between search bar and icons */
+  align-items: center;
+}
+
+.search-bar span{
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  padding-left: 25px;
+  /* Adjust to provide space for the search icon */
+  width: 200px;
+  /* Adjust width as needed */
+  background-color: transparent;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  font-size: 16px;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+}
+
+.bell-icon {
+  font-size: 20px;
+  color: white;
+  /* Color of the bell icon */
+  padding: 5px;
+  /* Add padding to make the icon fit nicely */
+  margin-right: 15px;
+  /* Space between the bell icon and profile image */
+}
+
+.profile-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.header-content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  /* Space between search bar and icons */
+  align-items: center;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  color: #707070;
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  width: 200px;
+  /* Adjust width as needed */
+  font-family: 'Poppins', sans-serif;
+}
+
+.search-icon {
+  font-size: 16px;
+  color: #707070;
+  /* Color of the search icon */
+  margin-left: 5px;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+}
+
+.header-icons i {
+  margin-right: 15px;
+  font-size: 16px;
+  color: #707070;
+  /* Color of the bell icon */
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.user-avatar {
+  width: 32px;
+  /* Circle size */
+  height: 32px;
+  border-radius: 50%;
+  /* Makes it a circle */
+  background-color: #366746;
+  /* Circle background color */
+  color: white;
+  /* Text color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  /* Text size */
+  font-weight: bold;
+}

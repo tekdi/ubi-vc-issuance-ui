@@ -1,0 +1,104 @@
+.bg-container {
+  background-color: #f1f5f8 !important;
+  // max-width: 600px;
+  width: 100%;
+}
+
+.bordered-box {
+  border: 1px solid #bdbdbd;
+  background-color: #f1f5f8;
+  margin: 30px 70px !important;
+  padding-bottom: 0px !important;
+}
+
+.dotted-box {
+  border: 3px dashed #366746;
+}
+
+.file-upload1 i {
+  color: #333;
+}
+
+.file-upload1 button {
+  margin-top: 10px;
+}
+
+.progress {
+  height: 20px;
+}
+
+.progress-bar {
+  background-color: #366746;
+}
+.close-icon {
+  cursor: pointer;
+  position: relative;
+}
+
+.drag-drop {
+  border: 2px dashed #366746;
+  border-radius: 10px;
+  text-align: center;
+  padding: 20px;
+  transition: background-color 0.3s ease;
+  margin-top: 16px;
+}
+
+.drag-drop.dragging {
+  background-color: #c8e6c9;
+}
+
+.drag-drop p {
+  font-size: 16px;
+  color: #777;
+}
+
+.labelsUploadResult {
+  color: #535875;
+}
+
+.modal-header {
+  border-bottom: none !important;
+}
+
+.labelColors {
+  color: #535875 !important;
+}
+
+.inputsWrapper {
+  select {
+    padding: 12px;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+    font-family: 'Rubik', sans-serif !important;
+    border: 1px solid #aeb3cd !important;
+    border-radius: 6px !important;
+
+    &:focus {
+      box-shadow: none !important;
+    }
+  }
+}
+
+.file-upload1 {
+  span {
+    color: #4f4f4f;
+  }
+}
+
+.close-icon {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+}
+
+.closeButton {
+  margin-top: 30px;
+  margin-right: 22px;
+}
+
+.confirmdotted-box {
+  border: 1px dotted #828282;
+  padding: 40px 50px;
+}

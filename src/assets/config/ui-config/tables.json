@@ -1,0 +1,479 @@
+{
+  "type": "opensaberLayoutSchema",
+  "version": "0.1",
+  "limit": "15",
+  "tables": [
+    {
+      "examiner": {
+        "api": "/School/search",
+        "title": "School",
+        "checkStatus": true,
+        "call": "post",
+        "body": {
+          "offset": 0,
+          "limit": 10,
+          "filters": {}
+        },
+        "menuFilter": {
+          "opt": "contains",
+          "searchBy": ["schoolName"]
+        },
+        "fields": [
+          {
+            "name": "schoolName",
+            "title": "Institute"
+          },
+          {
+            "title": "Administrator’s Name",
+            "name": "administratorName"
+          },
+          {
+            "custom": true,
+            "title": "ACTION",
+            "isMultiple": true,
+            "type": "button",
+            "buttons": [
+              {
+                "buttonText": "Proceed",
+                "type": "button",
+                "action": "redirect",
+                "redirectTo": "/Examiner/list/uploadstudents",
+                "classes": "dsn-g-btn",
+                "storeVal": "schoolId"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "inspector": {
+        "api": "/School/search",
+        "title": "School",
+        "checkStatus": true,
+        "call": "post",
+        "body": {
+          "offset": 0,
+          "limit": 1000,
+          "filters": {}
+        },
+        "menuFilter": {
+          "opt": "contains",
+          "searchBy": ["schoolName"]
+        },
+        "fields": [
+          {
+            "name": "schoolName",
+            "title": "Institute"
+          },
+          {
+            "custom": true,
+            "title": "ACTION",
+            "isMultiple": true,
+            "type": "button",
+            "buttons": [
+              {
+                "buttonText": "Proceed",
+                "type": "button",
+                "redirectTo": "/Inspector/list/studentresult",
+                "classes": "dsn-g-btn",
+                "action": "requestCall",
+                "call": "post",
+                "api": "Results/search",
+                "bodyVal": "schoolId",
+                "subHeaderTitle": "schoolName",
+                "storeVal": "schoolId",
+                "body": {
+                  "offset": 0,
+                  "limit": 1000,
+                  "filters": {
+                    "schoolId": {
+                      "eq": "$schoolId"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "studentresult": {
+        "api": "/Results/search",
+        "title": "School",
+        "checkStatus": true,
+        "call": "post",
+        "bodyVal": "schoolId",
+        "menuFilter": {
+          "opt": "contains",
+
+          "searchBy": ["firstName"]
+        },
+        "body": {
+          "offset": 0,
+          "limit": 1000,
+          "filters": {
+            "schoolId": {
+              "eq": "$schoolId"
+            },
+            "status": {
+              "eq": "pending"
+            }
+          }
+        },
+        "fields": [
+          {
+            "name": "s/n",
+            "title": "S/N"
+          },
+          {
+            "name": ["firstName", "middleName", "lastName"],
+            "isArray": true,
+            "title": "Student Name"
+          },
+          {
+            "name": "schoolId",
+            "title": "Institute"
+          },
+          {
+            "title": "Candidate No",
+            "name": "studentId"
+          },
+          {
+            "custom": true,
+            "title": "ACTION",
+            "isMultiple": true,
+            "type": "button",
+            "buttons": [
+              {
+                "buttonText": "Preview",
+                "type": "button",
+                "classes": "dsn-sb-btn",
+                "action": "redirect",
+                "call": "post",
+                "afterActionRemoveRow": true,
+                "replace": "certificateNo",
+                "redirectTo": "/pdf-view/credentials/",
+                "bodyVal": "*",
+                "successModal": true,
+                "modal": {
+                  "title": "Confirm Approval",
+                  "titleCss": "titleClr-g",
+                  "bodyVal": ["examinerName", "schoolName"],
+                  "message": "Confirm you are approving result examined by $examinerName for $schoolName",
+                  "buttons": [
+                    {
+                      "title": "Yes",
+                      "classes": "btn-primary dsn-g-btn",
+                      "action": "requestCall",
+                      "call": "post",
+                      "api": "api/inspector/issueCertificate",
+                      "successModal": true,
+                      "modal": {
+                        "bodyVal": ["schoolName"],
+                        "title": "You have successfully approved result for $schoolName !",
+                        "redirectTo": "/Inspector/list/studentresult",
+                        "image": "assets/images/success.png",
+                        "Buttons": [
+                          {
+                            "title": "Done",
+                            "redirectTo": "/Inspector/list/studentresult"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "title": "Cancel"
+                    }
+                  ]
+                }
+              },
+              {
+                "buttonText": "Approve",
+                "type": "button",
+                "classes": "dsn-g-btn",
+                "call": "post",
+                "afterActionRemoveRow": true,
+                "api": "api/inspector/issueCertificate",
+                "bodyVal": "*",
+                "successModal": true,
+                "action": "confirmModal",
+                "modal": {
+                  "title": "Confirm Approval",
+                  "titleCss": "titleClr-g",
+                  "bodyVal": ["examinerName", "schoolName"],
+                  "message": "Confirm you are approving result examined by $examinerName for $schoolName",
+                  "buttons": [
+                    {
+                      "title": "Yes",
+                      "classes": "btn-primary dsn-g-btn",
+                      "action": "requestCall",
+                      "call": "post",
+                      "api": "api/inspector/issueCertificate",
+                      "successModal": true,
+                      "modal": {
+                        "bodyVal": ["schoolName"],
+                        "title": "You have successfully approved result for $schoolName !",
+                        "redirectTo": "/Inspector/list/studentresult",
+                        "image": "assets/images/success.png",
+                        "Buttons": [
+                          {
+                            "title": "Done",
+                            "redirectTo": "/Inspector/list/studentresult"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "title": "Cancel"
+                    }
+                  ]
+                }
+              },
+              {
+                "buttonText": "Decline",
+                "type": "button",
+                "classes": "dsn-r-btn",
+                "action": "confirmModal",
+                "modal": {
+                  "title": "Decline Result",
+                  "titleCss": "titleClr-r",
+                  "bodyVal": ["schoolName"],
+                  "message": "Confirm you are declining result for $schoolName",
+                  "buttons": [
+                    {
+                      "title": "Yes",
+                      "classes": "btn-primary dsn-r-btn",
+                      "action": "requestCall",
+                      "call": "post",
+                      "api": "api/inspector/decline",
+                      "successModal": true,
+                      "modal": {
+                        "bodyVal": ["schoolName"],
+                        "title": "You have successfully decline results for $schoolName",
+                        "redirectTo": "/Inspector/list/studentresult",
+                        "image": "assets/images/success.png",
+                        "Buttons": [
+                          {
+                            "title": "Done",
+                            "redirectTo": "/Inspector/list/studentresult"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "title": "Cancel"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "studentslist": {
+        "api": "/Results/search",
+        "title": "School",
+        "checkStatus": true,
+        "call": "post",
+        "bodyVal": "schoolName",
+        "body": {
+          "offset": 0,
+          "limit": 1000,
+          "filters": {
+            "status": {
+              "eq": "issued"
+            },
+            "studentJssId": {
+              "eq": "$studentJssId"
+            },
+            "studentSssId": {
+              "eq": "$studentSssId"
+            }
+          }
+        },
+        "fields": [
+          {
+            "name": ["firstName", "middleName", "lastName"],
+            "isArray": true,
+            "title": "Student Name"
+          },
+          {
+            "name": "schoolId",
+            "title": "Institute"
+          },
+          {
+            "title": "Candidate No",
+            "name": "studentId"
+          },
+          {
+            "custom": true,
+            "title": "ACTION",
+            "isMultiple": true,
+            "type": "button",
+            "buttons": [
+              {
+                "buttonText": "Preview",
+                "type": "button",
+                "classes": "dsn-sb-btn",
+                "action": "redirect",
+                "call": "post",
+                "afterActionRemoveRow": true,
+                "replace": "studentId",
+                "api": "api/inspector/issueCertificate",
+                "redirectTo": "/pdf-view/credentials/",
+                "bodyVal": "*",
+                "successModal": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "verifiable-credential": {
+        "api": "/NTSE",
+        "title": "My Verifiable Credential",
+        "checkStatus": "false",
+        "callMultiApi": {
+          "api": [
+            "NTSE_Maths",
+            "NTSE_Science",
+            "KalaUtsav",
+            "KheloIndia",
+            "Toycathon",
+            "MetroTravel",
+            "PreMatricScholarship",
+            "ScholarshipForTopClassStudents",
+            "Belem__Courses"
+          ]
+        },
+        "call": "post",
+        "fields": [
+          {
+            "name": "name",
+            "title": "Student Name"
+          },
+          {
+            "name": "contact",
+            "title": "Mobile Number"
+          },
+          {
+            "name": "vctype",
+            "title": "Credential type"
+          },
+          {
+            "custom": true,
+            "title": "ACTION",
+            "buttonText": "View Credential",
+            "type": "button",
+            "redirectTo": "/pdf-view/:vctype:osid"
+          }
+        ]
+      }
+    },
+    {
+      "student": {
+        "api": "/Results/search/",
+        "call": "post",
+        "body": {
+          "offset": 0,
+          "limit": 20,
+          "filters": {
+            "status": {
+              "eq": "issued"
+            }
+          }
+        },
+        "title": "My Verifiable Credential",
+        "checkStatus": "false",
+        "fields": [
+          {
+            "name": "firstName",
+            "title": "Student Name",
+            "value": "John Doe"
+          },
+          {
+            "name": "schoolName",
+            "title": "Institute"
+          },
+          {
+            "name": "studentId",
+            "title": "Candidate No"
+          },
+          {
+            "custom": true,
+            "title": "ACTION",
+            "isMultiple": true,
+            "type": "button",
+            "buttons": [{}]
+          }
+        ]
+      }
+    },
+    {
+      "uploadstudents": {
+        "api": "/Results/search",
+        "title": "School",
+        "checkStatus": true,
+        "call": "post",
+        "getFromStoreVal": "schoolId",
+        "body": {
+          "offset": 0,
+          "limit": 1000,
+          "filters": {
+            "schoolId": {
+              "eq": "$schoolId"
+            },
+            "status": {
+              "eq": "pending"
+            }
+          }
+        },
+        "menuFilter": {
+          "opt": "contains",
+          "searchBy": ["firstName"]
+        },
+        "fields": [
+          {
+            "name": "s/n",
+            "title": "S/N"
+          },
+          {
+            "name": ["firstName", "middleName", "lastName"],
+            "isArray": true,
+            "title": "Student Name"
+          },
+          {
+            "name": "schoolName",
+            "title": "Institute"
+          },
+          {
+            "title": "Candidate No",
+            "name": "studentId"
+          },
+          {
+            "custom": true,
+            "title": "ACTION",
+            "isMultiple": true,
+            "type": "button",
+            "buttons": [
+              {
+                "buttonText": "Preview",
+                "type": "button",
+                "classes": "dsn-sb-btn",
+                "action": "redirect",
+                "afterActionRemoveRow": true,
+                "replace": "certificateNo",
+                "redirectTo": "/pdf-view/credentials/"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+<div class="modal fade show" id="certificateView" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            
+            <!-- PDF Iframe -->
+            <div class="m-4">
+                <iframe id="iframe2" class="pdfDisplay" [src]="pdfResponse2"></iframe>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="m-4 d-flex justify-content-end align-items-center">
+                <!-- Cancel Button -->
+                <button (click)="onCancel()" class="btn btn-secondary me-3 px-5">
+                    {{ 'Cancel' }}
+                </button>
+
+                <!-- Approve Certificate Button (Visible only for Inspector) -->
+            
+                <button *ngIf="entityName === 'Inspector'"
+                class="dsn-g-btn btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize mr-3 dns-btn pt-2 f1de"
+                type="button" aria-expanded="false" data-bs-dismiss="modal" aria-label="Close"  (click)="onApproveCertificate()">
+                Approve Certificate
+            </button>
+
+
+                <!-- Download Certificate Dropdown (Visible only for Student) -->
+                <div  class="dropdown" *ngIf="entityName === 'Student'">
+                    <button class="dropdown-toggle text-capitalize fw-bold dsn-g-btn btn btn-bg btn-style text-primary-color text-end mr-3 dns-btn pt-2 f1de" 
+                            type="button" 
+                            id="downloadDropdown" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                        Download Certificate
+                    </button>
+                    
+                    <ul class="dropdown-menu" aria-labelledby="downloadDropdown">
+                        <li>
+                            <a class="dropdown-item" 
+                               (click)="downloadFile('PNG', item, 'certificate')">
+                               PNG
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" 
+                               (click)="downloadFile('JPEG', item, 'certificate')">
+                               JPEG
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" 
+                               (click)="downloadFile('PDF', item, 'certificate')">
+                               PDF
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-confirm-modal ></app-confirm-modal>

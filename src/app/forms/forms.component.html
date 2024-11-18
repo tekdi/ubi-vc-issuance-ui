@@ -1,0 +1,159 @@
+<app-header
+  *ngIf="header != null && !isSignupForm"
+  [headerFor]="header"
+></app-header>
+<ng-template #noModal>
+  <div class="mt-120" *ngIf="!isSignupForm"></div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Left side with green background -->
+      <div
+        *ngIf="isSignupForm"
+        class="col-md-4 login-left text-white leftSignUP px-25 d-flex flex-column justify-content-between"
+        style="height: auto; min-height: 90vh;"
+      >
+        <!-- Logo and Title on top -->
+        <div class="text-left">
+          <img
+            src="assets/images/logoWhite.svg"
+            alt="Logo"
+            class="img-fluid mb-65"
+          />
+          <h3 class="side-title fw-400">{{ 'CV_PLATFORM' | translate }}</h3>
+        </div>
+        <!-- Image at the bottom -->
+        <div class="text-center">
+          <img
+            src="assets/images/graph-img.png"
+            alt="Image"
+            class="img-fluid"
+          />
+        </div>
+      </div>
+
+      <!-- Right side with form -->
+      <div class="col-md-8">
+        <div *ngIf="isSignupForm" class="d-flex align-items-center mb-20 justify-content-end mt-37 fs-14 fw-400 alreadyLoginText l-end mr-lg-5Per">
+          <p class="mb-0">{{ 'ALREADY_REGISTERED_LOGIN' | translate }}? &nbsp;</p>
+          <a href="/login" class="text-primary-color fs-14 lh-16 fw-600">
+            {{ 'SIGNIN' | translate }}</a
+          >
+        </div>
+        <div class="card signformWrapper pb-47 mb-5 mx-lg-10Per pb-47">
+          <h3 class="font-weight-bold fs-30 lh-40 title-color mb-3 manRope-Font">
+            {{ headingTitle }}
+          </h3>
+          <h5 *ngIf="headingDescription" class="fs-18 signFormDesc">
+            {{ headingDescription }}
+          </h5>
+
+          <div *ngIf="schemaloaded; else loader" class="card-body">
+            <div class="signFormContainer">
+              <form [formGroup]="form2" (ngSubmit)="submit()" *ngIf="fields">
+                <formly-form
+                  [model]="model"
+                  [fields]="fields"
+                  [options]="options"
+                  [form]="form2"
+                ></formly-form>
+                <button
+                  type="submit"
+                  class="btn btn-primary w-100 mt-35 manRope-Font submit-button fs-16"
+                  [disabled]="!form2.valid"
+                >
+                  {{ 'CREATE_ACCOUNT' | translate }}
+                </button>
+              </form>
+            </div>
+            <!-- <div class="text-center text-secondary-color p-3 font-weight-bold" *ngIf="isSignupForm">
+              <a href="/login">{{'ALREADY_REGISTERED_LOGIN' | translate}}?</a>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Modal -->
+<div *ngIf="schemaloaded; else loader" class="card-body">
+  <div *ngIf="modal === 'true'; else noModal" class="modal-body">
+    <form [formGroup]="form2" (ngSubmit)="submit()" *ngIf="fields">
+      <div *ngIf="globalPrivacy" class="mb-35">
+        <h6 class="mb-1 p12 font-weight-bold">
+          {{ 'VISIBILITY' | translate }}
+        </h6>
+        <span class="p12">
+          {{ 'PRIVACY_ATTRIBUTE_DEFINE' | translate }}
+          <span class="float-end {{ globalPrivacy }}">
+            <span *ngIf="globalPrivacy == 'public-access'">
+              &nbsp; {{ 'ANYONE' | translate }}</span
+            >
+            <span *ngIf="globalPrivacy == 'internal-access'">
+              &nbsp;{{ 'ONLY_BY_ME' | translate }}</span
+            >
+            <span *ngIf="globalPrivacy == 'private-access'">
+              &nbsp;{{ 'ONLY_BY_CONSENT' | translate }}</span
+            >
+          </span></span
+        >
+      </div>
+      <formly-form
+        [model]="model"
+        [fields]="fields"
+        [options]="options"
+        [form]="form2"
+      ></formly-form>
+      <button
+        type="submit"
+        id="btn-one"
+        class="btn btn-primary submit-button"
+        [disabled]="!form2.valid || isSubmitForm || form2.pristine"
+      >
+        {{ 'SUBMIT' | translate }}
+      </button>
+    </form>
+
+    <div class="notes-div my-5" *ngIf="notes">
+      <h6>{{ 'NOTES' | translate }}</h6>
+      <div class="p-3">
+        <!-- multiple note -->
+        <div class="mb-3" *ngFor="let note of notes">
+          <div *ngIf="note?.notes" class="border-bottom">
+            <h6 class="mb-1">{{ note.notes }}</h6>
+            <span class="fs-7 text-grey-color">
+              <span *ngIf="note.addedBy"> By {{ note.addedBy }}, </span>
+              <span *ngIf="note.createdAt">
+                {{ note.createdAt | date : 'd MMM y' }}</span
+              >
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="text-center text-secondary-color p14 font-weight-bold" *ngIf="isSignupForm">
+ <a  href="/login"> {{'ALREADY_REGISTERED_LOGIN' | translate}}? </a>
+</div> -->
+<ng-template #loader>
+  <br />
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" style="width: 5rem; height: 5rem" role="status">
+      <span class="sr-only">{{ 'LOADING' | translate }}| translate}}...</span>
+    </div>
+  </div>
+</ng-template>
+<app-success-modal [modalInfo]="formSchema?.modal"></app-success-modal>
+
+<script>
+  $('#btn-one').click(function () {
+    $('#btn-one')
+      .html(
+        '<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...',
+      )
+      .addClass('disabled');
+  });
+</script>

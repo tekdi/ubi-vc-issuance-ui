@@ -1,0 +1,230 @@
+<!-- <app-header [headerFor]='entity' [tab]='tab'></app-header> -->
+
+<!-- <app-menu></app-menu> -->
+<div class="content-body">
+    <!-- <div *ngIf="table == 'board-cbse-attestation'" >
+        <iframe class="iframe" [src]="urlSafe"></iframe>
+    </div> -->
+
+    <!-- <h6 class="d-inline-block p16 font-weight-bold">{{tableSchema?.title | translate}}</h6> -->
+    <div class="table-container">
+        <table class="table table-striped">
+            <thead *ngIf="tableSchema?.items?.length">
+                <tr>
+                    <th class="p12 text-grey-color" *ngFor="let th of tableSchema?.fields;" scope="col">{{th?.title |
+                        translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-template ngFor let-item
+                    [ngForOf]="tableSchema?.items | paginate: { itemsPerPage: limit, currentPage: page }" let-i="index">
+                    <tr>
+                        <ng-template ngFor let-td [ngForOf]="item" class="row">
+                            <td *ngIf="td.type && td.type === 'button'; else normalTd" class="d-flex gap-2">
+                                <ng-container *ngFor="let button of td.buttons">
+
+                                    <a [routerLink]="[button.redirectTo + encodeURI(item?.res[button?.replace])]"
+                                    *ngIf="button?.action == 'redirect' && button?.buttonText == 'Preview'"
+                                    (click)="storeData(button, item)"
+                                    class="btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2"
+                                    [ngClass]="button.classes">
+                                    {{button.buttonText | translate}}
+                                 </a>
+
+                                    <a [routerLink]="[button.redirectToUrl]"
+                                        *ngIf="button?.action == 'redirect' && button?.buttonText != 'Preview'"
+                                        (click)="storeData(button, item)"
+                                        class="btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2"
+                                        [ngClass]="button.classes">
+                                        {{button.buttonText | translate}}
+                                    </a>
+
+                                    <a *ngIf="button?.action == 'requestCall' && !button.redirectTo"
+                                        (click)="actionFunction('post',button, item, i)"
+                                        class="btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2"
+                                        [ngClass]="button.classes">
+                                        {{button.buttonText | translate}}
+                                    </a>
+
+                                    <a *ngIf="button?.action == 'requestCall' && button.redirectTo"
+                                        (click)="actionFunction('post',button, item, i)"
+                                        [routerLink]="[button.redirectToUrl]"
+                                        class="btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2"
+                                        [ngClass]="button.classes">
+                                        {{button.buttonText | translate}}
+                                    </a>
+
+                                    <a *ngIf="button?.action == 'confirmModal'"
+                                    (click)="confirmModalFun(button, i, item)"
+                                    class="btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2"
+                                    [ngClass]="button.classes">
+                                    {{button.buttonText | translate}}
+                                </a>
+
+                                    <div *ngIf="button?.fieldType == 'dropdown'" class="dropdown">
+                                        <button
+                                            class="dsn-g-btn btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2 dropdown-toggle"
+                                            type="button" id="downloadResDropdown" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            {{button.buttonText | translate}}
+                                        </button>
+
+                                        <!-- Dropdown menu for selecting format -->
+                                        <ul class="dropdown-menu" aria-labelledby="downloadResDropdown">
+
+                                        <li *ngFor="let option of button?.options">
+                                            <a class="dropdown-item" (click)="shareDoc(option.value, item, 'cm0ybyjg6000cqo0iob8tz5ql', 'result')">
+                                                {{ option.title }}
+                                            </a>
+                                        </li>
+                                        </ul>
+                                    </div>
+
+
+                                    <ul *ngIf="isListVisible" class="list-group mt-3">
+                                        <li *ngFor="let item of items" class="list-group-item">
+                                            {{ item }}
+                                        </li>
+                                    </ul>
+                                </ng-container>
+                                <div class="d-flex gap-2 align-items-center justify-content-start">
+                                    <div class="dropdown" *ngIf="entity === 'student'">
+                                        <!-- Download button -->
+                                        <button
+                                            class="dsn-g-btn btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2 dropdown-toggle"
+                                            type="button" id="downloadDropdown" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <span *ngIf="!generalService?.isDownloading">Download Certificate</span>
+                                            <span *ngIf="generalService?.isDownloading">
+                                                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                                Downloading...
+                                            </span>
+                                        </button>
+
+
+                                        <!-- Dropdown menu for selecting format -->
+                                        <ul class="dropdown-menu" aria-labelledby="downloadDropdown">
+
+                                            <li><a class="dropdown-item"
+                                                    (click)="downloadFile('PNG', item,'certificate',false)">Download (PNG)</a>
+                                            </li>
+                                            <li><a class="dropdown-item"
+                                                    (click)="downloadFile('JPEG', item,'certificate',false)">Download (JPEG)</a>
+                                            </li>
+                                            <li><a class="dropdown-item"
+                                                    (click)="downloadFile('PDF', item,'certificate',false)">Download (PDF)</a>
+                                            </li>
+                                           
+                                        </ul>
+                                    </div>
+<!-- 
+                                    <div class="dropdown" *ngIf="entity === 'student'">
+                                        <button
+                                            class="dsn-g-btn btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2 dropdown-toggle"
+                                            type="button" id="downloadResDropdown" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            Download Result
+                                        </button>
+
+                                        <ul class="dropdown-menu" aria-labelledby="downloadResDropdown">
+                                            <li><a class="dropdown-item"
+                                                    (click)="downloadFile('PNG', item, 'cm2cwjkoe0002my0iox0ejlzn','result')">PNG</a>
+                                            </li>
+                                            <li><a class="dropdown-item"
+                                                    (click)="downloadFile('JPEG', item, 'cm2cwjkoe0002my0iox0ejlzn','result')">JPEG</a>
+                                            </li>
+                                            <li><a class="dropdown-item"
+                                                    (click)="downloadFile('PDF', item, 'cm2cwjkoe0002my0iox0ejlzn','result')">
+                                                    PDF</a></li>
+                                        </ul>
+                                    </div> -->
+
+                                    <!-- <div class="dropdown" *ngIf="entity === 'student'">
+                                        <button
+                                            class="dsn-g-btn btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize  dns-btn pt-2 dropdown-toggle"
+                                            type="button" id="downloadDropdown" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            Share Certificate
+                                        </button>
+
+                                        <ul class="dropdown-menu" aria-labelledby="downloadDropdown">
+
+                                            <li><a class="dropdown-item"
+                                                    (click)="shareOnSocial('PNG', item,'certificate')">Facebook</a>
+                                            </li>
+                                             <li><a class="dropdown-item"
+                                                    (click)="shareDoc('facebook', item, 'cm1qec0id008mqo0i86hi2tvl','result')">Facebook</a>
+                                            </li>
+                                            <li><a class="dropdown-item"
+                                                    (click)="shareDoc('linkedin', item, 'cm1qec0id008mqo0i86hi2tvl','result')">Linkedin</a>
+                                            </li>
+                                            <li><a class="dropdown-item"
+                                                (click)="shareDoc('sms', item, 'cm1qec0id008mqo0i86hi2tvl','result')">SMS</a>
+                                            </li> 
+
+                                        </ul>
+                                    </div> -->
+
+                                    <div class="dropdown" *ngIf="entity === 'student'">
+                                        <!-- Download button -->
+                                        <button
+                                            class="dsn-g-btn btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize  dns-btn pt-2 dropdown-toggle"
+                                            type="button" id="downloadDropdown" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            Save Certificate
+                                        </button>
+                                        <input type="file" id="fileInput" style="display: none;" (change)="onFileSelected($event)">
+
+                                        <!-- Dropdown menu for selecting format -->
+                                        <ul class="dropdown-menu" aria-labelledby="downloadDropdown">
+
+                                           
+                                            <li><a class="dropdown-item" (click)="downloadFile('PDF', item, 'certificate', true)">Google Drive</a></li>
+                                           
+
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </td>
+
+                            <ng-template #normalTd>
+                                <td class="col-3"
+                                    *ngIf="td?.formate && td.formate == 'date' && td?.type !== 'name'; else notFormate">
+                                    <b>{{td?.value | date : 'd MMM y'}}</b>
+                                </td>
+                                <ng-template class="col-3" #notFormate>
+                                    <td><b>{{td?.value}} </b></td>
+                                </ng-template>
+                                <ng-template class="col-3" *ngIf="td?.type === 'name'">
+                                    <td><b>{{td?.value}} </b></td>
+                                </ng-template>
+                            </ng-template>
+                        </ng-template>
+
+
+                    </tr>
+                </ng-template>
+            </tbody>
+
+        </table>
+        <table class=" text-center my-5 w-100" *ngIf="!tableSchema?.items?.length">
+            <tbody class="fs-5">
+
+                <tr *ngIf="!tableSchema?.items?.length">
+
+                    <td [attr.colspan]="tableSchema?.items?.length" class="fs-20 fw-400 lh-27">
+                        {{'NO_RECORDS_FOUND' | translate }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <pagination-controls *ngIf="tableSchema?.items?.length" class="my-4 text-center paginationWrapper" (pageChange)="page = $event"
+            previousLabel="{{'PREVIOUS' | translate}}" nextLabel="{{'NEXT' | translate}}"></pagination-controls>
+    </div>
+
+    <app-success-modal  [modalInfo]="modalInfo"></app-success-modal>
+    <app-confirm-modal  [cmodalInfo]="confirmModal" [item]="currentItem"></app-confirm-modal>
+
+
+</div>

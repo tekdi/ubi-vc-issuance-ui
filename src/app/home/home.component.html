@@ -1,0 +1,582 @@
+<div *ngIf="myTemplate; else defaultBlock">
+  <header>
+    <nav class="navbar navbar-light bg-white p-48">
+      <div class="navbar-brand d-contents" id="navbarExample01">
+        <div class="nav-item active logo-text d-flex align-items-center gap-15 homeHeaderLogo">
+          <img src="assets/images/educert_logo.png" />
+          <div (click)="postFile()" class="fs-12 lh-12 font-weight-bold lang-btn nav-link-color">
+            ADMIN
+          </div>
+        </div>
+        <!-- <div>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/login"><span class="p14 font-weight-bold lang-btn nav-link-color">Login</span>
+              </a>
+            </li>
+          </ul>
+        </div> -->
+      </div>
+      <div>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item d-flex gap-18 align-items-center homeHeaderRightContent">
+            <a href="/login"
+              ><span
+                class="fs-12 font-weight-bold lang-btn nav-link-color lh-12"
+                >SIGN IN</span
+              >
+            </a>
+            <!-- <a href="/login"><span class="fs-12 font-weight-bold lang-btn nav-link-color">SIGN UP</span>
+            </a> -->
+            <a href="/" [disabled]="true"
+              ><span
+                class="mb-none fs-12 font-weight-bold lang-btn nav-link-color btn btn-bg btn-sec-bg py-10 px-16 lh-12"
+                >VERIFY CERTIFICATE</span
+              >
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div>
+    <!-- Content in Green -->
+
+    <div class="content-green">
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col-md-6 left-sec">
+            <div class="fs-40 lh-48 fw-400">
+              School Certificate Generation and Verification Platform
+            </div>
+            <div class="number-align mt-81">
+              <div class="d-flex dflex-dc-column">
+                <div class="fs-30 lh-36 fw-500">5K+</div>
+                <div class="tr-gr-clr fs-14 lh-18 fw-400">Schools Enrolled</div>
+              </div>
+              <div class="d-flex dflex-dc-column">
+                <div class="fs-30 lh-36 fw-500">100K+</div>
+                <div class="tr-gr-clr fs-14 lh-18 fw-400">
+                  Certificates Generated
+                </div>
+              </div>
+              <div class="d-flex dflex-dc-column">
+                <div class="fs-30 lh-36 fw-500">50K+</div>
+                <div class="tr-gr-clr fs-14 lh-18 fw-400">
+                  Students Certified
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-5 right-sec">
+            <div class="d-flex dflex-dc-column align-center">
+              <img class="ml-2 img-fluid" src="assets/images/Mask.png" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards Admin Student  -->
+    <section class="bg-beige">
+      <div class="pt-90 pb-101">
+        <div class="container">
+          <div class="text-center">
+            <div class="userCategoryTitle">Users Category</div>
+            <div class="userCategoryDesc">Please find your right Category Below</div>
+          </div>
+          <div class="row mt-32">
+            <div class="col-md-4">
+              <div class="lp-card categoryCards">
+                <img src="assets/images/student.svg" alt="" />
+                <div class="title">Student</div>
+                <div class="desc">View and Download your certificate</div>
+                <div class="button">
+                  <a href="/form/student-signup" class="clr-grn"
+                    >Create Account</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="lp-card categoryCards">
+                <img src="assets/images/examiner.svg" alt="" />
+                <div class="title">Examiners</div>
+                <div class="desc">Upload result and Generate certificates for students</div>
+                <div class="button">
+                  <a href="/form/examiner-signup" class="clr-grn"
+                    >Create Account</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="lp-card categoryCards">
+                <img src="assets/images/verifier.svg" alt="" />
+                <div class="title">Verifier</div>
+                <div class="desc">
+                  Verify a certificate (Institutions, Parent,  Sponsors etc.)
+                </div>
+                <div class="button">
+                  <a href="/form/verifier" class="clr-grn">Create Account</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="acc-sec">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="accordionWrapper">
+              <button
+                class="btn acc-header d-flex align-items-center justify-content-between"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseExample"
+                aria-expanded="false"
+                aria-controls="collapseExample"
+                (click)="toggleIcon()"
+              >
+                <div class="accordionTitle">can I download and print my certificate anytime?</div>
+                <div class="ic-btn">
+                  <svg
+                    *ngIf="isExpanded"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-dash"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"
+                    />
+                  </svg>
+                  <svg
+                    *ngIf="!isExpanded"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-plus"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+                    />
+                  </svg>
+                </div>
+              </button>
+
+              <div class="collapse" id="collapseExample">
+                <div class="accordionDesc">
+                  Some placeholder content for the collapse component. This
+                  panel is hidden by default but revealed when the user
+                  activates the relevant trigger.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="accordionWrapper">
+              <button
+                class="btn acc-header d-flex align-items-center justify-content-between"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseExample1"
+                aria-expanded="false"
+                aria-controls="collapseExample1"
+                (click)="toggleIcon1()"
+              >
+                <div class="accordionTitle">How many times can I access my certificate?</div>
+                <div class="ic-btn">
+                  <svg
+                    *ngIf="isExpanded1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-dash"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"
+                    />
+                  </svg>
+                  <svg
+                    *ngIf="!isExpanded1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-plus"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+                    />
+                  </svg>
+                </div>
+              </button>
+
+              <div class="collapse" id="collapseExample1">
+                <div class="accordionDesc">
+                  Some placeholder content for the collapse component. This
+                  panel is hidden by default but revealed when the user
+                  activates the relevant trigger.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="accordionWrapper">
+              <button
+                class="btn acc-header d-flex align-items-center justify-content-between"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseExample2"
+                aria-expanded="false"
+                aria-controls="collapseExample2"
+                (click)="toggleIcon2()"
+              >
+                <div class="accordionTitle">Who can verify certificates?</div>
+                <div class="ic-btn">
+                  <svg
+                    *ngIf="isExpanded2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-dash"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"
+                    />
+                  </svg>
+                  <svg
+                    *ngIf="!isExpanded2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-plus"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+                    />
+                  </svg>
+                </div>
+              </button>
+
+              <div class="collapse" id="collapseExample2">
+                <div class="accordionDesc">
+                  Some placeholder content for the collapse component. This
+                  panel is hidden by default but revealed when the user
+                  activates the relevant trigger.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="accordionWrapper">
+              <button
+                class="btn acc-header d-flex align-items-center justify-content-between"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseExample3"
+                aria-expanded="false"
+                aria-controls="collapseExample3"
+                (click)="toggleIcon3()"
+              >
+                <div class="accordionTitle">Will I pay to get my certificates?</div>
+                <div class="ic-btn">
+                  <svg
+                    *ngIf="isExpanded3"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-dash"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"
+                    />
+                  </svg>
+                  <svg
+                    *ngIf="!isExpanded3"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-plus"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+                    />
+                  </svg>
+                </div>
+              </button>
+
+              <div class="collapse" id="collapseExample3">
+                <div class="accordionDesc">
+                  Some placeholder content for the collapse component. This
+                  panel is hidden by default but revealed when the user
+                  activates the relevant trigger.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="accordionWrapper">
+              <button
+                class="btn acc-header d-flex align-items-center justify-content-between"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseExample4"
+                aria-expanded="false"
+                aria-controls="collapseExample4"
+                (click)="toggleIcon4()"
+              >
+                <div class="accordionTitle">How do I verify my certificate?</div>
+                <div class="ic-btn">
+                  <svg
+                    *ngIf="isExpanded4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-dash"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"
+                    />
+                  </svg>
+                  <svg
+                    *ngIf="!isExpanded4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-plus"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+                    />
+                  </svg>
+                </div>
+              </button>
+
+              <div class="collapse" id="collapseExample4">
+                <div class="accordionDesc">
+                  Some placeholder content for the collapse component. This
+                  panel is hidden by default but revealed when the user
+                  activates the relevant trigger.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="accordionWrapper">
+              <button
+                class="btn acc-header d-flex align-items-center justify-content-between"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseExample5"
+                aria-expanded="false"
+                aria-controls="collapseExample5"
+                (click)="toggleIcon5()"
+              >
+                <div class="accordionTitle">What can I do if I lost my printed certificate?</div>
+                <div class="ic-btn">
+                  <svg
+                    *ngIf="isExpanded5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-dash"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"
+                    />
+                  </svg>
+                  <svg
+                    *ngIf="!isExpanded5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-plus"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+                    />
+                  </svg>
+                </div>
+              </button>
+
+              <div class="collapse" id="collapseExample5">
+                <div class="accordionDesc">
+                  Some placeholder content for the collapse component. This
+                  panel is hidden by default but revealed when the user
+                  activates the relevant trigger.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container d-flex justify-content-center align-items-center gap-27 text-center mt-50 mb-20">
+    <div><img width="160px" src="assets/images/educert_logo.png" /></div>
+    <div><img width="160px" src="assets/images/bill.png" /></div>
+  </div>
+</div>
+<ng-template #defaultBlock>
+  <nav class="item-menu">
+    <h1>{{ 'WELCOME_TO_SUNBIRD_RC' | translate }}</h1>
+    <br />
+    <input
+      type="checkbox"
+      href="#"
+      class="menu-open"
+      name="menu-open"
+      id="menu-open"
+    />
+    <label id="menu-open-handler" class="menu-open-button" for="menu-open">
+      <span class="mt-20"
+        ><img src="/assets/images/logo.png" alt="image"
+      /></span>
+    </label>
+    <div class="real-menu">
+      <a
+        href="https://docs.sunbirdrc.dev/capabilities/enrolment"
+        class="menu-item"
+        data-name="Enrolment"
+        target="_blank"
+      >
+        <i class="fa fa-toggle-on"></i>
+      </a>
+      <a
+        href="https://docs.sunbirdrc.dev/capabilities/athenticate"
+        class="menu-item"
+        data-name="Authenticate"
+        target="_blank"
+      >
+        <i class="fa fa-user"></i>
+      </a>
+      <a
+        href="https://docs.sunbirdrc.dev/capabilities/consent"
+        class="menu-item"
+        data-name="Consent"
+        target="_blank"
+      >
+        <i class="fa fa-lock"></i>
+      </a>
+      <a
+        href="https://docs.sunbirdrc.dev/capabilities/claims"
+        class="menu-item"
+        data-name="Claims"
+        target="_blank"
+      >
+        <i class="fa fa-address-card"></i>
+      </a>
+      <a
+        href="https://docs.sunbirdrc.dev/capabilities/attestation"
+        class="menu-item"
+        data-name="Attestation"
+        target="_blank"
+      >
+        <i class="fa fa-check-circle"></i>
+      </a>
+      <a
+        href="https://docs.sunbirdrc.dev/capabilities/discovery"
+        class="menu-item"
+        data-name="Discovery"
+        target="_blank"
+      >
+        <i class="fa fa-search"></i>
+      </a>
+      <a
+        href="https://docs.sunbirdrc.dev/capabilities/update"
+        class="menu-item"
+        data-name="Update"
+        target="_blank"
+      >
+        <i class="fa fa-pencil-square-o"></i>
+      </a>
+    </div>
+    <div class="center">
+      <a
+        class="btn"
+        href="https://github.com/Sunbird-RC/sunbird-rc-ui/blob/main/README.md"
+        target="_blank"
+        ><i class="fa fa-github" aria-hidden="true"></i>
+        {{ 'LEARN_MORE_ON_GITHUB' | translate }}</a
+      >
+      <p class="mt-20 red">
+        {{ 'CREATE' | translate }} <b>home.html</b>
+        {{ 'FILE_AS_PER_YOUR_NEED_AND_PLACE_IT_INSIDE' | translate }}
+        <b>/assets/config/</b> {{ 'TO_CHANGE_THIS_PAGE' | translate }}.
+      </p>
+    </div>
+  </nav>
+  <!-- filters -->
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    version="1.1"
+    style="width: 0; height: 0"
+  >
+    <defs>
+      <filter id="shadowed-goo">
+        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+        <feColorMatrix
+          in="blur"
+          mode="matrix"
+          values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+          result="goo"
+        />
+        <feGaussianBlur in="goo" stdDeviation="3" result="shadow" />
+        <feColorMatrix
+          in="shadow"
+          mode="matrix"
+          values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2"
+          result="shadow"
+        />
+        <feOffset in="shadow" dx="1" dy="1" result="shadow" />
+        <feBlend in2="shadow" in="goo" result="goo" />
+        <feBlend in2="goo" in="SourceGraphic" result="mix" />
+      </filter>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+        <feColorMatrix
+          in="blur"
+          mode="matrix"
+          values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+          result="goo"
+        />
+        <feBlend in2="goo" in="SourceGraphic" result="mix" />
+      </filter>
+    </defs>
+  </svg>
+</ng-template>

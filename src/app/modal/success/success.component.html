@@ -1,0 +1,20 @@
+<!-- modal.component.html -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header justify-content-end">
+        <h5 class="modal-title" *ngIf="modalInfo?.heading" id="modalTitle">{{modalInfo?.heading}}</h5>
+        <img src="assets/images/cross.png" alt="Close" data-bs-dismiss="modal" aria-label="Close"
+        class="close-icon tn-close float-end mr-2"  />
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+      </div>
+      <div class="modal-body d-flex flex-column justify-content-center align-items-center text-center">
+        <img width="50" [src]="modalInfo?.image" /> <br />
+        <p class="fs-18">{{modalInfo?.title}}</p>
+      </div>
+      <div class="text-center my-4">
+        <button type="button" class="btn btn-primary fs-18 " [routerLink]="[modalInfo?.Buttons[0]?.redirectTo]" (click)="publishEvent();" data-bs-dismiss="modal">{{modalInfo?.Buttons[0]?.title}}</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<!-- modal.component.html -->
+<div class="modal fade show" id="confirmModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content modalContentWrapper">
+
+      <div class="modal-header justify-content-end modalHeader">
+        <img src="assets/images/cross.png" alt="Close" data-bs-dismiss="modal" aria-label="Close"
+                  class="close-icon tn-close float-end pointerCursor"/>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+      </div>
+
+      <div class="bordered-box borderRadiusFour modalBoxInside">
+        <h5 class="modal-title fs-16 lh-22 fw-700" [ngClass]="cmodalInfo?.titleCss"   *ngIf="cmodalInfo?.title" id="modalTitle">{{cmodalInfo?.title}}</h5>
+      <div class="modal-body p-6 dotted-box rounded d-flex flex-column justify-content-center align-items-center text-center">
+        <!-- <img width="50" [src]="cmodalInfo?.image" /> <br /> -->
+        <p class="fs-16 mb-0">{{cmodalInfo?.message}}</p>
+      </div>
+      <div class="text-center">
+        <div *ngFor="let btnList of cmodalInfo?.buttons">
+          <button type="button" class="w-100 btn fs-16 mb-8 lh-22 fw-700"
+                  [ngClass]="btnList?.classes"
+                  data-bs-dismiss="modal"
+                  (click)="actionFun(btnList, item)">
+            {{btnList?.title}}
+          </button>
+        </div>
+    </div>
+    </div>
+  </div>
+  <app-success-modal *ngIf="successModalInfo" [modalInfo]="successModalInfo"></app-success-modal>
+
+</div>
+
+
+

@@ -1,0 +1,20 @@
+
+<router-outlet></router-outlet>
+<app-menu *ngIf="isNotHome()" [username]="username" [menuConfig]="menuJson"></app-menu>
+<div class="footer-Content">
+<ng-template [ngIf]="isFooter">
+  <!-- <div class="pt-70"></div>  -->
+  <app-loader></app-loader>
+
+  <footer class="footer fixed-bottom">
+
+     <div>
+      <div  class="clr-dark fs-14 lh-21 fw-400 ff-poppins">{{footerText}}</div>      </div>
+
+  </footer>
+</ng-template>
+</div>
+
+
+
+
