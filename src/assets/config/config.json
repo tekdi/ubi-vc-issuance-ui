@@ -1,7 +1,7 @@
 {
   "environment": "development",
   "keycloak": {
-    "url": "keycloak url",
+    "url": "https://dev-uba-registry.tekdinext.com/auth/",
     "clientId": "registry-frontend",
     "realm": "sunbird-rc"
   },
