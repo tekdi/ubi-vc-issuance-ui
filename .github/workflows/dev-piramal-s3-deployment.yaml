@@ -1,8 +1,8 @@
-name: S3 - ISSUANCE Deployment
+name: DEV S3 Deployment on the Piramal-OU Tekdi
 
 on: [push]
 jobs:
-  build_and_test:
+  deploy_Dev_Issuer:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -10,7 +10,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: '16.14.2'
       
       - name: npm install, build
         run: |
@@ -18,10 +18,12 @@ jobs:
           if [ -f .env ]; then
           rm .env
           fi
-          echo '${{ secrets.ENV_DEV }}' > .env
+          echo '${{ secrets.DEV_ENV }}' > .env
           ls -ltra
-          yarn install
-          yarn build
+          npm install -g @angular/cli@^10.0.0
+          npm install --legacy-peer-deps
+          npm run build
+          ng build --prod
           ls -ltra
       - name: Show PWD
         run: |
@@ -46,14 +48,14 @@ jobs:
 
       - name: Configure AWS credentials
         run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID_DEV}}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
           aws configure set default.region ${{ secrets.AWS_S3_BUCKET_REGION }}  
 
       - name: Upload to s3 Bucket
         run: |
-              aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_DEV }}/
-              aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+              aws s3 sync dist/sunbird-rc-ui s3://${{ secrets.AWS_S3_BUCKET_DEV }}/
+              aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_DEV }} --paths "/*"
       - name: Post job cleanup
         run: |
     # Cleanup commands
