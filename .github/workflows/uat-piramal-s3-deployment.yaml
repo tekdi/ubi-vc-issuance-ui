@@ -33,7 +33,7 @@ jobs:
       - name: List Contents
         run: |
            echo "Contents of the current directory (in reverse order):"
-            ls -lr
+            ls -lr dist/
 
       - name: List Contents
         run: |
@@ -54,7 +54,7 @@ jobs:
 
       - name: Upload to s3 Bucket
         run: |
-              aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_UAT }}/
+              aws s3 sync dist/sunbird-rc-ui s3://${{ secrets.AWS_S3_BUCKET_UAT }}/
               aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_UAT }} --paths "/*"
       - name: Post job cleanup
         run: |
