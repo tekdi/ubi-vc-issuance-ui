@@ -1,11 +1,8 @@
-name: S3 - ISSUANCE Deployment
+name: DEV S3 Deployment on the Piramal-OU Tekdi
 
-on:
-  push:
-    branches:
-      - main
+on: [push]
 jobs:
-  s3_deployment_dev:
+  deploy_Dev_Issuer:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,7 +18,7 @@ jobs:
           if [ -f .env ]; then
           rm .env
           fi
-          echo '${{ secrets.ENV_DEV }}' > .env
+          echo '${{ secrets.DEV_ENV }}' > .env
           ls -ltra
           yarn install
           yarn build
@@ -49,14 +46,14 @@ jobs:
 
       - name: Configure AWS credentials
         run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID_DEV}}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
           aws configure set default.region ${{ secrets.AWS_S3_BUCKET_REGION }}  
 
       - name: Upload to s3 Bucket
         run: |
               aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_DEV }}/
-              aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+              aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_DEV }} --paths "/*"
       - name: Post job cleanup
         run: |
     # Cleanup commands
