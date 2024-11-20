@@ -25,7 +25,7 @@ ul {
 
 li {
   margin-bottom: 10px;
-  padding: 10px 33px !important;
+  padding: 10px 29px !important;
 }
 
 a {
@@ -43,12 +43,15 @@ a:hover {
   bottom: 0;
   margin-left: 8px
 }
+
 .side-menu ul li.active {
-  background-color: #f1f5f8; /* Light grey background */
+  background-color: #f1f5f8;
+  /* Light grey background */
 }
 
 .side-menu ul li.active a {
-  color: #000 !important; /* Optional: Change text color if needed */
+  color: #000 !important;
+  /* Optional: Change text color if needed */
   font-size: 16px;
   line-height: 24px;
   font-weight: 500;

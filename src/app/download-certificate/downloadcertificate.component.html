@@ -1,0 +1,42 @@
+<div class="content-body">
+
+    <div class="table-container">
+        <table class="table table-striped">
+            <thead *ngIf="tableSchema?.fields?.length">
+                <tr>
+                    <th class="p12 text-grey-color" scope="col">
+                        Id
+                    </th>
+                    <th class="p12 text-grey-color" scope="col">
+                        Name
+                    </th>
+                    <th class="p12 text-grey-color" scope="col">
+                        Status
+                    </th>
+                    <th class="p12 text-grey-color" scope="col">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let item of certificates">
+                    <tr>
+                        <ng-container *ngFor="let field of tableSchema?.fields">
+                            <td *ngIf="!field.type || field.type !== 'button'; else buttonCell">
+                                {{ item[field.key] }}
+                            </td>
+                            <ng-template #buttonCell>
+                                <div class="d-flex gap-2">
+                                    <button *ngFor="let button of field.buttons" (click)="onButtonClick(button, item)">
+                                        {{ button.label }}
+                                    </button>
+                                </div>
+                            </ng-template>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+    <app-confirm-modal></app-confirm-modal>
+</div>

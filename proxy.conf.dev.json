@@ -1,13 +1,13 @@
 {
   "/registry/api/v1": {
-    "target": "{url of registry}",
+    "target": "https://dev-uba-registry.tekdinext.com",
     "changeOrigin": true,
     "logLevel": "debug",
     "secure": false
   },
 
   "/registry/api": {
-    "target": "{url of registry}",
+    "target": "https://dev-uba-registry.tekdinext.com",
     "changeOrigin": true,
     "logLevel": "debug",
     "secure": false
@@ -20,32 +20,32 @@
     "secure": false
   },
   "/credentials": {
-    "target": "{url of registry}",
+    "target": "https://dev-uba-registry.tekdinext.com",
     "changeOrigin": true,
     "logLevel": "debug",
     "secure": false
   },
 
   "/registry/api/docs": {
-    "target": "{url of registry}",
+    "target": "https://dev-uba-registry.tekdinext.com",
     "changeOrigin": true,
     "logLevel": "debug",
     "secure": false
   },
   "/github": {
-    "target": "{url of registry}/",
+    "target": "https://dev-uba-registry.tekdinext.com/",
     "changeOrigin": true,
     "logLevel": "debug",
     "secure": false
   },
   "/metrics": {
-    "target": "{url of registry}",
+    "target": "https://dev-uba-registry.tekdinext.com",
     "changeOrigin": true,
     "logLevel": "debug",
     "secure": false
   },
   "/bulk/v1": {
-    "target": "{url of registry}",
+    "target": "https://dev-uba-registry.tekdinext.com",
     "changeOrigin": true,
     "logLevel": "debug",
     "secure": false
