@@ -1,6 +1,9 @@
 name: S3 - ISSUANCE Deployment
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 jobs:
   s3_deployment_dev:
     runs-on: ubuntu-latest
