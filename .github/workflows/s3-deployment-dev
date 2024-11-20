@@ -2,7 +2,7 @@ name: S3 - ISSUANCE Deployment
 
 on: [push]
 jobs:
-  build_and_test:
+  s3_deployment_dev:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
