@@ -20,8 +20,8 @@ jobs:
           fi
           echo '${{ secrets.DEV_ENV }}' > .env
           ls -ltra
-          yarn install
-          yarn build
+          npm install
+          npm run build
           ls -ltra
       - name: Show PWD
         run: |
