@@ -79,7 +79,7 @@
                 "classes": "dsn-g-btn",
                 "action": "requestCall",
                 "call": "post",
-                "api": "Results/search",
+                "api": "TenMarksheet/search",
                 "bodyVal": "schoolId",
                 "subHeaderTitle": "schoolName",
                 "storeVal": "schoolId",
@@ -100,7 +100,7 @@
     },
     {
       "studentresult": {
-        "api": "/Results/search",
+        "api": "/TenMarksheet/search",
         "title": "School",
         "checkStatus": true,
         "call": "post",
@@ -275,7 +275,7 @@
     },
     {
       "studentslist": {
-        "api": "/Results/search",
+        "api": "/TenMarksheet/search",
         "title": "School",
         "checkStatus": true,
         "call": "post",
@@ -377,7 +377,7 @@
     },
     {
       "student": {
-        "api": "/Results/search/",
+        "api": "/TenMarksheet/search/",
         "call": "post",
         "body": {
           "offset": 0,
@@ -416,7 +416,7 @@
     },
     {
       "uploadstudents": {
-        "api": "/Results/search",
+        "api": "/TenMarksheet/search",
         "title": "School",
         "checkStatus": true,
         "call": "post",

@@ -1,0 +1,20 @@
+[
+  { "name": "Income Certificate", "documentSubType": "incomeCertificate" },
+  { "name": "Caste Certificate", "documentSubType": "casteCertificate" },
+  {
+    "name": "Disability Certificate",
+    "documentSubType": "disabilityCertificate"
+  },
+  { "name": "Domicile Certificate", "documentSubType": "domicileCertificate" },
+  {
+    "name": "Enrolment Certificate",
+    "documentSubType": "enrolmentCertificate"
+  },
+  { "name": "Marksheet", "documentSubType": "marksheet" },
+  { "name": "Birth Certificate", "documentSubType": "birthCertificate" },
+  { "name": "Aadhaar Card", "documentSubType": "aadhaar" },
+  {
+    "name": "Sports Competition participation certificate",
+    "documentSubType": "participationCertificate"
+  }
+]

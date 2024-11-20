@@ -24,12 +24,12 @@
                                 <ng-container *ngFor="let button of td.buttons">
 
                                     <a [routerLink]="[button.redirectTo + encodeURI(item?.res[button?.replace])]"
-                                    *ngIf="button?.action == 'redirect' && button?.buttonText == 'Preview'"
-                                    (click)="storeData(button, item)"
-                                    class="btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2"
-                                    [ngClass]="button.classes">
-                                    {{button.buttonText | translate}}
-                                 </a>
+                                        *ngIf="button?.action == 'redirect' && button?.buttonText == 'Preview'"
+                                        (click)="storeData(button, item)"
+                                        class="btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2"
+                                        [ngClass]="button.classes">
+                                        {{button.buttonText | translate}}
+                                    </a>
 
                                     <a [routerLink]="[button.redirectToUrl]"
                                         *ngIf="button?.action == 'redirect' && button?.buttonText != 'Preview'"
@@ -55,11 +55,11 @@
                                     </a>
 
                                     <a *ngIf="button?.action == 'confirmModal'"
-                                    (click)="confirmModalFun(button, i, item)"
-                                    class="btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2"
-                                    [ngClass]="button.classes">
-                                    {{button.buttonText | translate}}
-                                </a>
+                                        (click)="confirmModalFun(button, i, item)"
+                                        class="btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2"
+                                        [ngClass]="button.classes">
+                                        {{button.buttonText | translate}}
+                                    </a>
 
                                     <div *ngIf="button?.fieldType == 'dropdown'" class="dropdown">
                                         <button
@@ -72,11 +72,12 @@
                                         <!-- Dropdown menu for selecting format -->
                                         <ul class="dropdown-menu" aria-labelledby="downloadResDropdown">
 
-                                        <li *ngFor="let option of button?.options">
-                                            <a class="dropdown-item" (click)="shareDoc(option.value, item, 'cm0ybyjg6000cqo0iob8tz5ql', 'result')">
-                                                {{ option.title }}
-                                            </a>
-                                        </li>
+                                            <li *ngFor="let option of button?.options">
+                                                <a class="dropdown-item"
+                                                    (click)="shareDoc(option.value, item, 'cm0ybyjg6000cqo0iob8tz5ql', 'result')">
+                                                    {{ option.title }}
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
 
@@ -96,7 +97,8 @@
                                             aria-expanded="false">
                                             <span *ngIf="!generalService?.isDownloading">Download Certificate</span>
                                             <span *ngIf="generalService?.isDownloading">
-                                                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                                <span class="spinner-border spinner-border-sm me-2" role="status"
+                                                    aria-hidden="true"></span>
                                                 Downloading...
                                             </span>
                                         </button>
@@ -106,18 +108,21 @@
                                         <ul class="dropdown-menu" aria-labelledby="downloadDropdown">
 
                                             <li><a class="dropdown-item"
-                                                    (click)="downloadFile('PNG', item,'certificate',false)">Download (PNG)</a>
+                                                    (click)="downloadFile('PNG', item,'certificate',false)">Download
+                                                    (PNG)</a>
                                             </li>
                                             <li><a class="dropdown-item"
-                                                    (click)="downloadFile('JPEG', item,'certificate',false)">Download (JPEG)</a>
+                                                    (click)="downloadFile('JPEG', item,'certificate',false)">Download
+                                                    (JPEG)</a>
                                             </li>
                                             <li><a class="dropdown-item"
-                                                    (click)="downloadFile('PDF', item,'certificate',false)">Download (PDF)</a>
+                                                    (click)="downloadFile('PDF', item,'certificate',false)">Download
+                                                    (PDF)</a>
                                             </li>
-                                           
+
                                         </ul>
                                     </div>
-<!-- 
+                                    <!-- 
                                     <div class="dropdown" *ngIf="entity === 'student'">
                                         <button
                                             class="dsn-g-btn btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2 dropdown-toggle"
@@ -171,16 +176,22 @@
                                             class="dsn-g-btn btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize  dns-btn pt-2 dropdown-toggle"
                                             type="button" id="downloadDropdown" data-bs-toggle="dropdown"
                                             aria-expanded="false">
-                                            Save Certificate
+                                            download credentials
                                         </button>
-                                        <input type="file" id="fileInput" style="display: none;" (change)="onFileSelected($event)">
+                                        <input type="file" id="fileInput" style="display: none;"
+                                            (change)="onFileSelected($event)">
 
                                         <!-- Dropdown menu for selecting format -->
                                         <ul class="dropdown-menu" aria-labelledby="downloadDropdown">
+                                            <li><a class="dropdown-item"
+                                                    (click)="downloadFile('JSON', item,'certificate')">Download
+                                                    [JSON]</a>
+                                            </li>
 
-                                           
-                                            <li><a class="dropdown-item" (click)="downloadFile('PDF', item, 'certificate', true)">Google Drive</a></li>
-                                           
+                                            <li><a class="dropdown-item"
+                                                    (click)="downloadFile('PDF', item, 'certificate', true)">Google
+                                                    Drive</a></li>
+
 
                                         </ul>
                                     </div>
@@ -219,12 +230,13 @@
                 </tr>
             </tbody>
         </table>
-        <pagination-controls *ngIf="tableSchema?.items?.length" class="my-4 text-center paginationWrapper" (pageChange)="page = $event"
-            previousLabel="{{'PREVIOUS' | translate}}" nextLabel="{{'NEXT' | translate}}"></pagination-controls>
+        <pagination-controls *ngIf="tableSchema?.items?.length" class="my-4 text-center paginationWrapper"
+            (pageChange)="page = $event" previousLabel="{{'PREVIOUS' | translate}}"
+            nextLabel="{{'NEXT' | translate}}"></pagination-controls>
     </div>
 
-    <app-success-modal  [modalInfo]="modalInfo"></app-success-modal>
-    <app-confirm-modal  [cmodalInfo]="confirmModal" [item]="currentItem"></app-confirm-modal>
+    <app-success-modal [modalInfo]="modalInfo"></app-success-modal>
+    <app-confirm-modal [cmodalInfo]="confirmModal" [item]="currentItem"></app-confirm-modal>
 
 
 </div>
