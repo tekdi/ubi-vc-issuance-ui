@@ -34,20 +34,20 @@
     <!-- Wrap all the select dropdowns in one div -->
     <div class="dropdownsWrapper">
       <span *ngFor="let rmenuItem of menuConfig?.subMenus?.right">
-        <!-- Academic Year Select -->
         <span *ngIf="rmenuItem?.action == 'acadmicYear' && rmenuItem?.showButton" class="text-left">
           <div class="dropdown-container">
-            <select class="form-select mt-2" (change)="onYearChange($event)">
-              <option value="">Academic Session</option>
-              <option class="fs-16" *ngFor="let year of years" [value]="year">
-                {{ year }}
+            <select class="form-select mt-2" (change)="onDocumentChange($event)">
+              <option value="">Document Type</option>
+              <option class="fs-16" *ngFor="let certificate of certificates" [value]="certificate.documentSubType">
+                {{ certificate.name }}
               </option>
             </select>
           </div>
+
         </span>
 
         <!-- Class Type Select -->
-        <span *ngIf="rmenuItem?.action == 'classType' && rmenuItem?.showButton" class="text-left mx-1">
+        <!-- <span *ngIf="rmenuItem?.action == 'classType' && rmenuItem?.showButton" class="text-left mx-1">
           <div class="dropdown-container">
             <select class="form-select mt-2" (change)="onClassChange($event)">
               <option value="" selected>Class Type</option>
@@ -56,7 +56,7 @@
               </option>
             </select>
           </div>
-        </span>
+        </span> -->
       </span>
     </div>
 
