@@ -1,8 +1,8 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Injectable, EventEmitter } from "@angular/core";
+import { Subject, BehaviorSubject } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class SharedDataService {
   // Subject to share data between components
@@ -11,11 +11,11 @@ export class SharedDataService {
 
   okButtonClicked: EventEmitter<void> = new EventEmitter<void>();
 
-  private selectedAcademicYearSource = new BehaviorSubject<any>(''); // Default value
+  private selectedAcademicYearSource = new BehaviorSubject<any>(""); // Default value
   selectedAcademicYear$ = this.selectedAcademicYearSource.asObservable();
   searchDataEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-  private subHeaderTitleSubject = new BehaviorSubject<string>('');
+  private subHeaderTitleSubject = new BehaviorSubject<string>("");
   subHeaderTitle$ = this.subHeaderTitleSubject.asObservable(); // Observable to subscribe to changes
 
   private approveCertificateSubject = new Subject<void>();
@@ -38,7 +38,6 @@ export class SharedDataService {
   // Observable to subscribe to the data
   data$ = this.dataSource.asObservable();
   menuConfig$ = this.menuConfig.asObservable();
-
 
   // Function to set data
   setData(data: any) {
