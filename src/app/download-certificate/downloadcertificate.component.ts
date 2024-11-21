@@ -11,6 +11,7 @@ import { AppConfig } from "src/app/app.config";
 import { LoadingService } from "../loader/loading.service";
 import { SharedDataService } from "../subheader/shared-data.service";
 import { ToastMessageService } from "../services/toast-message/toast-message.service";
+import { log } from "console";
 
 @Component({
   selector: "app-downloadcertificate",
@@ -54,6 +55,7 @@ export class DownloadcertificateComponent implements OnInit {
     private generalService: GeneralService,
     private csvService: CsvService,
     private toastMsg: ToastMessageService,
+    private httpClient: HttpClient,
     private config: AppConfig
   ) {}
 
@@ -87,6 +89,8 @@ export class DownloadcertificateComponent implements OnInit {
 
     this.generalService.postData(apiUrl, body).subscribe(
       (response) => {
+        console.log(response);
+
         this.certificateList = response || []; // Bind the API response to the table
       },
       (error) => {
@@ -96,10 +100,32 @@ export class DownloadcertificateComponent implements OnInit {
     );
   }
 
+  onDownloadButtonClick(item: any): void {
+    const certificateId = item.certificateId;
+    // Construct the URL with certificateId
+    const apiUrl = `api/v1/certificate/download/${certificateId}`;
+
+    // Perform the HTTP request to download the certificate
+    this.httpClient.get(apiUrl, { responseType: "blob" }).subscribe(
+      (response: Blob) => {
+        const blobUrl = window.URL.createObjectURL(response);
+        const a = document.createElement("a");
+        a.href = blobUrl;
+        a.download = "certificate.pdf"; // Optional: Provide a default name for the file
+        a.click();
+        window.URL.revokeObjectURL(blobUrl);
+      },
+      (error) => {
+        console.error("Error downloading certificate:", error);
+        this.toastMsg.error("Error", "Failed to download the certificate.");
+      }
+    );
+  }
+
   /**
    * Downloads the CSV template based on the provided class type
    * @param classType - The type of class for the template
-   */
+   */ x;
   downloadTemplate(classType: string): void {
     const headers = new HttpHeaders({ ClassType: classType });
     this.loadingService.show();
