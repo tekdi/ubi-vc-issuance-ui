@@ -1,40 +1,29 @@
 <div class="content-body">
-
+    <app-subheader></app-subheader>
     <div class="table-container">
-        <table class="table table-striped">
-            <thead *ngIf="tableSchema?.fields?.length">
+        <table class="table">
+            <thead>
                 <tr>
-                    <th class="p12 text-grey-color" scope="col">
-                        Id
-                    </th>
-                    <th class="p12 text-grey-color" scope="col">
-                        Name
-                    </th>
-                    <th class="p12 text-grey-color" scope="col">
-                        Status
-                    </th>
-                    <th class="p12 text-grey-color" scope="col">
-                        Action
-                    </th>
+                    <th *ngFor="let field of tableSchema?.fields">{{ field.label }}</th>
                 </tr>
             </thead>
             <tbody>
-                <ng-container *ngFor="let item of certificates">
-                    <tr>
-                        <ng-container *ngFor="let field of tableSchema?.fields">
-                            <td *ngIf="!field.type || field.type !== 'button'; else buttonCell">
-                                {{ item[field.key] }}
-                            </td>
-                            <ng-template #buttonCell>
-                                <div class="d-flex gap-2">
-                                    <button *ngFor="let button of field.buttons" (click)="onButtonClick(button, item)">
-                                        {{ button.label }}
-                                    </button>
-                                </div>
-                            </ng-template>
-                        </ng-container>
-                    </tr>
-                </ng-container>
+                <tr *ngFor="let item of certificateList">
+                    <ng-container *ngFor="let field of tableSchema?.fields">
+                        <td *ngIf="!field.type || field.type !== 'button'; else buttonCell">
+                            {{ item[field.key] }}
+                        </td>
+                        <ng-template #buttonCell>
+                            <div class="d-flex gap-2">
+                                <button
+                                    class="btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2 dsn-g-btn"
+                                    *ngFor="let button of field.buttons" (click)="onButtonClick(button, item)">
+                                    {{ button.label }}
+                                </button>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </tr>
             </tbody>
         </table>
     </div>

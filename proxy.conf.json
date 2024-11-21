@@ -14,7 +14,7 @@
   },
 
   "/api": {
-    "target": "https://dev-uba-registry.tekdinext.com",
+    "target": "https://dev-uba-issuer-api.tekdinext.com",
     "changeOrigin": true,
     "logLevel": "debug",
     "secure": false

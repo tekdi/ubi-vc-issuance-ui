@@ -7,6 +7,8 @@ import { Router, NavigationEnd } from "@angular/router";
 import { filter } from "rxjs/operators";
 import { ToastMessageService } from "../services/toast-message/toast-message.service";
 import { HttpClient } from "@angular/common/http";
+import { log } from "console";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-subheader",
@@ -34,6 +36,7 @@ export class SubheaderComponent implements OnInit {
   selectedCourse: any;
   jssid = localStorage.getItem("jssid");
   sssid = localStorage.getItem("ssid");
+  schoolId = localStorage.getItem("schoolId");
   storeVal: string;
   jssidValue;
   certidValue;
@@ -265,14 +268,33 @@ export class SubheaderComponent implements OnInit {
 
   onDocumentChange(event: any): void {
     this.selectedCourse = event.target.value;
-    console.log("Selected Academic Year:", this.selectedCourse);
-    // this.sharedDataService.setSelectedAcademicYear(selectedYear);
-    let paramf = [
-      { value: this.selectedYear, filter: "academicYear" },
-      { value: this.selectedClassType, filter: "schoolType" },
-      { value: this.selectedCourse, filter: "documentType" },
-    ];
+
+    // Update the parameter for filtering if required
+    let paramf = [{ value: this.selectedCourse, filter: "documentType" }];
     this.filterChanged(paramf);
+
+    // Construct the API URL dynamically using template literals
+    const apiUrl = `${environment.baseUrl}/registry/api/v1/${this.selectedCourse}/search`;
+
+    // Define the payload to be sent in the POST request
+    const body = {
+      offset: 0,
+      limit: 1000,
+      filters: {
+        schoolId: { eq: this.schoolId },
+        status: { eq: "pending" },
+      },
+    };
+
+    // Make the API call
+    this.generalService.postData(apiUrl, body).subscribe(
+      (response) => {
+        console.log("API response:", response);
+      },
+      (error) => {
+        console.error("API error:", error);
+      }
+    );
   }
 
   onYearChange(event: any): void {
