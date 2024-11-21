@@ -89,8 +89,6 @@ export class DownloadcertificateComponent implements OnInit {
 
     this.generalService.postData(apiUrl, body).subscribe(
       (response) => {
-        console.log(response);
-
         this.certificateList = response || []; // Bind the API response to the table
       },
       (error) => {
@@ -102,7 +100,6 @@ export class DownloadcertificateComponent implements OnInit {
 
   onDownloadButtonClick(item: any): void {
     const certificateId = item.certificateId;
-    // Construct the URL with certificateId
     const apiUrl = `api/v1/certificate/download/${certificateId}`;
 
     // Perform the HTTP request to download the certificate
@@ -120,63 +117,5 @@ export class DownloadcertificateComponent implements OnInit {
         this.toastMsg.error("Error", "Failed to download the certificate.");
       }
     );
-  }
-
-  /**
-   * Downloads the CSV template based on the provided class type
-   * @param classType - The type of class for the template
-   */ x;
-  downloadTemplate(classType: string): void {
-    const headers = new HttpHeaders({ ClassType: classType });
-    this.loadingService.show();
-
-    this.http
-      .get(`${this.domain}/api/examiner/downloadSampleCsv`, {
-        headers,
-        responseType: "text",
-      })
-      .subscribe(
-        (res) => {
-          this.csvService.downloadCSVTemplate(res, classType);
-          this.loadingService.hide();
-        },
-        (err) => {
-          this.loadingService.hide();
-          const errorMsg =
-            err?.error?.params?.errmsg || "An unexpected error occurred.";
-          this.toastMsg.error("Error", errorMsg);
-        }
-      );
-  }
-
-  /**
-   * Handles button actions like "View" and "Edit"
-   * @param action - Action type (view/edit)
-   * @param item - Row data
-   */
-  handleButtonAction(action: string, item: any): void {
-    if (action === "view") {
-      this.viewCertificate(item);
-    } else if (action === "edit") {
-      this.editCertificate(item);
-    }
-  }
-
-  /**
-   * Opens the certificate in view mode
-   * @param certificate - The certificate data
-   */
-  private viewCertificate(certificate: any): void {
-    // Implement view logic here
-    console.log("View Certificate:", certificate);
-  }
-
-  /**
-   * Opens the certificate in edit mode
-   * @param certificate - The certificate data
-   */
-  private editCertificate(certificate: any): void {
-    // Implement edit logic here
-    console.log("Edit Certificate:", certificate);
   }
 }
