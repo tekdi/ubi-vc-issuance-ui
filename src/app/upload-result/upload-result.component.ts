@@ -42,7 +42,7 @@ export class UploadResultCompoenent {
 
   private uploadResultModalElement: HTMLElement | null = null;
   modalInfo: any = {
-    title: "Result uploaded, awaiting approval from the Inspectors",
+    title: "Result uploaded, awaiting approval from the VC Verifier",
     redirectTo: "/Examiner/list/Examiner",
     image: "assets/images/success.png",
     Buttons: [
@@ -57,7 +57,7 @@ export class UploadResultCompoenent {
     title: "Confirm Approval",
     titleCss: "titleClr-g",
     bodyVal: ["schoolId"],
-    message: "Confirm you are uploading results",
+    message: "Please Confirm Certificate Upload",
     buttons: [
       {
         title: "Yes",

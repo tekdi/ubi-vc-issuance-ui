@@ -17,13 +17,14 @@
                             <div class="d-flex gap-2">
                                 <button
                                     class="btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2 dsn-g-btn"
-                                    *ngFor="let button of field.buttons" (click)="onButtonClick(button, item)">
-                                    {{ button.label }}
+                                    *ngFor="let button of field.buttons" (click)="onDownloadButtonClick(item)">
+                                    Download
                                 </button>
                             </div>
                         </ng-template>
                     </ng-container>
                 </tr>
+
             </tbody>
         </table>
     </div>

@@ -11,6 +11,7 @@ import { AppConfig } from "src/app/app.config";
 import { LoadingService } from "../loader/loading.service";
 import { SharedDataService } from "../subheader/shared-data.service";
 import { ToastMessageService } from "../services/toast-message/toast-message.service";
+import { log } from "console";
 
 @Component({
   selector: "app-downloadcertificate",
@@ -24,7 +25,6 @@ export class DownloadcertificateComponent implements OnInit {
   domain: string = environment.baseUrl;
   menuConfigData: any;
   certificateList: any[] = []; // Holds the API response
-  schoolId: string | null = localStorage.getItem("schoolId");
 
   // Table schema for rendering the certificate list
   tableSchema = {
@@ -54,6 +54,7 @@ export class DownloadcertificateComponent implements OnInit {
     private generalService: GeneralService,
     private csvService: CsvService,
     private toastMsg: ToastMessageService,
+    private httpClient: HttpClient,
     private config: AppConfig
   ) {}
 
@@ -80,7 +81,6 @@ export class DownloadcertificateComponent implements OnInit {
       offset: 0,
       limit: 1000,
       filters: {
-        schoolId: { eq: this.schoolId },
         status: { eq: "issued" },
       },
     };
@@ -96,61 +96,24 @@ export class DownloadcertificateComponent implements OnInit {
     );
   }
 
-  /**
-   * Downloads the CSV template based on the provided class type
-   * @param classType - The type of class for the template
-   */
-  downloadTemplate(classType: string): void {
-    const headers = new HttpHeaders({ ClassType: classType });
-    this.loadingService.show();
+  onDownloadButtonClick(item: any): void {
+    const certificateId = item.certificateId;
+    const apiUrl = `api/v1/certificate/download/${certificateId}`;
 
-    this.http
-      .get(`${this.domain}/api/examiner/downloadSampleCsv`, {
-        headers,
-        responseType: "text",
-      })
-      .subscribe(
-        (res) => {
-          this.csvService.downloadCSVTemplate(res, classType);
-          this.loadingService.hide();
-        },
-        (err) => {
-          this.loadingService.hide();
-          const errorMsg =
-            err?.error?.params?.errmsg || "An unexpected error occurred.";
-          this.toastMsg.error("Error", errorMsg);
-        }
-      );
-  }
-
-  /**
-   * Handles button actions like "View" and "Edit"
-   * @param action - Action type (view/edit)
-   * @param item - Row data
-   */
-  handleButtonAction(action: string, item: any): void {
-    if (action === "view") {
-      this.viewCertificate(item);
-    } else if (action === "edit") {
-      this.editCertificate(item);
-    }
-  }
-
-  /**
-   * Opens the certificate in view mode
-   * @param certificate - The certificate data
-   */
-  private viewCertificate(certificate: any): void {
-    // Implement view logic here
-    console.log("View Certificate:", certificate);
-  }
-
-  /**
-   * Opens the certificate in edit mode
-   * @param certificate - The certificate data
-   */
-  private editCertificate(certificate: any): void {
-    // Implement edit logic here
-    console.log("Edit Certificate:", certificate);
+    // Perform the HTTP request to download the certificate
+    this.httpClient.get(apiUrl, { responseType: "blob" }).subscribe(
+      (response: Blob) => {
+        const blobUrl = window.URL.createObjectURL(response);
+        const a = document.createElement("a");
+        a.href = blobUrl;
+        a.download = "certificate.pdf"; // Optional: Provide a default name for the file
+        a.click();
+        window.URL.revokeObjectURL(blobUrl);
+      },
+      (error) => {
+        console.error("Error downloading certificate:", error);
+        this.toastMsg.error("Error", "Failed to download the certificate.");
+      }
+    );
   }
 }

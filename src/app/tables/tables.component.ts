@@ -9,6 +9,7 @@ import { ConfirmModalService } from "../modal/confirmModal/confirmModal.service"
 import { SharedDataService } from "../subheader/shared-data.service";
 import { Location } from "@angular/common";
 import { LoadingService } from "../loader/loading.service";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-tables",
@@ -26,6 +27,9 @@ export class TablesComponent implements OnInit {
   property: any[] = [];
   field;
   studentIdValue: string = localStorage.getItem("loggedInUser").toUpperCase();
+  schoolId = localStorage.getItem("schoolId")
+    ? localStorage.getItem("schoolId")
+    : localStorage.getItem("selectedItem");
 
   selectedFileForUpload: File | null = null;
   page: number = 1;
@@ -57,6 +61,7 @@ export class TablesComponent implements OnInit {
   selectedClassType: any;
   selectbutton: any;
   selectButtonData: any;
+  selectedCourse: any;
   constructor(
     public router: Router,
     private successModalService: SuccessModalService,
@@ -109,22 +114,25 @@ export class TablesComponent implements OnInit {
     });
 
     this.sharedDataService.selectedAcademicYear$.subscribe((filter) => {
-      for (let i = 0; i < filter.length; i++) {
-        if (filter[i].value != undefined && filter[i].value != "") {
-          this.tableSchema.body.filters[filter[i].filter] = {
-            eq: filter[i].value,
-          };
-        } else {
-          if (this.tableSchema?.body?.filters.hasOwnProperty(filter[i].filter))
-            delete this.tableSchema?.body.filters[filter[i].filter];
+      // for (let i = 0; i < filter.length; i++) {
+      //   if (filter[i].value != undefined && filter[i].value != "") {
+      //     this.tableSchema.body.filters[filter[i].filter] = {
+      //       eq: filter[i].value,
+      //     };
+      //   } else {
+      //     if (this.tableSchema?.body?.filters.hasOwnProperty(filter[i].filter))
+      //       delete this.tableSchema?.body.filters[filter[i].filter];
+      //   }
+      //   this.changeDocument(filter[0].value);
+      // }
+      setTimeout(() => {
+        this.changeDocument(filter[0].value);
+        this.model = [];
+        // console.log("Received Academic Year in Another Component:", this.selectedAcademicYear);
+        if (this.tableSchema) {
+          this.postData();
         }
-      }
-
-      this.model = [];
-      // console.log("Received Academic Year in Another Component:", this.selectedAcademicYear);
-      if (this.tableSchema) {
-        this.postData();
-      }
+      }, 1000);
     });
 
     this.sharedDataService.okButtonClicked.subscribe(() => {
@@ -145,6 +153,19 @@ export class TablesComponent implements OnInit {
 
       this.postData();
     });
+  }
+
+  changeDocument(selectDoc: string) {
+    this.selectedCourse = selectDoc;
+
+    // Update the parameter for filtering if required
+    let paramf = [{ value: this.selectedCourse, filter: "documentType" }];
+    // this.filterChanged(paramf);
+
+    // Construct the API URL dynamically using template literals
+    this.apiUrl = `${this.selectedCourse}/search`;
+    this.tableSchema.body.filters["schoolId"] = { eq: this.schoolId };
+    this.tableSchema.body.filters["status"] = { eq: "pending" };
   }
 
   sendDataToSubheader() {
