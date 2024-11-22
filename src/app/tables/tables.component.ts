@@ -30,6 +30,9 @@ export class TablesComponent implements OnInit {
   schoolId = localStorage.getItem("schoolId")
     ? localStorage.getItem("schoolId")
     : localStorage.getItem("selectedItem");
+  schoolId = localStorage.getItem("schoolId")
+    ? localStorage.getItem("schoolId")
+    : localStorage.getItem("selectedItem");
 
   selectedFileForUpload: File | null = null;
   page: number = 1;
@@ -125,14 +128,13 @@ export class TablesComponent implements OnInit {
       //   }
       //   this.changeDocument(filter[0].value);
       // }
-      setTimeout(() => {
-        this.changeDocument(filter[0].value);
-        this.model = [];
-        // console.log("Received Academic Year in Another Component:", this.selectedAcademicYear);
-        if (this.tableSchema) {
-          this.postData();
-        }
-      }, 1000);
+      this.changeDocument(filter[0].value);
+
+      this.model = [];
+      // console.log("Received Academic Year in Another Component:", this.selectedAcademicYear);
+      if (this.tableSchema) {
+        this.postData();
+      }
     });
 
     this.sharedDataService.okButtonClicked.subscribe(() => {
