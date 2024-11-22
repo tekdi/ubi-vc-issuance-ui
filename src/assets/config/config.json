@@ -7,7 +7,7 @@
   },
   "configFolder": "/assets/config/ui-config",
   "languageFolder": "/assets/i18n",
-  "title": "DiCert",
+  "title": "UBI VC Issuance",
   "rcBaseUrl": "/registry/api/v1",
   "schemaUrl": "/registry/api/docs/swagger.json",
   "footerText": "Supported by Bill & Melinda Gates",
