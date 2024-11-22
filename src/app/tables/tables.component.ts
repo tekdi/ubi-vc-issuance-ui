@@ -9,6 +9,7 @@ import { ConfirmModalService } from "../modal/confirmModal/confirmModal.service"
 import { SharedDataService } from "../subheader/shared-data.service";
 import { Location } from "@angular/common";
 import { LoadingService } from "../loader/loading.service";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-tables",
@@ -26,6 +27,9 @@ export class TablesComponent implements OnInit {
   property: any[] = [];
   field;
   studentIdValue: string = localStorage.getItem("loggedInUser").toUpperCase();
+  schoolId = localStorage.getItem("schoolId")
+    ? localStorage.getItem("schoolId")
+    : localStorage.getItem("selectedItem");
   schoolId = localStorage.getItem("schoolId")
     ? localStorage.getItem("schoolId")
     : localStorage.getItem("selectedItem");

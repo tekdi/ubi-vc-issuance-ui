@@ -11,6 +11,7 @@ import { AppConfig } from "src/app/app.config";
 import { LoadingService } from "../loader/loading.service";
 import { SharedDataService } from "../subheader/shared-data.service";
 import { ToastMessageService } from "../services/toast-message/toast-message.service";
+import { log } from "console";
 
 @Component({
   selector: "app-downloadcertificate",
