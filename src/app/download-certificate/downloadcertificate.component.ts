@@ -25,7 +25,6 @@ export class DownloadcertificateComponent implements OnInit {
   domain: string = environment.baseUrl;
   menuConfigData: any;
   certificateList: any[] = []; // Holds the API response
-  schoolId: string | null = localStorage.getItem("schoolId");
 
   // Table schema for rendering the certificate list
   tableSchema = {
@@ -82,7 +81,6 @@ export class DownloadcertificateComponent implements OnInit {
       offset: 0,
       limit: 1000,
       filters: {
-        schoolId: { eq: this.schoolId },
         status: { eq: "issued" },
       },
     };
