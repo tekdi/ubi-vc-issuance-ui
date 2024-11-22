@@ -11,7 +11,6 @@ import { AppConfig } from "src/app/app.config";
 import { LoadingService } from "../loader/loading.service";
 import { SharedDataService } from "../subheader/shared-data.service";
 import { ToastMessageService } from "../services/toast-message/toast-message.service";
-import { log } from "console";
 
 @Component({
   selector: "app-downloadcertificate",
@@ -32,7 +31,6 @@ export class DownloadcertificateComponent implements OnInit {
       { key: "firstName", label: "First Name" },
       { key: "lastName", label: "Last Name" },
       { key: "certificateNo", label: "Certificate No." },
-      { key: "schoolId", label: "School ID" },
       { key: "status", label: "Status" },
       {
         key: "actions",
@@ -98,7 +96,7 @@ export class DownloadcertificateComponent implements OnInit {
 
   onDownloadButtonClick(item: any): void {
     const certificateId = item.certificateId;
-    const apiUrl = `api/v1/certificate/download/${certificateId}`;
+    const apiUrl = `api/inspector/downloadVC/${certificateId}`;
 
     // Perform the HTTP request to download the certificate
     this.httpClient.get(apiUrl, { responseType: "blob" }).subscribe(
@@ -113,6 +111,26 @@ export class DownloadcertificateComponent implements OnInit {
       (error) => {
         console.error("Error downloading certificate:", error);
         this.toastMsg.error("Error", "Failed to download the certificate.");
+      }
+    );
+  }
+
+  onDownloadAllIssuedCertificates(): void {
+    const apiUrl = `api/inspector/downloadCSV/marksheet`;
+
+    // Perform the HTTP request to download the certificate in CSV format
+    this.httpClient.get(apiUrl, { responseType: "blob" }).subscribe(
+      (response: Blob) => {
+        const blobUrl = window.URL.createObjectURL(response);
+        const a = document.createElement("a");
+        a.href = blobUrl;
+        a.download = "certificate.csv"; // Save file with .csv extension
+        a.click();
+        window.URL.revokeObjectURL(blobUrl);
+      },
+      (error) => {
+        console.error("Error downloading CSV file:", error);
+        this.toastMsg.error("Error", "Failed to download the CSV file.");
       }
     );
   }

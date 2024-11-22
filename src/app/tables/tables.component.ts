@@ -9,7 +9,6 @@ import { ConfirmModalService } from "../modal/confirmModal/confirmModal.service"
 import { SharedDataService } from "../subheader/shared-data.service";
 import { Location } from "@angular/common";
 import { LoadingService } from "../loader/loading.service";
-import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-tables",
@@ -125,14 +124,13 @@ export class TablesComponent implements OnInit {
       //   }
       //   this.changeDocument(filter[0].value);
       // }
-      setTimeout(() => {
-        this.changeDocument(filter[0].value);
-        this.model = [];
-        // console.log("Received Academic Year in Another Component:", this.selectedAcademicYear);
-        if (this.tableSchema) {
-          this.postData();
-        }
-      }, 1000);
+      this.changeDocument(filter[0].value);
+
+      this.model = [];
+      // console.log("Received Academic Year in Another Component:", this.selectedAcademicYear);
+      if (this.tableSchema) {
+        this.postData();
+      }
     });
 
     this.sharedDataService.okButtonClicked.subscribe(() => {

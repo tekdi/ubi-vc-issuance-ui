@@ -130,7 +130,7 @@
           {
             "name": ["firstName", "middleName", "lastName"],
             "isArray": true,
-            "title": "Student Name"
+            "title": "Name"
           },
           {
             "name": "schoolId",
@@ -305,16 +305,17 @@
           {
             "name": ["firstName", "middleName", "lastName"],
             "isArray": true,
-            "title": "Student Name"
+            "title": "Name"
           },
           {
-            "name": "schoolId",
-            "title": "Institute"
+            "name": "certificateNo",
+            "title": "Certificate No."
           },
           {
-            "title": "Candidate No",
-            "name": "studentId"
+            "title": "class",
+            "name": "class"
           },
+
           {
             "custom": true,
             "title": "ACTION",
