@@ -105,7 +105,7 @@ export class DownloadcertificateComponent implements OnInit {
         const blobUrl = window.URL.createObjectURL(response);
         const a = document.createElement("a");
         a.href = blobUrl;
-        a.download = "certificate.pdf"; // Optional: Provide a default name for the file
+        a.download = `response-${certificateId}.json`; // Optional: Provide a default name for the file
         a.click();
         window.URL.revokeObjectURL(blobUrl);
       },

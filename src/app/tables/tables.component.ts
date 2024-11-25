@@ -30,9 +30,6 @@ export class TablesComponent implements OnInit {
   schoolId = localStorage.getItem("schoolId")
     ? localStorage.getItem("schoolId")
     : localStorage.getItem("selectedItem");
-  schoolId = localStorage.getItem("schoolId")
-    ? localStorage.getItem("schoolId")
-    : localStorage.getItem("selectedItem");
 
   selectedFileForUpload: File | null = null;
   page: number = 1;
@@ -128,13 +125,15 @@ export class TablesComponent implements OnInit {
       //   }
       //   this.changeDocument(filter[0].value);
       // }
-      this.changeDocument(filter[0].value);
 
-      this.model = [];
-      // console.log("Received Academic Year in Another Component:", this.selectedAcademicYear);
-      if (this.tableSchema) {
-        this.postData();
-      }
+      setTimeout(() => {
+        this.changeDocument(filter[0].value);
+        this.model = [];
+        // console.log("Received Academic Year in Another Component:", this.selectedAcademicYear);
+        if (this.tableSchema) {
+          this.postData();
+        }
+      }, 1000);
     });
 
     this.sharedDataService.okButtonClicked.subscribe(() => {
@@ -165,6 +164,7 @@ export class TablesComponent implements OnInit {
     // this.filterChanged(paramf);
 
     // Construct the API URL dynamically using template literals
+
     this.apiUrl = `${this.selectedCourse}/search`;
     this.tableSchema.body.filters["schoolId"] = { eq: this.schoolId };
     this.tableSchema.body.filters["status"] = { eq: "pending" };
