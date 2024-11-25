@@ -158,6 +158,7 @@ export class TablesComponent implements OnInit {
 
   changeDocument(selectDoc: string) {
     this.selectedCourse = selectDoc;
+    this.sharedDataService.setSelectedDoc(this.selectedCourse);
 
     // Update the parameter for filtering if required
     let paramf = [{ value: this.selectedCourse, filter: "documentType" }];

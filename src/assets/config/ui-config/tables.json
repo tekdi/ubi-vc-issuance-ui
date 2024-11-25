@@ -312,7 +312,7 @@
             "title": "Certificate No."
           },
           {
-            "title": "class",
+            "title": "Class",
             "name": "class"
           },
 
@@ -423,6 +423,9 @@
                       "classes": "btn-primary dsn-r-btn",
                       "action": "requestCall",
                       "call": "post",
+                      "headers": {
+                        "Content-Type": "application/json"
+                      },
                       "api": "api/inspector/decline",
                       "successModal": true,
                       "modal": {

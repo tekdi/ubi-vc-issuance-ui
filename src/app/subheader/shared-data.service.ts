@@ -8,6 +8,7 @@ export class SharedDataService {
   // Subject to share data between components
   private dataSource = new Subject<any>();
   private menuConfig = new Subject<any>();
+  private selectedDoc: string = "";
 
   okButtonClicked: EventEmitter<void> = new EventEmitter<void>();
 
@@ -55,5 +56,13 @@ export class SharedDataService {
 
   emitSearchData(searchTerm: string) {
     this.searchDataEmitter.emit(searchTerm);
+  }
+
+  setSelectedDoc(value: string): void {
+    this.selectedDoc = value;
+  }
+
+  getSelectedDoc(): string {
+    return this.selectedDoc;
   }
 }
