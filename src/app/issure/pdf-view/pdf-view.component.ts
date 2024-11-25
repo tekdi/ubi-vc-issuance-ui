@@ -1,28 +1,28 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GeneralService } from 'src/app/services/general/general.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { TranslateService } from '@ngx-translate/core';
-import { map } from 'rxjs/operators';
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { GeneralService } from "src/app/services/general/general.service";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { TranslateService } from "@ngx-translate/core";
+import { map } from "rxjs/operators";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { SafeUrl } from "@angular/platform-browser";
-import { AppConfig } from 'src/app/app.config';
+import { AppConfig } from "src/app/app.config";
 declare var bootstrap: any;
-import { Location } from '@angular/common';
-import { SharedDataService } from 'src/app/subheader/shared-data.service';
-import { LoadingService } from 'src/app/loader/loading.service';
-import { environment } from 'src/environments/environment';
+import { Location } from "@angular/common";
+import { SharedDataService } from "src/app/subheader/shared-data.service";
+import { LoadingService } from "src/app/loader/loading.service";
+import { environment } from "src/environments/environment";
 
 @Component({
-  selector: 'app-pdf-view',
-  templateUrl: './pdf-view.component.html',
-  styleUrls: ['./pdf-view.component.scss']
+  selector: "app-pdf-view",
+  templateUrl: "./pdf-view.component.html",
+  styleUrls: ["./pdf-view.component.scss"],
 })
 export class PdfViewComponent implements OnInit {
   item: any;
   recordItems: any;
   vcOsid: any;
-  headerName: string = 'records'
+  headerName: string = "records";
   //headerName : string = 'issuer';
   newName = "hello";
   documentName: string;
@@ -42,99 +42,107 @@ export class PdfViewComponent implements OnInit {
   imagePath: any;
   modalInstance: any;
   middleUrl = environment.baseUrl;
-  entityName =  localStorage.getItem('entity');
+  entityName = localStorage.getItem("entity");
   items;
-  certid
+  certid;
   jsid;
-  constructor(public router: Router, public route: ActivatedRoute, private location: Location,
-    private config: AppConfig, private sharedDataService: SharedDataService, private loadingService: LoadingService,
-    public translate: TranslateService, sanitizer: DomSanitizer,
-    public generalService: GeneralService, public http: HttpClient) {
+  constructor(
+    public router: Router,
+    public route: ActivatedRoute,
+    private location: Location,
+    private config: AppConfig,
+    private sharedDataService: SharedDataService,
+    private loadingService: LoadingService,
+    public translate: TranslateService,
+    sanitizer: DomSanitizer,
+    public generalService: GeneralService,
+    public http: HttpClient
+  ) {
     this.sanitizer = sanitizer;
-    this.documentName = this.route.snapshot.paramMap.get('document') + '/credentials';
-    console.log(this.documentName);
+    this.documentName =
+      this.route.snapshot.paramMap.get("document") + "/credentials";
 
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const paramKeys = Object.keys(params);
-      
+
       // Check if the route has more than 3 parameters
       if (paramKeys.length > 3) {
-        this.vcOsid =this.route.snapshot.paramMap.get('id');
-    console.log('vcOsid' +this.vcOsid);
+        this.vcOsid = this.route.snapshot.paramMap.get("id");
       } else {
-        this.vcOsid = decodeURIComponent(this.route.snapshot.paramMap.get('id'));
-    console.log('vcOsid' + this.vcOsid);
+        this.vcOsid = decodeURIComponent(
+          this.route.snapshot.paramMap.get("id")
+        );
       }
     });
-  
-   
+
     // this.jsid = this.route.snapshot.paramMap.get('jssid');
 
-    this.certid = decodeURIComponent(this.route.snapshot.paramMap.get('certificateId'));
-    
-
+    this.certid = decodeURIComponent(
+      this.route.snapshot.paramMap.get("certificateId")
+    );
   }
 
   async ngOnInit() {
-
     // if (this.vcOsid.includes('did')) {
     //   this.injectHTML();
     // } else {
     //   this.getPreviewHtml();
     // }
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const paramKeys = Object.keys(params);
-      
+
       // Check if the route has more than 3 parameters
-      if (paramKeys.length > 2)  {
-        console.log(this.certid);
+      if (paramKeys.length > 2) {
         this.injectHTML(this.certid);
       } else {
-        console.log(this.vcOsid);
         this.injectHTML(this.vcOsid);
       }
     });
-    
   }
-
-
-
 
   downloadPDF(fileType, tempId) {
     // this.generalService.downloadFile(fileType, '/credentials/credentials/' + this.vcOsid, tempId, 'certificate');
   }
 
-
-  injectHTML(cert :string) {
-    console.log(cert);
+  injectHTML(cert: string) {
     this.pdfName = this.documentName;
-    let headerOptions = new HttpHeaders({
-      'Accept': 'application/pdf',
-       "certificateNo":cert
+    const doctype = this.sharedDataService.getSelectedDoc();
 
+    let headerOptions = new HttpHeaders({
+      Accept: "application/pdf",
+      certificateNo: cert,
+      doctype: doctype,
     });
-    let requestOptions = { headers: headerOptions, responseType: 'blob' as 'blob' };
+
+    let requestOptions = {
+      headers: headerOptions,
+      responseType: "blob" as "blob",
+    };
     // post or get depending on your requirement
-  
 
     // this.http.get(this.middleUrl  + '/' + this.documentName + '/' + this.vcOsid, requestOptions).pipe(map((data: any) => {
-    this.http.post(this.middleUrl + '/api/inspector/preview'  ,  {}, { headers: headerOptions,  responseType: 'blob' as 'blob'  }).pipe(map((data: any) => {
+    this.http
+      .post(
+        this.middleUrl + "/api/inspector/preview",
+        {},
+        { headers: headerOptions, responseType: "blob" as "blob" }
+      )
+      .pipe(
+        map((data: any) => {
+          let blob = new Blob([data], {
+            type: "application/pdf", // must match the Accept type
+            // type: 'application/octet-stream' // for excel
+          });
 
-      let blob = new Blob([data], {
-        type: 'application/pdf' // must match the Accept type
-        // type: 'application/octet-stream' // for excel 
-      });
-
-      this.pdfResponse = window.URL.createObjectURL(blob);
-      this.pdfResponse2 = this.sanitizer.bypassSecurityTrustResourceUrl(this.pdfResponse);
-      console.log(this.pdfResponse2);
-      this.pdfResponse = this.readBlob(blob);
-      console.log(this.pdfResponse);
-      this.showModal();
-
-
-    })).subscribe((result: any) => {
-    });
+          this.pdfResponse = window.URL.createObjectURL(blob);
+          this.pdfResponse2 = this.sanitizer.bypassSecurityTrustResourceUrl(
+            this.pdfResponse
+          );
+          this.pdfResponse = this.readBlob(blob);
+          this.showModal();
+        })
+      )
+      .subscribe((result: any) => {});
   }
 
   readBlob(blob) {
@@ -142,11 +150,8 @@ export class PdfViewComponent implements OnInit {
     reader.readAsDataURL(blob);
     reader.onloadend = function () {
       var base64String = reader.result;
-      console.log('Base64 String - ', base64String);
       return base64String;
-
-    }
-
+    };
   }
 
   onCancel() {
@@ -157,7 +162,7 @@ export class PdfViewComponent implements OnInit {
 
   showModal() {
     // Get the modal element by its ID
-    const uploadResultModalElement = document.getElementById('certificateView');
+    const uploadResultModalElement = document.getElementById("certificateView");
 
     // Create a new instance of the modal using Bootstrap's JS API
     this.modalInstance = new bootstrap.Modal(uploadResultModalElement);
@@ -167,50 +172,60 @@ export class PdfViewComponent implements OnInit {
   }
 
   downloadFile(filepath, item, typeRes) {
-    this.generalService.downloadFile(filepath, '/api/inspector/credentials', typeRes, this.certid,false);
+    this.generalService.downloadFile(
+      filepath,
+      "/api/inspector/credentials",
+      typeRes,
+      this.certid,
+      false
+    );
   }
 
   getPreviewHtml(certNo: string) {
     let headerOptions = new HttpHeaders({
-      'Accept': 'application/pdf',  
-      "certificateNo":certNo
+      Accept: "application/pdf",
+      certificateNo: certNo,
     });
-
-    console.log(certNo + "cert no");
     // Setting the responseType to 'text' because we're fetching HTML, not a blob.
     // let requestOptions = { headers: headerOptions, responseType: 'text' as 'json' };
     // return this.http.post(this.middleUrl + '/inspector/preview/' + this.vcOsid, {}, { headers: headerOptions, responseType: 'text' });
 
     // this.http.post(this.middleUrl + '/inspector/preview/' + this.vcOsid, requestOptions)
-    this.http.post(this.middleUrl + '/api/inspector/preview', {}, { headers: headerOptions, responseType: 'text' }).pipe(
-      map((data: string) => {
+    this.http
+      .post(
+        this.middleUrl + "/api/inspector/preview",
+        {},
+        { headers: headerOptions, responseType: "text" }
+      )
+      .pipe(
+        map((data: string) => {
+          // Get the iframe element
+          const iframe: HTMLIFrameElement = document.getElementById(
+            "iframe2"
+          ) as HTMLIFrameElement;
 
-        // Get the iframe element
-        const iframe: HTMLIFrameElement = document.getElementById('iframe2') as HTMLIFrameElement;
+          let iframedoc;
+          if (iframe.contentDocument) {
+            iframedoc = iframe.contentDocument;
+          } else if (iframe.contentWindow) {
+            iframedoc = iframe.contentWindow.document;
+          }
 
-        let iframedoc;
-        if (iframe.contentDocument) {
-          iframedoc = iframe.contentDocument;
-        } else if (iframe.contentWindow) {
-          iframedoc = iframe.contentWindow.document;
-        }
+          if (iframedoc) {
+            // Inject the HTML content into the iframe
+            iframedoc.open();
+            iframedoc.write(data);
+            this.showModal();
 
-        if (iframedoc) {
-          // Inject the HTML content into the iframe
-          iframedoc.open();
-          iframedoc.write(data);
-          this.showModal();
-
-          iframedoc.close();
-        } else {
-          alert('Cannot inject dynamic contents into iframe.');
-        }
-      })
-    ).subscribe((result: any) => {
-      console.log({ result });
-
-      // Handle success
-    });
+            iframedoc.close();
+          } else {
+            alert("Cannot inject dynamic contents into iframe.");
+          }
+        })
+      )
+      .subscribe((result: any) => {
+        // Handle success
+      });
   }
 
   onApproveCertificate() {
@@ -221,10 +236,7 @@ export class PdfViewComponent implements OnInit {
       this.sharedDataService.emitApproveCertificate();
       setTimeout(() => {
         this.loadingService.hide();
-      },200);
-
+      }, 200);
     }, 1000);
-  
   }
-
 }
