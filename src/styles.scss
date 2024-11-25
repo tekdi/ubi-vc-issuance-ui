@@ -582,7 +582,7 @@ formly-field {
   width: 0;
 }
 
-[type='file'] + label {
+[type='file']+label {
   background: white;
   border: none;
   border-radius: 5px;
@@ -986,12 +986,10 @@ li {
 }
 
 .langing-bg-color {
-  background: radial-gradient(
-    72.14% 138.06% at 4.8% 90.49%,
-    #d5ebe9 0%,
-    #d5ebe9 45.05%,
-    #b5e6df 100%
-  );
+  background: radial-gradient(72.14% 138.06% at 4.8% 90.49%,
+      #d5ebe9 0%,
+      #d5ebe9 45.05%,
+      #b5e6df 100%);
 }
 
 .small-card {
@@ -1340,7 +1338,7 @@ textarea.jsoneditor-text {
   flex-direction: column;
   align-items: flex-start;
   justify-content: end;
-  padding-bottom: 40px;
+  padding-bottom: 2%;
 }
 
 .right-sec {
@@ -1424,7 +1422,7 @@ textarea.jsoneditor-text {
   // min-height: 500px !important;
 }
 
-.table > :not(caption) > * > * {
+.table> :not(caption)>*>* {
   box-shadow: none !important;
 }
 
@@ -1817,7 +1815,7 @@ textarea.jsoneditor-text {
     width: 100%;
   }
 
-  formly-object-type > div:first-child {
+  formly-object-type>div:first-child {
     display: ruby;
   }
 
@@ -1940,8 +1938,7 @@ textarea.jsoneditor-text {
 }
 
 .custom-select {
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABIElEQVR4nO2Yyw3CMBBE5wZdRspcvRe7AArgVxNwpA4+XYACQkgQBJFxMogdybdktW9n8rEB1w+JIa5oafvzNWjp1KysJhRqUKEJOIjYNOGOiE0T/+pIVU3GDHFJi4fbjY+rDmlfW1w018qC8ALRDvC0QprrgthrJ1qcOQqDpM/c6NhY1+ur3IirgDA34l2iRYu7YiCWGfGGrsMkpuVAUl4yrtlM8yZ/b7I5M7ORLEgplYwWP414769OFIr4ECBViYgPAVJEKiDMrSHRBBxEbJpwR8SmCXdEbJpwR3J/LwQPMNj37k4GRPUAgyKbIjqI0u4OgzzsGgcYmrs7iHwQvyEqgEjUoEITcBCxacIdEZsm3JG7GNKmtrhGhlRquNCzzmUEY+pgu4xkAAAAAElFTkSuQmCC')
-    no-repeat right 0.75rem center !important;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABIElEQVR4nO2Yyw3CMBBE5wZdRspcvRe7AArgVxNwpA4+XYACQkgQBJFxMogdybdktW9n8rEB1w+JIa5oafvzNWjp1KysJhRqUKEJOIjYNOGOiE0T/+pIVU3GDHFJi4fbjY+rDmlfW1w018qC8ALRDvC0QprrgthrJ1qcOQqDpM/c6NhY1+ur3IirgDA34l2iRYu7YiCWGfGGrsMkpuVAUl4yrtlM8yZ/b7I5M7ORLEgplYwWP414769OFIr4ECBViYgPAVJEKiDMrSHRBBxEbJpwR8SmCXdEbJpwR3J/LwQPMNj37k4GRPUAgyKbIjqI0u4OgzzsGgcYmrs7iHwQvyEqgEjUoEITcBCxacIdEZsm3JG7GNKmtrhGhlRquNCzzmUEY+pgu4xkAAAAAElFTkSuQmCC') no-repeat right 0.75rem center !important;
   background-size: 17px 17px !important;
   /* Ensures the icon remains sharp */
   padding-right: 40px !important;
@@ -2000,6 +1997,7 @@ textarea.jsoneditor-text {
 .mt-36 {
   margin-top: 36px !important;
 }
+
 .file-name {
   display: inline-block;
   max-width: 233px;
@@ -2009,3 +2007,6 @@ textarea.jsoneditor-text {
   cursor: default;
 }
 
+.img-fluid {
+  border-radius: 50px;
+}
