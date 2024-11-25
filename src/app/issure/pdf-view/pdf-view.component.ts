@@ -61,7 +61,6 @@ export class PdfViewComponent implements OnInit {
     this.sanitizer = sanitizer;
     this.documentName =
       this.route.snapshot.paramMap.get("document") + "/credentials";
-    console.log(this.documentName);
 
     this.route.params.subscribe((params) => {
       const paramKeys = Object.keys(params);
@@ -69,12 +68,10 @@ export class PdfViewComponent implements OnInit {
       // Check if the route has more than 3 parameters
       if (paramKeys.length > 3) {
         this.vcOsid = this.route.snapshot.paramMap.get("id");
-        console.log("vcOsid" + this.vcOsid);
       } else {
         this.vcOsid = decodeURIComponent(
           this.route.snapshot.paramMap.get("id")
         );
-        console.log("vcOsid" + this.vcOsid);
       }
     });
 
@@ -96,10 +93,8 @@ export class PdfViewComponent implements OnInit {
 
       // Check if the route has more than 3 parameters
       if (paramKeys.length > 2) {
-        console.log(this.certid);
         this.injectHTML(this.certid);
       } else {
-        console.log(this.vcOsid);
         this.injectHTML(this.vcOsid);
       }
     });
@@ -143,9 +138,7 @@ export class PdfViewComponent implements OnInit {
           this.pdfResponse2 = this.sanitizer.bypassSecurityTrustResourceUrl(
             this.pdfResponse
           );
-          console.log(this.pdfResponse2);
           this.pdfResponse = this.readBlob(blob);
-          console.log(this.pdfResponse);
           this.showModal();
         })
       )
@@ -157,7 +150,6 @@ export class PdfViewComponent implements OnInit {
     reader.readAsDataURL(blob);
     reader.onloadend = function () {
       var base64String = reader.result;
-      console.log("Base64 String - ", base64String);
       return base64String;
     };
   }
@@ -194,8 +186,6 @@ export class PdfViewComponent implements OnInit {
       Accept: "application/pdf",
       certificateNo: certNo,
     });
-
-    console.log(certNo + "cert no");
     // Setting the responseType to 'text' because we're fetching HTML, not a blob.
     // let requestOptions = { headers: headerOptions, responseType: 'text' as 'json' };
     // return this.http.post(this.middleUrl + '/inspector/preview/' + this.vcOsid, {}, { headers: headerOptions, responseType: 'text' });
@@ -234,8 +224,6 @@ export class PdfViewComponent implements OnInit {
         })
       )
       .subscribe((result: any) => {
-        console.log({ result });
-
         // Handle success
       });
   }
