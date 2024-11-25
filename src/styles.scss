@@ -1291,6 +1291,7 @@ textarea.jsoneditor-text {
 .img-fluid {
   max-width: 100%;
   height: auto;
+  border-radius: 50px;
 }
 
 .login-left {
@@ -2005,8 +2006,4 @@ textarea.jsoneditor-text {
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: default;
-}
-
-.img-fluid {
-  border-radius: 50px;
 }
