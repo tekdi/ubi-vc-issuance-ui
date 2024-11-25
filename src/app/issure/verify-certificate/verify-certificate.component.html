@@ -12,25 +12,28 @@
             <span class="mt-2" (click)="openScanner();"><a class="titleClr-g">Scan QR code </a> to verify</span>
             <br />
           </div>
-          <div *ngIf="verifyService?.scannerEnabled" id="vcSpinner">
+          <!-- <div *ngIf="verifyService?.scannerEnabled" id="vcSpinner">
             <zxing-scanner (scanSuccess)="scanHandler($event)" class="vc-scanW"> </zxing-scanner>
-          </div>
+          </div> -->
 
         </div>
         <input type="file" #fileInput (change)="onFileSelected($event)" class="d-none">
       </div>
-        <div  *ngIf="verifyService.notValid" class="card errCard justify-content-center align-items-center m-4">
-          <div class="card-body errCard ">
-            <span class="titleClr-r errCard ml-4 mt-2 fs-18" *ngIf="uniqueId && verifyService.notValid">Invalid Unique ID</span>
-            <span class="titleClr-r errCard  ml-4 mt-2" *ngIf="!uniqueId && verifyService.notValid">Invalid QR code</span>
-               </div>
+      <div *ngIf="verifyService.notValid" class="card errCard justify-content-center align-items-center m-4">
+        <div class="card-body errCard ">
+          <span class="titleClr-r errCard ml-4 mt-2 fs-18" *ngIf="uniqueId && verifyService.notValid">Invalid Unique
+            ID</span>
+          <span class="titleClr-r errCard  ml-4 mt-2" *ngIf="!uniqueId && verifyService.notValid">Invalid QR code</span>
         </div>
+      </div>
 
 
 
       <div class="d-flex flex-column justify-content-center align-items-center mt-36 mb-2">
-        <button [disabled]="!uniqueId" class="btn btn-primary verifyNowButtonVerifier" (click)="doVerify()">Verify Now</button><br />
-        <p class="mt-1 text-center CancelButtonVerifier cursorPointer pt-0" alt="Close" data-bs-dismiss="modal" aria-label="Close" (click)="hideModal()">Cancel</p>
+        <button [disabled]="!uniqueId" class="btn btn-primary verifyNowButtonVerifier" (click)="doVerify()">Verify
+          Now</button><br />
+        <p class="mt-1 text-center CancelButtonVerifier cursorPointer pt-0" alt="Close" data-bs-dismiss="modal"
+          aria-label="Close" (click)="hideModal()">Cancel</p>
       </div>
     </div>
   </div>
