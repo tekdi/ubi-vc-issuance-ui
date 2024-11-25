@@ -28,8 +28,6 @@ import { AutocompleteTypeComponent } from "../app/forms/types/autocomplete.type"
 import { FormlyColorInput } from "../app/forms/types/color.type";
 import { initializeKeycloak } from "./utility/app.init";
 import { initLang } from "./multilingual.init";
-
-import { ZXingScannerModule } from "@zxing/ngx-scanner";
 //Local imports
 import { FormsComponent } from "./forms/forms.component";
 import { LayoutsComponent } from "./layouts/layouts.component";
@@ -266,7 +264,6 @@ import { DownloadcertificateComponent } from "./download-certificate/downloadcer
     Bootstrap4FrameworkModule,
     AngularMultiSelectModule,
     NgSelectModule,
-    ZXingScannerModule,
 
     HttpClientModule,
     TranslateModule.forRoot(),
