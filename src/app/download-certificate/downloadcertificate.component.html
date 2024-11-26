@@ -1,11 +1,27 @@
 <div class="content-body">
-    <app-subheader></app-subheader>
-    <button (click)="onDownloadAllIssuedCertificates()"
-        class="float-right btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2 dsn-g-btn">
-        <i class="fa fa-download"></i> All Issued certificates
-    </button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="dropdown-container mb-20">
+                    <select class="form-select" (change)="onDocumentChange($event)">
+                        <option value="">Select Document Type</option>
+                        <option class="fs-16" *ngFor="let certificate of certificates"
+                            [value]="certificate.documentSubType">
+                            {{ certificate.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <button (click)="onDownloadAllIssuedCertificates()"
+                    class="float-right btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2 dsn-g-btn mb-20">
+                    <i class="fa fa-download"></i> All Issued certificates
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="table-container">
-        <table class="table">
+        <table class="table" *ngIf="certificateList.length > 0">
             <thead>
                 <tr>
                     <th *ngFor="let field of tableSchema?.fields">{{ field.label }}</th>
@@ -28,9 +44,24 @@
                         </ng-template>
                     </ng-container>
                 </tr>
-
             </tbody>
         </table>
+
+        <!-- Table to show "No Records Found" -->
+        <table class="text-center my-5 w-100" *ngIf="certificateList.length === 0">
+            <tbody class="fs-5">
+                <tr>
+                    <td [attr.colspan]="tableSchema?.fields?.length || 1" class="fs-20 fw-400 lh-27">
+                        {{ 'NO_RECORDS_FOUND' | translate }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <!-- <pagination-controls *ngIf="tableSchema?.fields?.length" class="my-4 text-center paginationWrapper"
+            (pageChange)="page = $event" previousLabel="{{'PREVIOUS' | translate}}"
+            nextLabel="{{'NEXT' | translate}}"></pagination-controls> -->
     </div>
     <app-confirm-modal></app-confirm-modal>
 </div>

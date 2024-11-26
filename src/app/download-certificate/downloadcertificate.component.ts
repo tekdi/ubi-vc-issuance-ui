@@ -11,7 +11,7 @@ import { AppConfig } from "src/app/app.config";
 import { LoadingService } from "../loader/loading.service";
 import { SharedDataService } from "../subheader/shared-data.service";
 import { ToastMessageService } from "../services/toast-message/toast-message.service";
-import { log } from "console";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-downloadcertificate",
@@ -25,6 +25,12 @@ export class DownloadcertificateComponent implements OnInit {
   domain: string = environment.baseUrl;
   menuConfigData: any;
   certificateList: any[] = []; // Holds the API response
+  certificates: any[] = [];
+  selectedCourse: any;
+  schoolId = localStorage.getItem("schoolId")
+    ? localStorage.getItem("schoolId")
+    : localStorage.getItem("selectedItem");
+  subHeaderTitle = localStorage.getItem("subHeaderTitle");
 
   // Table schema for rendering the certificate list
   tableSchema = {
@@ -53,11 +59,24 @@ export class DownloadcertificateComponent implements OnInit {
     private generalService: GeneralService,
     private csvService: CsvService,
     private toastMsg: ToastMessageService,
-    private httpClient: HttpClient,
-    private config: AppConfig
+    private httpClient: HttpClient
   ) {}
 
+  loadCertificates(): void {
+    this.http
+      .get<any[]>("../../assets/config/ui-config/certificateList.json")
+      .subscribe(
+        (data) => {
+          this.certificates = data;
+        },
+        (error) => {
+          console.error("Error loading certificates:", error);
+        }
+      );
+  }
+
   ngOnInit(): void {
+    this.loadCertificates();
     this.subscribeToMenuConfig();
     this.getCertificateList();
   }
@@ -69,6 +88,46 @@ export class DownloadcertificateComponent implements OnInit {
     this.sharedDataService.menuConfig$.subscribe((menuConfigData) => {
       this.menuConfigData = menuConfigData;
     });
+  }
+
+  onDocumentChange(event: any): void {
+    this.selectedCourse = event.target.value;
+
+    if (this.selectedCourse) {
+      // Call API to get filtered data
+      this.getFilteredCertificates();
+    }
+  }
+
+  getFilteredCertificates(): void {
+    // Prepare API payload
+
+    const payload = {
+      offset: 0,
+      limit: 1000,
+      filters: {
+        schoolId: { eq: this.schoolId },
+        status: { eq: "pending" },
+      },
+    };
+
+    // API URL
+    const apiUrl = `registry/api/v1/${this.selectedCourse}/search`;
+
+    // Call API and handle response
+    this.post(apiUrl, payload).subscribe(
+      (response: any) => {
+        // Assuming the response contains the filtered certificates
+        this.certificateList = response;
+      },
+      (error) => {
+        console.error("Error fetching filtered data:", error);
+      }
+    );
+  }
+
+  post(url: string, payload: any): Observable<any> {
+    return this.http.post(url, payload);
   }
 
   /**
