@@ -7,8 +7,8 @@
   },
   { "name": "Domicile Certificate", "documentSubType": "domicileCertificate" },
   {
-    "name": "Enrolment Certificate",
-    "documentSubType": "enrolmentCertificate"
+    "name": "Enrollment Certificate",
+    "documentSubType": "enrollmentCertificate"
   },
   { "name": "Marksheet", "documentSubType": "marksheet" },
   { "name": "Birth Certificate", "documentSubType": "birthCertificate" },
