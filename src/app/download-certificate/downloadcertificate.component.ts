@@ -78,7 +78,6 @@ export class DownloadcertificateComponent implements OnInit {
   ngOnInit(): void {
     this.loadCertificates();
     this.subscribeToMenuConfig();
-    this.getCertificateList();
   }
 
   /**
@@ -107,7 +106,7 @@ export class DownloadcertificateComponent implements OnInit {
       limit: 1000,
       filters: {
         schoolId: { eq: this.schoolId },
-        status: { eq: "pending" },
+        status: { eq: "issued" },
       },
     };
 
@@ -130,31 +129,9 @@ export class DownloadcertificateComponent implements OnInit {
     return this.http.post(url, payload);
   }
 
-  /**
-   * Fetches the certificate list from the API
-   */
-  getCertificateList(): void {
-    const apiUrl = `${this.domain}/registry/api/v1/marksheet/search`;
-    const body = {
-      offset: 0,
-      limit: 1000,
-      filters: {
-        status: { eq: "issued" },
-      },
-    };
-
-    this.generalService.postData(apiUrl, body).subscribe(
-      (response) => {
-        this.certificateList = response || []; // Bind the API response to the table
-      },
-      (error) => {
-        console.error("API error:", error);
-        this.toastMsg.error("Error", "Failed to fetch certificate data.");
-      }
-    );
-  }
-
   onDownloadButtonClick(item: any): void {
+    console.log(item, "item item itemitem");
+
     const certificateId = item.certificateId;
     const apiUrl = `api/inspector/downloadVC/${certificateId}`;
 
@@ -178,19 +155,27 @@ export class DownloadcertificateComponent implements OnInit {
   onDownloadAllIssuedCertificates(): void {
     const apiUrl = `api/inspector/downloadCSV/marksheet`;
 
-    // Perform the HTTP request to download the certificate in CSV format
-    this.httpClient.get(apiUrl, { responseType: "blob" }).subscribe(
+    // Include the filter for document type
+    const params = {
+      doctype: this.selectedCourse || "marksheet",
+    };
+
+    // Perform the HTTP request to download the filtered certificate in CSV format
+    this.httpClient.get(apiUrl, { params, responseType: "blob" }).subscribe(
       (response: Blob) => {
         const blobUrl = window.URL.createObjectURL(response);
         const a = document.createElement("a");
         a.href = blobUrl;
-        a.download = "certificate.csv"; // Save file with .csv extension
+        a.download = `${params.doctype}_certificates.csv`; // Save file with the filtered document type
         a.click();
         window.URL.revokeObjectURL(blobUrl);
       },
       (error) => {
         console.error("Error downloading CSV file:", error);
-        this.toastMsg.error("Error", "Failed to download the CSV file.");
+        this.toastMsg.error(
+          "Error",
+          "Failed to download the filtered CSV file."
+        );
       }
     );
   }

@@ -12,12 +12,13 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8" *ngIf="certificateList.length > 0">
                 <button (click)="onDownloadAllIssuedCertificates()"
                     class="float-right btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2 dsn-g-btn mb-20">
-                    <i class="fa fa-download"></i> All Issued certificates
+                    Download All Issued Certificates
                 </button>
             </div>
+
         </div>
     </div>
     <div class="table-container">
@@ -57,11 +58,6 @@
                 </tr>
             </tbody>
         </table>
-
-
-        <!-- <pagination-controls *ngIf="tableSchema?.fields?.length" class="my-4 text-center paginationWrapper"
-            (pageChange)="page = $event" previousLabel="{{'PREVIOUS' | translate}}"
-            nextLabel="{{'NEXT' | translate}}"></pagination-controls> -->
     </div>
     <app-confirm-modal></app-confirm-modal>
 </div>
