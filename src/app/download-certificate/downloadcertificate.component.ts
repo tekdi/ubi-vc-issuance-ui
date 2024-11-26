@@ -11,7 +11,7 @@ import { AppConfig } from "src/app/app.config";
 import { LoadingService } from "../loader/loading.service";
 import { SharedDataService } from "../subheader/shared-data.service";
 import { ToastMessageService } from "../services/toast-message/toast-message.service";
-import { log } from "console";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-downloadcertificate",
@@ -25,6 +25,12 @@ export class DownloadcertificateComponent implements OnInit {
   domain: string = environment.baseUrl;
   menuConfigData: any;
   certificateList: any[] = []; // Holds the API response
+  certificates: any[] = [];
+  selectedCourse: any;
+  schoolId = localStorage.getItem("schoolId")
+    ? localStorage.getItem("schoolId")
+    : localStorage.getItem("selectedItem");
+  subHeaderTitle = localStorage.getItem("subHeaderTitle");
 
   // Table schema for rendering the certificate list
   tableSchema = {
@@ -53,13 +59,25 @@ export class DownloadcertificateComponent implements OnInit {
     private generalService: GeneralService,
     private csvService: CsvService,
     private toastMsg: ToastMessageService,
-    private httpClient: HttpClient,
-    private config: AppConfig
+    private httpClient: HttpClient
   ) {}
 
+  loadCertificates(): void {
+    this.http
+      .get<any[]>("../../assets/config/ui-config/certificateList.json")
+      .subscribe(
+        (data) => {
+          this.certificates = data;
+        },
+        (error) => {
+          console.error("Error loading certificates:", error);
+        }
+      );
+  }
+
   ngOnInit(): void {
+    this.loadCertificates();
     this.subscribeToMenuConfig();
-    this.getCertificateList();
   }
 
   /**
@@ -71,31 +89,49 @@ export class DownloadcertificateComponent implements OnInit {
     });
   }
 
-  /**
-   * Fetches the certificate list from the API
-   */
-  getCertificateList(): void {
-    const apiUrl = `${this.domain}/registry/api/v1/marksheet/search`;
-    const body = {
+  onDocumentChange(event: any): void {
+    this.selectedCourse = event.target.value;
+
+    if (this.selectedCourse) {
+      // Call API to get filtered data
+      this.getFilteredCertificates();
+    }
+  }
+
+  getFilteredCertificates(): void {
+    // Prepare API payload
+
+    const payload = {
       offset: 0,
       limit: 1000,
       filters: {
+        schoolId: { eq: this.schoolId },
         status: { eq: "issued" },
       },
     };
 
-    this.generalService.postData(apiUrl, body).subscribe(
-      (response) => {
-        this.certificateList = response || []; // Bind the API response to the table
+    // API URL
+    const apiUrl = `registry/api/v1/${this.selectedCourse}/search`;
+
+    // Call API and handle response
+    this.post(apiUrl, payload).subscribe(
+      (response: any) => {
+        // Assuming the response contains the filtered certificates
+        this.certificateList = response;
       },
       (error) => {
-        console.error("API error:", error);
-        this.toastMsg.error("Error", "Failed to fetch certificate data.");
+        console.error("Error fetching filtered data:", error);
       }
     );
   }
 
+  post(url: string, payload: any): Observable<any> {
+    return this.http.post(url, payload);
+  }
+
   onDownloadButtonClick(item: any): void {
+    console.log(item, "item item itemitem");
+
     const certificateId = item.certificateId;
     const apiUrl = `api/inspector/downloadVC/${certificateId}`;
 
@@ -119,19 +155,27 @@ export class DownloadcertificateComponent implements OnInit {
   onDownloadAllIssuedCertificates(): void {
     const apiUrl = `api/inspector/downloadCSV/marksheet`;
 
-    // Perform the HTTP request to download the certificate in CSV format
-    this.httpClient.get(apiUrl, { responseType: "blob" }).subscribe(
+    // Include the filter for document type
+    const params = {
+      doctype: this.selectedCourse || "marksheet",
+    };
+
+    // Perform the HTTP request to download the filtered certificate in CSV format
+    this.httpClient.get(apiUrl, { params, responseType: "blob" }).subscribe(
       (response: Blob) => {
         const blobUrl = window.URL.createObjectURL(response);
         const a = document.createElement("a");
         a.href = blobUrl;
-        a.download = "certificate.csv"; // Save file with .csv extension
+        a.download = `${params.doctype}_certificates.csv`; // Save file with the filtered document type
         a.click();
         window.URL.revokeObjectURL(blobUrl);
       },
       (error) => {
         console.error("Error downloading CSV file:", error);
-        this.toastMsg.error("Error", "Failed to download the CSV file.");
+        this.toastMsg.error(
+          "Error",
+          "Failed to download the filtered CSV file."
+        );
       }
     );
   }
