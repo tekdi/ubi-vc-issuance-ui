@@ -106,7 +106,7 @@ export class PdfViewComponent implements OnInit {
 
   injectHTML(cert: string) {
     this.pdfName = this.documentName;
-    const doctype = this.sharedDataService.getSelectedDoc();
+    const doctype = this.sharedDataService.getSelectedDoc() || "marksheet";
 
     let headerOptions = new HttpHeaders({
       Accept: "application/pdf",
