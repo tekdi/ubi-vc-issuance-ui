@@ -105,7 +105,6 @@ export class DownloadcertificateComponent implements OnInit {
       offset: 0,
       limit: 1000,
       filters: {
-        schoolId: { eq: this.schoolId },
         status: { eq: "issued" },
       },
     };
@@ -130,8 +129,6 @@ export class DownloadcertificateComponent implements OnInit {
   }
 
   onDownloadButtonClick(item: any): void {
-    console.log(item, "item item itemitem");
-
     const certificateId = item.certificateId;
     const apiUrl = `api/inspector/downloadVC/${certificateId}`;
 
@@ -153,20 +150,15 @@ export class DownloadcertificateComponent implements OnInit {
   }
 
   onDownloadAllIssuedCertificates(): void {
-    const apiUrl = `api/inspector/downloadCSV/marksheet`;
+    const doctype = this.selectedCourse || "marksheet";
+    const apiUrl = `api/inspector/downloadCSV/${doctype}`;
 
-    // Include the filter for document type
-    const params = {
-      doctype: this.selectedCourse || "marksheet",
-    };
-
-    // Perform the HTTP request to download the filtered certificate in CSV format
-    this.httpClient.get(apiUrl, { params, responseType: "blob" }).subscribe(
+    this.httpClient.get(apiUrl, { responseType: "blob" }).subscribe(
       (response: Blob) => {
         const blobUrl = window.URL.createObjectURL(response);
         const a = document.createElement("a");
         a.href = blobUrl;
-        a.download = `${params.doctype}_certificates.csv`; // Save file with the filtered document type
+        a.download = `${doctype}_certificates.csv`;
         a.click();
         window.URL.revokeObjectURL(blobUrl);
       },
