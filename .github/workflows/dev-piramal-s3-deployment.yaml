@@ -1,12 +1,14 @@
-name: DEV S3 Deployment on the Piramal-OU Tekdi
+name: DEV EC2 Deployment on the Piramal-OU Tekdi
 
 on: [push]
+
 jobs:
   deploy_Dev_Issuer:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -16,7 +18,7 @@ jobs:
         run: |
           ls -ltra
           if [ -f .env ]; then
-          rm .env
+            rm .env
           fi
           echo '${{ secrets.DEV_ENV }}' > .env
           ls -ltra
@@ -24,39 +26,42 @@ jobs:
           npm install --legacy-peer-deps
           npm run build
           ng build --prod
-          ls -ltra
-      - name: Show PWD
-        run: |
-           echo "Current Working Directory:"
-           pwd
+          ls -ltra dist/
 
-      - name: List Contents
+      - name: Install SSH client
         run: |
-           echo "Contents of the current directory (in reverse order):"
-            ls -lr
+          sudo apt-get update
+          sudo apt-get install -y openssh-client
 
-      - name: List Contents
+      - name: Deploy application to EC2
+        env:
+          PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          EC2_HOST: ${{ secrets.EC2_HOST_DEV }}
+          EC2_USER: ${{ secrets.EC2_USER_DEV }}
         run: |
-           echo "Contents of the dist directory (in reverse order):"
-            cd 
-            ls -lr
-            
+          echo "$PRIVATE_KEY" > ec2_key.pem
+          chmod 600 ec2_key.pem
 
-      - name: Install AWS CLI
-        run: |
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y awscli
+          # Clean up remote directory
+          ssh -i ec2_key.pem $EC2_USER_DEV@$EC2_HOST_DEV << 'EOF'
+            echo "Removing existing files in the remote directory..."
+            sudo rm -rf /var/www/dev-uba-issuer.tekdinext.com/public/*
+          EOF
 
-      - name: Configure AWS credentials
-        run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID_DEV}}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
-          aws configure set default.region ${{ secrets.AWS_S3_BUCKET_REGION }}  
+          # Copy the new build
+          echo "Copying the new build to the remote server..."
+          scp -i ec2_key.pem -r dist/sunbird-rc-ui/* $EC2_USER_DEV@$EC2_HOST_DEV:/var/www/dev-uba-issuer.tekdinext.com/public
 
-      - name: Upload to s3 Bucket
-        run: |
-              aws s3 sync dist/sunbird-rc-ui s3://${{ secrets.AWS_S3_BUCKET_DEV }}/
-              aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_DEV }} --paths "/*"
+          # Set permissions and restart Nginx
+          ssh -i ec2_key.pem $EC2_USER_DEV@$EC2_HOST_DEV << 'EOF'
+            echo "Setting permissions on the remote directory..."
+            sudo chown -R www-data:www-data /var/www/dev-uba-issuer.tekdinext.com
+            echo "Restarting Nginx..."
+            sudo systemctl restart nginx
+            echo "Deployment complete."
+          EOF
+
       - name: Post job cleanup
         run: |
-    # Cleanup commands
+          rm -f ec2_key.pem
         continue-on-error: true
