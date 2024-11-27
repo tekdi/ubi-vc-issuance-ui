@@ -37,7 +37,7 @@
         <span *ngIf="rmenuItem?.action == 'acadmicYear' && rmenuItem?.showButton" class="text-left">
           <div class="dropdown-container">
             <select class="form-select mt-2" (change)="onDocumentChange($event)">
-              <option value="">Select Document Type</option>
+              <option value="">marksheet</option>
               <option class="fs-16" *ngFor="let certificate of certificates" [value]="certificate.documentSubType">
                 {{ certificate.name }}
               </option>

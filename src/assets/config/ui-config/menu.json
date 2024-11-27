@@ -65,12 +65,6 @@
             "redirectTo": "/Examiner/list/Examiner",
             "icon": "fa fa-th-large",
             "activeTab": "active"
-          },
-          {
-            "title": "Download Template",
-            "redirectTo": "/download-sample",
-            "icon": "fa fa-file-text-o",
-            "isSearch": false
           }
         ],
         "logout": {
@@ -84,7 +78,7 @@
           "right": [
             {
               "type": "button",
-              "title": "Upload Result",
+              "title": "Upload Certificate",
               "icon": "fa fa-database",
               "cssClass": "dsn-g-btn ",
               "bodyVal": "*",

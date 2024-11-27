@@ -145,7 +145,7 @@
         "langKey": "student",
         "fieldsets": [
           {
-            "definition": "VC Maker",
+            "definition": "Examiner",
             "formclass": " row form-div line",
 
             "fields": [
