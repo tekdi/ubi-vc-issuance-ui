@@ -55,7 +55,7 @@ jobs:
           echo "Copying files..."
           scp $SSH_OPTS -i ec2_key.pem -r dist/sunbird-rc-ui/* $EC2_USER_DEV@$EC2_HOST_DEV:/var/www/dev-uba-issuer.tekdinext.com/public
           ssh $SSH_OPTS -i ec2_key.pem $EC2_USER_DEV@$EC2_HOST_DEV << 'EOF'
-          echo "Setting permissions..."
+          echo "Setting permissions on the server..."
           sudo chown -R www-data:www-data /var/www/dev-uba-issuer.tekdinext.com
           echo "Restarting Nginx..."
           sudo systemctl restart nginx
