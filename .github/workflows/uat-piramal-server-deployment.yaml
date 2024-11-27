@@ -1,0 +1,62 @@
+name: UAT EC2 Deployment on the Piramal-OU Tekdi
+
+on: [push]
+
+jobs:
+  deploy_UAT_Issuer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.14.2'
+      
+      - name: npm install, build
+        run: |
+          ls -ltra
+          if [ -f .env ]; then
+            rm .env
+          fi
+          echo '${{ secrets.UAT_ENV }}' > .env
+          ls -ltra
+          npm install -g @angular/cli@^10.0.0
+          npm install --legacy-peer-deps
+          npm run build
+          ng build --prod
+          ls -ltra dist/
+
+      - name: Install SSH client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openssh-client
+
+      - name: Debug SSH Setup
+        run: |
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ec2_key.pem
+          chmod 600 ec2_key.pem
+          ls -l ec2_key.pem
+          echo "Host: ${{ secrets.EC2_HOST_UAT }}"
+          echo "User: ${{ secrets.EC2_USER_UAT }}"
+
+      - name: Clean Up Remote Directory and Deploy
+        env:
+          PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          EC2_HOST_UAT: ${{ secrets.EC2_HOST_UAT }}
+          EC2_USER_UAT: ${{ secrets.EC2_USER_UAT }}
+        run: |
+          export SSH_OPTS="-o StrictHostKeyChecking=no"
+          ssh $SSH_OPTS -i ec2_key.pem $EC2_USER_UAT@$EC2_HOST_UAT << 'EOF'
+          echo "Removing existing files..."
+          sudo rm -rf /var/www/uat-uba-issuer.tekdinext.com/public/*
+          EOF
+          echo "Copying files..."
+          scp $SSH_OPTS -i ec2_key.pem -r dist/sunbird-rc-ui/* $EC2_USER_UAT@$EC2_HOST_UAT:/var/www/uat-uba-issuer.tekdinext.com/public
+          ssh $SSH_OPTS -i ec2_key.pem $EC2_USER_UAT@$EC2_HOST_UAT << 'EOF'
+          echo "Setting permissions on the server..."
+          sudo chown -R www-data:www-data /var/www/uat-uba-issuer.tekdinext.com
+          echo "Restarting Nginx..."
+          sudo systemctl restart nginx
+          EOF
