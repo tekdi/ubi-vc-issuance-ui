@@ -4,7 +4,7 @@
             <div class="col-md-4">
                 <div class="dropdown-container mb-20">
                     <select class="form-select" (change)="onDocumentChange($event)">
-                        <option value="">Select Document Type</option>
+                        <option value="">Marksheet</option>
                         <option class="fs-16" *ngFor="let certificate of certificates"
                             [value]="certificate.documentSubType">
                             {{ certificate.name }}

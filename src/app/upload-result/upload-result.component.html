@@ -17,7 +17,7 @@
                   class="close-icon tn-close float-end mr-2" (click)="onCancel()" />
 
                 <div *ngIf="!isUploading">
-                  <span class="fs-14 mb-3 lh-16 fw-400 ff-rubik labelsUploadResult">Select Certificate Type</span>
+                  <span class="fs-14 mb-3 lh-16 fw-400 ff-rubik labelsUploadResult">Marksheet</span>
                   <select [(ngModel)]="selectedCertificate" class="form-select mt-2">
                     <option class="fs-16" *ngFor="let certificate of certificates"
                       [value]="certificate.documentSubType">
