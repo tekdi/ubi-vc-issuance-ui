@@ -34,8 +34,8 @@
   // --primaryTextColor: #000000;
   // --secondaryTextColor: #8D9091;
   // SL
-  --primaryColor: #366746;
-  --secondaryColor: #0098ab;
+  --primaryColor: #121943;
+  --secondaryColor: #3C5FDD;
   --bodyBackground: #ffffff;
   --cardBackground: #ffffff;
   --tagsBackground: #f4ecff;
@@ -44,10 +44,10 @@
   --headerLinkColor: #0098ab;
   --primaryTextColor: #696f79;
   --secondaryTextColor: #000000;
-  --linkColor: #073c1e;
+  --linkColor: #000;
   --secondaryBtnBgColor: #e8f3f8;
   --cardBorder: #00000020;
-
+  --whiteColor: #fff;
   //   dark
   // --primaryColor: #F07D00;
   // --secondaryColor: #F07D00;
@@ -169,7 +169,7 @@ textarea.form-control {
 }
 
 .text-primary-color {
-  color: var(--primaryColor) !important;
+  color: var(--secondaryColor) !important;
 }
 
 .text-secondary-color {
@@ -222,6 +222,7 @@ legend {
 
 .btn-bg {
   background-color: var(--btnBgColor) !important;
+  color: var(--whiteColor) !important;
 }
 
 .btn-sec-bg {
@@ -668,7 +669,7 @@ formly-autocomplete-type .ng-select {
 }
 
 .navbar {
-  padding: 26px 48px !important;
+  padding: 20px 48px !important;
   box-shadow: none !important;
   position: fixed !important;
   width: 100% !important;
@@ -776,8 +777,8 @@ formly-autocomplete-type .ng-select {
 // }
 
 .btn-primary {
-  background-color: var(--primaryColor) !important;
-  border-color: var(--primaryColor) !important;
+  background-color: var(--secondaryColor) !important;
+  border-color: var(--secondaryColor) !important;
   width: 423px;
   height: 60px;
   top: 1062px;
@@ -1296,7 +1297,6 @@ textarea.jsoneditor-text {
 
 .login-left {
   background-color: var(--primaryColor);
-  height: 690px;
 }
 
 .invalid-feedback {
@@ -1325,7 +1325,7 @@ textarea.jsoneditor-text {
 .content-green {
   height: auto;
   width: 100%;
-  background-color: #366746;
+  background-color: #121943;
   color: white;
   display: flex;
   align-items: center;
@@ -1339,7 +1339,7 @@ textarea.jsoneditor-text {
   flex-direction: column;
   align-items: flex-start;
   justify-content: end;
-  padding-bottom: 2%;
+  padding-bottom: 4%;
 }
 
 .right-sec {
@@ -1547,7 +1547,7 @@ textarea.jsoneditor-text {
   width: 40px;
   height: 40px;
   background: #f7f7ff;
-  color: #45995d;
+  color: #121943;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -1559,7 +1559,7 @@ textarea.jsoneditor-text {
 }
 
 .btn.acc-header[aria-expanded='true'] .ic-btn {
-  background-color: #366746;
+  background-color: #121943;
   color: white;
 }
 
@@ -1677,7 +1677,8 @@ textarea.jsoneditor-text {
       font-size: 16px;
       line-height: 19px;
       font-weight: 500;
-      color: #45995d;
+      color: var(--secondaryColor);
+      text-decoration: underline !important;
     }
   }
 }
@@ -1860,7 +1861,8 @@ textarea.jsoneditor-text {
 }
 
 .leftSignUP {
-  padding: 50px 25px;
+  padding: 20% 25px;
+  border-radius: 2px 30px 30px 0px;
 }
 
 .px-25 {
