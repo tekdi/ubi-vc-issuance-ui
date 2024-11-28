@@ -1546,8 +1546,8 @@ textarea.jsoneditor-text {
 .ic-btn {
   width: 40px;
   height: 40px;
-  background: #f7f7ff;
-  color: #121943;
+  background: #E9E7EF;
+  color: var(--secondarybgColor);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -1559,7 +1559,7 @@ textarea.jsoneditor-text {
 }
 
 .btn.acc-header[aria-expanded='true'] .ic-btn {
-  background-color: #121943;
+  background-color: var(--secondarybgColor);
   color: white;
 }
 
