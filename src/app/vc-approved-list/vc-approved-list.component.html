@@ -43,25 +43,5 @@
             </tbody>
         </table>
     </div>
-    <div class="modal fade show" id="certificateView" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true"
-        data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-
-                <!-- PDF Iframe -->
-                <div class="m-4">
-                    <iframe id="iframe2" class="pdfDisplay" [src]="pdfResponse2"></iframe>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="m-4 d-flex justify-content-end align-items-center">
-                    <!-- Cancel Button -->
-                    <button (click)="onCancel()" class="btn btn-secondary me-3 px-5">
-                        Cancel
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
     <app-confirm-modal></app-confirm-modal>
 </div>
