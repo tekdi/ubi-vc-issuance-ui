@@ -136,7 +136,11 @@ export class TablesComponent implements OnInit {
         this.model = [];
         // console.log("Received Academic Year in Another Component:", this.selectedAcademicYear);
 
-        if (this.tableSchema && this.fullUrl !== "/Examiner/list/Examiner") {
+        if (
+          this.tableSchema &&
+          this.fullUrl !== "/Examiner/list/Examiner" &&
+          this.fullUrl !== "/Inspector/list/Inspector"
+        ) {
           this.postData();
         }
       }, 1000);
