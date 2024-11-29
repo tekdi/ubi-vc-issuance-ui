@@ -39,6 +39,8 @@ import { LinkedinCallbackComponent } from "./linkedin-callback/linkedin-callback
 // import { CreateCertificateComponent } from './create-certificate/create-certificate.component';
 // import { FaqComponent } from './custom-components/faq/faq.component';
 import { DownloadcertificateComponent } from "./download-certificate/downloadcertificate.component";
+import { VcApprovedListComponent } from "./vc-approved-list/vc-approved-list.component";
+
 const routes: Routes = [
   // Home
   { path: "", component: HomeComponent },
@@ -228,6 +230,10 @@ const routes: Routes = [
   {
     path: "download-certificate",
     component: DownloadcertificateComponent,
+  },
+  {
+    path: "vc-approved-list",
+    component: VcApprovedListComponent,
   },
 
   // Installation
