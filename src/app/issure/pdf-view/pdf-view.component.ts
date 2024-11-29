@@ -132,7 +132,7 @@ export class PdfViewComponent implements OnInit {
           let blob = new Blob([data], {
             type: "application/pdf", // must match the Accept type
             // type: 'application/octet-stream' // for excel
-          });map
+          });
 
           this.pdfResponse = window.URL.createObjectURL(blob);
           this.pdfResponse2 = this.sanitizer.bypassSecurityTrustResourceUrl(
