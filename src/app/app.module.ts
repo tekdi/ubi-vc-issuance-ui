@@ -194,6 +194,7 @@ import { LoaderComponent } from "./loader/loader.component";
 import { DownloadSampleComponent } from "./download-sample/download-sample.component";
 import { LinkedinCallbackComponent } from "./linkedin-callback/linkedin-callback.component";
 import { DownloadcertificateComponent } from "./download-certificate/downloadcertificate.component";
+import { VcApprovedListComponent } from './vc-approved-list/vc-approved-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -249,6 +250,7 @@ import { DownloadcertificateComponent } from "./download-certificate/downloadcer
     PdfViewComponent,
     LinkedinCallbackComponent,
     DownloadcertificateComponent,
+    VcApprovedListComponent,
   ],
   imports: [
     BrowserModule,

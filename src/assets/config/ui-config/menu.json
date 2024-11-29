@@ -121,6 +121,12 @@
             "activeTab": "active"
           },
           {
+            "title": "Approved List",
+            "redirectTo": "/vc-approved-list",
+            "icon": "fa fa-check",
+            "activeTab": "active"
+          },
+          {
             "title": "Download certificate",
             "redirectTo": "/download-certificate",
             "icon": "fa fa-download",
