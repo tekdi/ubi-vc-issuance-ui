@@ -62,6 +62,7 @@ export class TablesComponent implements OnInit {
   selectbutton: any;
   selectButtonData: any;
   selectedCourse: any;
+  fullUrl: any;
   constructor(
     public router: Router,
     private successModalService: SuccessModalService,
@@ -72,12 +73,16 @@ export class TablesComponent implements OnInit {
     private location: Location,
     private loadingService: LoadingService,
     public schemaService: SchemaService,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    private activatedRoute: ActivatedRoute
   ) {
     this.loadingService.show();
   }
 
   ngOnInit(): void {
+    this.activatedRoute.url.subscribe((url) => {
+      this.fullUrl = this.router.url;
+    });
     // console.log(environment.CLIENT_ID); //kpet it for checking
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
     this.sharedDataService.approveCertificate$.subscribe(() => {
@@ -130,7 +135,8 @@ export class TablesComponent implements OnInit {
         this.changeDocument(filter[0].value);
         this.model = [];
         // console.log("Received Academic Year in Another Component:", this.selectedAcademicYear);
-        if (this.tableSchema) {
+
+        if (this.tableSchema && this.fullUrl !== "/Examiner/list/Examiner") {
           this.postData();
         }
       }, 1000);
