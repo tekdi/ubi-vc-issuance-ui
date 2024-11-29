@@ -47,15 +47,9 @@ export class VcApprovedListComponent implements OnInit {
   tableSchema = {
     fields: [
       { key: "firstName", label: "First Name" },
+      { key: "lastName", label: "Last Name" },
       { key: "certificateNo", label: "Certificate No." },
       { key: "status", label: "Status" },
-      {
-        key: "action",
-        type: "button",
-        buttons: [
-          { label: "Download Certificate", action: "Download Certificate" },
-        ],
-      },
     ],
   };
 
@@ -72,30 +66,7 @@ export class VcApprovedListComponent implements OnInit {
     private httpClient: HttpClient,
     sanitizer: DomSanitizer,
     public route: ActivatedRoute
-  ) {
-    this.sanitizer = sanitizer;
-    this.documentName =
-      this.route.snapshot.paramMap.get("document") + "/credentials";
-
-    this.route.params.subscribe((params) => {
-      const paramKeys = Object.keys(params);
-
-      // Check if the route has more than 3 parameters
-      if (paramKeys.length > 3) {
-        this.vcOsid = this.route.snapshot.paramMap.get("id");
-      } else {
-        this.vcOsid = decodeURIComponent(
-          this.route.snapshot.paramMap.get("id")
-        );
-      }
-    });
-
-    // this.jsid = this.route.snapshot.paramMap.get('jssid');
-
-    this.certid = decodeURIComponent(
-      this.route.snapshot.paramMap.get("certificateId")
-    );
-  }
+  ) {}
 
   loadCertificates(): void {
     this.http
@@ -161,108 +132,5 @@ export class VcApprovedListComponent implements OnInit {
 
   post(url: string, payload: any): Observable<any> {
     return this.http.post(url, payload);
-  }
-
-  preview(item: any): void {
-    const modalElement = document.getElementById("certificateView");
-    const modal = new bootstrap.Modal(modalElement);
-    modal.show();
-  }
-
-  onCancel(): void {
-    const modalElement = document.getElementById("certificateView");
-    const modal = bootstrap.Modal.getInstance(modalElement);
-    modal.hide();
-  }
-
-  injectHTML(cert: string) {
-    this.pdfName = this.documentName;
-    const doctype = this.sharedDataService.getSelectedDoc() || "marksheet";
-
-    let headerOptions = new HttpHeaders({
-      Accept: "application/pdf",
-      certificateNo: cert,
-      doctype: doctype,
-    });
-
-    let requestOptions = {
-      headers: headerOptions,
-      responseType: "blob" as "blob",
-    };
-    // post or get depending on your requirement
-
-    // this.http.get(this.middleUrl  + '/' + this.documentName + '/' + this.vcOsid, requestOptions).pipe(map((data: any) => {
-    this.http
-      .post(
-        this.middleUrl + "/api/inspector/preview",
-        {},
-        { headers: headerOptions, responseType: "blob" as "blob" }
-      )
-      .pipe(
-        map((data: any) => {
-          let blob = new Blob([data], {
-            type: "application/pdf", // must match the Accept type
-            // type: 'application/octet-stream' // for excel
-          });
-
-          this.pdfResponse = window.URL.createObjectURL(blob);
-          this.pdfResponse2 = this.sanitizer.bypassSecurityTrustResourceUrl(
-            this.pdfResponse
-          );
-          this.pdfResponse = this.readBlob(blob);
-          //this.showModal();
-        })
-      )
-      .subscribe((result: any) => {});
-  }
-  readBlob(blob) {
-    var reader = new FileReader();
-    reader.readAsDataURL(blob);
-    reader.onloadend = function () {
-      var base64String = reader.result;
-      return base64String;
-    };
-  }
-
-  getPreviewHtml(certNo: string) {
-    let headerOptions = new HttpHeaders({
-      Accept: "application/pdf",
-      certificateNo: certNo,
-    });
-    this.http
-      .post(
-        this.middleUrl + "/api/inspector/preview",
-        {},
-        { headers: headerOptions, responseType: "text" }
-      )
-      .pipe(
-        map((data: string) => {
-          // Get the iframe element
-          const iframe: HTMLIFrameElement = document.getElementById(
-            "iframe2"
-          ) as HTMLIFrameElement;
-
-          let iframedoc;
-          if (iframe.contentDocument) {
-            iframedoc = iframe.contentDocument;
-          } else if (iframe.contentWindow) {
-            iframedoc = iframe.contentWindow.document;
-          }
-
-          if (iframedoc) {
-            // Inject the HTML content into the iframe
-            iframedoc.open();
-            iframedoc.write(data);
-            //this.showModal();
-
-            iframedoc.close();
-          } else {
-            alert("Cannot inject dynamic contents into iframe.");
-          }
-        })
-      )
-      .subscribe((result: any) => {
-        // Handle success
-      });
   }
 }

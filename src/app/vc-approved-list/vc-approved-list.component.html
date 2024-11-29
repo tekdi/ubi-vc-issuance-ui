@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="table-container">
-        <table class="table" *ngIf="certificateList.length > 0">
+        <table class="table table-striped" *ngIf="certificateList.length > 0">
             <thead>
                 <tr>
                     <th *ngFor="let field of tableSchema?.fields">{{ field.label }}</th>
@@ -27,17 +27,6 @@
                         <td *ngIf="!field.type || field.type !== 'button'; else buttonCell">
                             {{ item[field.key] }}
                         </td>
-                        <ng-template #buttonCell>
-                            <div class="d-flex gap-2">
-
-                                <button (click)="preview(item)" class="btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize
-                                    dsn-sb-btn pt-2">
-                                    Preview
-                                </button>
-
-
-                            </div>
-                        </ng-template>
                     </ng-container>
                 </tr>
             </tbody>

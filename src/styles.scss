@@ -954,10 +954,6 @@ label {
   background-color: var(--headerColor) !important;
 }
 
-.table td,
-.table th {
-  color: var(--primaryTextColor);
-}
 
 a,
 li {
@@ -1924,7 +1920,6 @@ textarea.jsoneditor-text {
   font-size: 14px !important;
   line-height: 16.59px;
   font-weight: 600;
-  color: #535875;
   opacity: 0.5;
 }
 
