@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  baseUrl: "http://localhost:4200",
+  baseUrl: "https://dev-uba-issuer.tekdinext.com",
   schemaUrl: "assets/config/schema.json",
   client_id: "undefined",
   api_key: "undefined",
