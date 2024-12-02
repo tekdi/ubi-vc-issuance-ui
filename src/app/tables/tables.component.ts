@@ -105,6 +105,7 @@ export class TablesComponent implements OnInit {
           return Object.keys(obj)[0] === this.table;
         });
         this.tableSchema = filtered[0][this.table];
+
         this.apiUrl = this.tableSchema.api;
         this.limit = filtered[0].hasOwnProperty(this.limit)
           ? filtered[0].limit
@@ -184,8 +185,9 @@ export class TablesComponent implements OnInit {
   sendDataToSubheader() {
     setTimeout(() => {
       this.sharedDataService.setData([this.tableSchema.items, this.model]);
+      console.log([this.tableSchema.items, this.model]);
     }, 500);
-    // this.sharedDataService.setData(this.tableSchema.items);
+    //this.sharedDataService.setData(this.tableSchema.items);
   }
   encodeURI(value: string): string {
     return encodeURIComponent(value);
@@ -521,7 +523,9 @@ export class TablesComponent implements OnInit {
   storeData(button, data) {
     this.selectbutton = button;
     this.selectButtonData = data;
-    console.log({ data });
+    console.log("data ala", data.res);
+    localStorage.setItem("previewResponse", JSON.stringify(data.res));
+
     if (button.storeVal) {
       let opt = button["storeVal"];
       localStorage.setItem(opt, data.res[button.storeVal]);
@@ -571,6 +575,12 @@ export class TablesComponent implements OnInit {
     if (button.modal["bodyVal"].length > 1) {
       for (let i = 0; i < button.modal["bodyVal"].length; i++) {
         let selectItem = proprties.res[button.modal["bodyVal"][i]];
+        if (!localStorage.getItem("previewResponse")) {
+          localStorage.setItem(
+            "previewResponse",
+            JSON.stringify(proprties.res)
+          );
+        }
         if (
           button["modal"].message.includes("$" + button.modal["bodyVal"][i])
         ) {
@@ -583,7 +593,7 @@ export class TablesComponent implements OnInit {
       }
     } else {
       this.selectItem = proprties.res[button.modal["bodyVal"]];
-
+      localStorage.setItem("previewResponse", JSON.stringify(proprties.res));
       if (button["modal"].message.includes("$" + button.modal["bodyVal"])) {
         // Reassign the replaced string back to button['modal'].message
         button["modal"].message = button["modal"].message.replace(
@@ -595,11 +605,14 @@ export class TablesComponent implements OnInit {
 
     this.confirmModal = button["modal"];
     this.currentItem = proprties["res"];
+    this.currentItem = JSON.parse(localStorage.getItem("previewResponse"));
     // this.confirmModalService.initializeModal('confirmModal');
+
     this.confirmModalService.updateModalData([
       this.confirmModal,
       this.currentItem,
     ]);
+    localStorage.removeItem("previewResponse");
     this.confirmModalService.showModal(); // Pass updated data
   }
 }

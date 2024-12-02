@@ -38,7 +38,7 @@
                                         [ngClass]="button.classes">
                                         {{button.buttonText | translate}}
                                     </a>
-
+                                    
                                     <a *ngIf="button?.action == 'requestCall' && !button.redirectTo"
                                         (click)="actionFunction('post',button, item, i)"
                                         class="btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2"
