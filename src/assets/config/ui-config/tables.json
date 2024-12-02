@@ -340,7 +340,7 @@
                   "message": "Confirm you are approving result examined by $examinerName for $schoolName",
                   "buttons": [
                     {
-                      "title": "Yes2",
+                      "title": "Yes",
                       "classes": "btn-primary dsn-g-btn",
                       "action": "requestCall",
                       "call": "post",
@@ -382,7 +382,7 @@
                   "message": "Confirm you are approving result examined by $examinerName for $schoolName",
                   "buttons": [
                     {
-                      "title": "Yes34",
+                      "title": "Yes",
                       "classes": "btn-primary dsn-g-btn",
                       "action": "requestCall",
                       "call": "post",

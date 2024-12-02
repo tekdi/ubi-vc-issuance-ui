@@ -187,7 +187,7 @@ export class TablesComponent implements OnInit {
       this.sharedDataService.setData([this.tableSchema.items, this.model]);
       console.log([this.tableSchema.items, this.model]);
     }, 500);
-    this.sharedDataService.setData(this.tableSchema.items);
+    //this.sharedDataService.setData(this.tableSchema.items);
   }
   encodeURI(value: string): string {
     return encodeURIComponent(value);
@@ -575,7 +575,12 @@ export class TablesComponent implements OnInit {
     if (button.modal["bodyVal"].length > 1) {
       for (let i = 0; i < button.modal["bodyVal"].length; i++) {
         let selectItem = proprties.res[button.modal["bodyVal"][i]];
-        localStorage.setItem("previewResponse", JSON.stringify(proprties.res));
+        if (!localStorage.getItem("previewResponse")) {
+          localStorage.setItem(
+            "previewResponse",
+            JSON.stringify(proprties.res)
+          );
+        }
         if (
           button["modal"].message.includes("$" + button.modal["bodyVal"][i])
         ) {
@@ -607,6 +612,7 @@ export class TablesComponent implements OnInit {
       this.confirmModal,
       this.currentItem,
     ]);
+    localStorage.removeItem("previewResponse");
     this.confirmModalService.showModal(); // Pass updated data
   }
 }
