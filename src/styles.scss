@@ -1448,8 +1448,8 @@ textarea.jsoneditor-text {
 }
 
 .dsn-g-btn {
-  background: #366746 !important;
-  border-color: #366746 !important;
+  background: var(--secondarybgColor);
+  border-color: var(--secondarybgColor);
   color: #fff !important;
 }
 
@@ -2003,4 +2003,8 @@ textarea.jsoneditor-text {
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: default;
+}
+
+.fa.fa-sign-out:before {
+  color: #fff;
 }

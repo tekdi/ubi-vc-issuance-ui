@@ -2,19 +2,16 @@
   position: fixed;
   top: 30px;
   left: 0px;
-  width: 255px;
+  width: 250px;
   height: 80vh;
-  background-color: #ffff;
+  background-color: #06164B;
   // box-shadow: 2px 0 5px rgba(0,0,0,0.1);
 
   .app-icon {
     margin-left: 23px !important;
+    color: #fff;
+    font-size: 22px;
   }
-}
-
-.app-icon img {
-  display: block;
-  margin-bottom: 20px;
 }
 
 ul {
@@ -62,4 +59,9 @@ a:hover {
   line-height: 24px;
   font-weight: 500;
   font-family: 'Poppins', sans-serif;
+  color: #fff;
+}
+
+.app-icon h3 {
+  color: #fff;
 }
