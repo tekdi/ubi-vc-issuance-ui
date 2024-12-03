@@ -31,7 +31,7 @@ export class DownloadcertificateComponent implements OnInit {
     ? localStorage.getItem("schoolId")
     : localStorage.getItem("selectedItem");
   subHeaderTitle = localStorage.getItem("subHeaderTitle");
-
+  currentSchoolId = localStorage.getItem("currentSchoolId") || "";
   // Table schema for rendering the certificate list
   tableSchema = {
     fields: [
@@ -106,6 +106,7 @@ export class DownloadcertificateComponent implements OnInit {
       limit: 1000,
       filters: {
         status: { eq: "issued" },
+        schoolId: { eq: this.currentSchoolId },
       },
     };
 
@@ -151,8 +152,7 @@ export class DownloadcertificateComponent implements OnInit {
 
   onDownloadAllIssuedCertificates(): void {
     const doctype = this.selectedCourse || "marksheet";
-    const apiUrl = `api/inspector/downloadCSV/${doctype}`;
-
+    const apiUrl = `api/inspector/downloadCSV/${doctype}/${this.currentSchoolId}`;
     this.httpClient.get(apiUrl, { responseType: "blob" }).subscribe(
       (response: Blob) => {
         const blobUrl = window.URL.createObjectURL(response);

@@ -9,10 +9,15 @@
         "title": "School",
         "checkStatus": true,
         "call": "post",
+        "currentSchoolId": "currentSchoolId",
         "body": {
           "offset": 0,
           "limit": 10,
-          "filters": {}
+          "filters": {
+            "schoolId": {
+              "eq": "$currentSchoolId"
+            }
+          }
         },
         "menuFilter": {
           "opt": "contains",
@@ -52,10 +57,15 @@
         "title": "School",
         "checkStatus": true,
         "call": "post",
+        "currentSchoolId": "currentSchoolId",
         "body": {
           "offset": 0,
           "limit": 1000,
-          "filters": {}
+          "filters": {
+            "schoolId": {
+              "eq": "$currentSchoolId"
+            }
+          }
         },
         "menuFilter": {
           "opt": "contains",
