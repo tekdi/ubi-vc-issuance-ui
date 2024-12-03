@@ -258,6 +258,14 @@ export class TablesComponent implements OnInit {
       );
     }
 
+    if (this.tableSchema.currentSchoolId) {
+      await this.replacePlaceholders(
+        this.tableSchema.body,
+        "$" + this.tableSchema.currentSchoolId,
+        localStorage.getItem("currentSchoolId")
+      );
+    }
+
     if (this.tableSchema.getFromStoreVal) {
       await this.replacePlaceholders(
         this.tableSchema.body,

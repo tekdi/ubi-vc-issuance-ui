@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
   logingUserRes: any;
   ssid: string;
   jssid: string;
+  currentSchoolId: string;
 
   constructor(
     private config: AppConfig,
@@ -79,6 +80,10 @@ export class AppComponent implements OnInit {
             localStorage.setItem("jssid", this.jssid);
             localStorage.setItem("ssid", this.ssid);
             localStorage.setItem("entity", this.entityName);
+            localStorage.setItem(
+              "currentSchoolId",
+              this.logingUserRes.schoolId
+            );
 
             this.schemaService.getMenuJSON().subscribe(async (menusSchema) => {
               var filtered = menusSchema.menus.filter((obj) => {
