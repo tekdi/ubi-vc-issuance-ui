@@ -1,6 +1,9 @@
 name: DEV EC2 Deployment on the Piramal-OU Tekdi
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   deploy_Dev_Issuer:
