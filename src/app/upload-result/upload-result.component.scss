@@ -5,15 +5,9 @@
 }
 
 .bordered-box {
-  border: 1px solid #bdbdbd;
-  background-color: #f1f5f8;
-  margin: 30px 70px !important;
   padding-bottom: 0px !important;
 }
 
-.dotted-box {
-  border: 3px dashed #366746;
-}
 
 .file-upload1 i {
   color: #333;
@@ -37,7 +31,7 @@
 }
 
 .drag-drop {
-  border: 2px dashed #366746;
+  border: 2px dashed #000;
   border-radius: 10px;
   text-align: center;
   padding: 20px;
