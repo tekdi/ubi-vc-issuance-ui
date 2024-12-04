@@ -2,6 +2,7 @@
   "environment": "development",
   "keycloak": {
     "url": "https://dev-uba-registry.tekdinext.com/auth/",
+
     "clientId": "registry-frontend",
     "realm": "sunbird-rc"
   },
@@ -10,7 +11,7 @@
   "title": "UBI VC Issuance",
   "rcBaseUrl": "/registry/api/v1",
   "schemaUrl": "/registry/api/docs/swagger.json",
-  "footerText": "Supported by Bill & Melinda Gates",
+  "footerText": "Supported by Piramal Foundation",
   "languages": ["en", "hi"],
   "appType": "attestation",
   "default_theme": {
