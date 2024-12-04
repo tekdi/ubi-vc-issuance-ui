@@ -1,6 +1,7 @@
 .subheader {
   position: fixed;
-  top: 65px; /* Height of header */
+  top: 65px;
+  /* Height of header */
   left: 290px;
   width: calc(100% - 290px);
   padding: 10px;
@@ -44,6 +45,10 @@
   font-size: 14px !important;
   line-height: 16px !important;
   font-weight: 400 !important;
+}
+
+.actions .btn:hover {
+  background: var(--secondarybgColor);
 }
 
 .btn-view-profile,
