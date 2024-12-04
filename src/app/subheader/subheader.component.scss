@@ -1,6 +1,6 @@
 .subheader {
   position: fixed;
-  top: 65px;
+  top: 50px;
   /* Height of header */
   left: 290px;
   width: calc(100% - 290px);
@@ -41,7 +41,7 @@
 .actions .btn {
   display: flex;
   align-items: center;
-  font-family: 'Rubik', sans-serif !important;
+  font-family: "Poppins", sans-serif;
   font-size: 14px !important;
   line-height: 16px !important;
   font-weight: 400 !important;
