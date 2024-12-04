@@ -42,6 +42,7 @@ export class VcApprovedListComponent implements OnInit {
   vcOsid: any;
   certid;
   middleUrl = environment.baseUrl;
+  currentSchoolId = localStorage.getItem("currentSchoolId") || "";
 
   // Table schema for rendering the certificate list
   tableSchema = {
@@ -112,6 +113,7 @@ export class VcApprovedListComponent implements OnInit {
       limit: 1000,
       filters: {
         status: { eq: "issued" },
+        schoolId: { eq: this.currentSchoolId },
       },
     };
 
