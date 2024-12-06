@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
 import { DataService } from "../data/data-request.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable, Subscriber } from "rxjs";
+import { Observable} from "rxjs";
 import { AppConfig } from "src/app/app.config";
 import { TranslateService } from "@ngx-translate/core";
 import { map } from "rxjs/operators";
 import { LoadingService } from "../../loader/loading.service";
 import { loadGapiInsideDOM, gapi } from "gapi-script";
 import { environment } from "src/environments/environment";
-declare var FB: any;
+declare let FB: any;
 @Injectable({
   providedIn: "root",
 })
@@ -33,7 +33,7 @@ export class GeneralService {
   ) {}
 
   postData(apiUrl, data, outside: boolean = false, middleUrl = false) {
-    var url;
+    let url;
 
     if (middleUrl) {
       url = `${this.middleUrl}/${apiUrl}`;
@@ -65,7 +65,7 @@ export class GeneralService {
     wHeader: any = null,
     middleUrl = false
   ) {
-    var url;
+    let url;
     if (middleUrl) {
       url = `${this.middleUrl}/${apiUrl}`;
     } else if (outside) {
@@ -85,7 +85,7 @@ export class GeneralService {
   }
 
   getPrefillData(apiUrl) {
-    var url = apiUrl;
+    let url = apiUrl;
     let headers = new HttpHeaders();
     url.replace("//", "/");
     const req = {
@@ -107,7 +107,7 @@ export class GeneralService {
   }
 
   putData(apiUrl, id, data) {
-    var url;
+    let url;
     if (apiUrl.charAt(0) == "/") {
       url = `${this.baseUrl}${apiUrl}/${id}`;
     } else {
@@ -168,7 +168,7 @@ export class GeneralService {
             type: "application/pdf", // must match the Accept type
             // type: 'application/octet-stream' // for excel
           });
-          var link = document.createElement("a");
+          let link = document.createElement("a");
           link.href = window.URL.createObjectURL(blob);
 
           window.open(link.href, "_blank");
@@ -232,7 +232,7 @@ export class GeneralService {
           function (response) {
             console.log(response);
             if (response.authResponse) {
-              var accessToken = response.authResponse.accessToken;
+              let accessToken = response.authResponse.accessToken;
               console.log(accessToken);
               FB.api("/me/accounts", function (pageRes) {
                 console.log("Page List:", pageRes);
@@ -564,7 +564,7 @@ export class GeneralService {
   }
 
   delete(apiUrl, outside: boolean = false, wHeader: any = null) {
-    var url;
+    let url;
     if (outside) {
       url = apiUrl;
     } else {

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 
-declare var bootstrap: any;
+declare const bootstrap: any;
 
 @Injectable({
   providedIn: "root",
@@ -43,7 +43,6 @@ export class ConfirmModalService {
   }
 
   updateModalData(data: any) {
-
-    this.modalDataSubject.next(data);  // Emit new modal data to subscribers
+    this.modalDataSubject.next(data); // Emit new modal data to subscribers
   }
 }

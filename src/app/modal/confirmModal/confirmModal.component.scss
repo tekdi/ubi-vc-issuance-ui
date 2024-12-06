@@ -1,13 +1,13 @@
 .modal-header,
 .modal-footer,
 .modal-body {
-  border: none; /* Removes borders around the modal sections */
+  border: none;
+  /* Removes borders around the modal sections */
 }
 
 .dotted-box {
-  border: 1px dashed #828282;
-  padding: 60px;
-  font-family: 'Nunito Sans', sans-serif;
+  padding: 40px;
+  font-family: "Poppins", sans-serif;
 }
 
 .bordered-box {
@@ -32,10 +32,6 @@
   .modal-title {
     margin-bottom: 33px;
   }
-
-  .modal-body {
-    margin-bottom: 29px;
-  }
 }
 
 .modalHeader {
@@ -46,5 +42,5 @@
 }
 
 .modalContentWrapper {
-  padding: 31px 0px;
+  padding: 15px 0px;
 }

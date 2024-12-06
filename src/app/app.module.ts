@@ -194,7 +194,7 @@ import { LoaderComponent } from "./loader/loader.component";
 import { DownloadSampleComponent } from "./download-sample/download-sample.component";
 import { LinkedinCallbackComponent } from "./linkedin-callback/linkedin-callback.component";
 import { DownloadcertificateComponent } from "./download-certificate/downloadcertificate.component";
-import { VcApprovedListComponent } from './vc-approved-list/vc-approved-list.component';
+import { VcApprovedListComponent } from "./vc-approved-list/vc-approved-list.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -381,7 +381,7 @@ export class AppModule {
   constructor(translate: TranslateService, authConfig: AuthConfigService) {
     authConfig.getConfig().subscribe((config) => {
       this.languages = config.languages;
-      var installed_languages = [];
+      let installed_languages = [];
 
       for (let i = 0; i < this.languages.length; i++) {
         installed_languages.push({

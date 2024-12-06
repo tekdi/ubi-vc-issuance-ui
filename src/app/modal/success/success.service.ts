@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 
-declare var bootstrap: any; // Declare bootstrap for global use
+declare const bootstrap: any; // Declare bootstrap for global use
 
 @Injectable({
   providedIn: "root",
