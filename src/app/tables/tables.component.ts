@@ -5,11 +5,9 @@ import { SchemaService } from "../services/data/schema.service";
 import { GeneralService } from "../services/general/general.service";
 import { SuccessModalService } from "../modal/success/success.service";
 import { ConfirmModalService } from "../modal/confirmModal/confirmModal.service";
-// import * as TableSchemas from './tables.json'
 import { SharedDataService } from "../subheader/shared-data.service";
 import { Location } from "@angular/common";
 import { LoadingService } from "../loader/loading.service";
-import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-tables",
@@ -83,11 +81,11 @@ export class TablesComponent implements OnInit {
     this.activatedRoute.url.subscribe((url) => {
       this.fullUrl = this.router.url;
     });
-    // console.log(environment.CLIENT_ID); //kpet it for checking
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
     this.sharedDataService.approveCertificate$.subscribe(() => {
       this.confirmModalFun(this.selectbutton, 1, this.selectButtonData);
     });
+
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     var tab_url = this.router.url;
     this.route.params.subscribe(async (params) => {

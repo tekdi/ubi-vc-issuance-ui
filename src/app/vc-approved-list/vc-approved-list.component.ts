@@ -1,20 +1,17 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 
 import { ConfirmModalService } from "../modal/confirmModal/confirmModal.service";
 import { GeneralService } from "src/app/services/general/general.service";
 import { DataService } from "src/app/services/data/data-request.service";
 import { CsvService } from "src/app/services/csv/csv.service";
-import { AppConfig } from "src/app/app.config";
 import { LoadingService } from "../loader/loading.service";
 import { SharedDataService } from "../subheader/shared-data.service";
 import { ToastMessageService } from "../services/toast-message/toast-message.service";
 import { Observable } from "rxjs";
-declare var bootstrap: any;
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { map } from "rxjs/operators";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: "app-vc-approved-list",

@@ -97,12 +97,17 @@ export class AddDocumentComponent implements OnInit {
     let text: string = "";
     const possibleText: string =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    // Create a secure random array of 5 bytes
+    const randomValues = new Uint8Array(5);
+    window.crypto.getRandomValues(randomValues);
+
+    // Convert each byte to a character
     for (let i = 0; i < 5; i++) {
-      text += possibleText.charAt(
-        Math.floor(Math.random() * possibleText.length)
-      );
+      text += possibleText.charAt(randomValues[i] % possibleText.length);
     }
-    // Replace extension according to your media type like this
+
+    // Return the name with the secure random string
     return date + "." + text + ".jpeg";
   }
 

@@ -57,7 +57,6 @@ import { DocumentsComponent } from "./documents/documents.component";
 import { AddDocumentComponent } from "./documents/add-document/add-document.component";
 import { WebcamModule } from "ngx-webcam";
 import { ScanDocumentComponent } from "./documents/scan-document/scan-document.component";
-import { ScanQrCodeComponent } from "./documents/scan-qr-code/scan-qr-code.component";
 import { QuarModule } from "@altack/quar";
 import { BrowseDocumentsComponent } from "./documents/browse-documents/browse-documents.component";
 import { MenuComponent } from "../app/menu/menu.component";
@@ -176,7 +175,6 @@ import { VerifyIndentityCode } from "./forms/types/verify-identity-no.type";
 import { DashboardComponent } from "./issure/dashboard/dashboard.component";
 import { GetRecordsComponent } from "./issure/get-records/get-records.component";
 import { AddRecordsComponent } from "./issure/add-records/add-records.component";
-import { GraphDashboardComponent } from "./graph-dashboard/graph-dashboard.component";
 import { PreviewHtmlComponent } from "./issure/preview-html/preview-html.component";
 // import { CreateCertificateComponent } from './create-certificate/create-certificate.component';
 import { NgJsonEditorModule } from "ang-jsoneditor";
@@ -226,13 +224,11 @@ import { VcApprovedListComponent } from "./vc-approved-list/vc-approved-list.com
     DocumentsComponent,
     AddDocumentComponent,
     ScanDocumentComponent,
-    ScanQrCodeComponent,
     BrowseDocumentsComponent,
     AuthImagePipe,
     DashboardComponent,
     GetRecordsComponent,
     AddRecordsComponent,
-    GraphDashboardComponent,
     PreviewHtmlComponent,
     BulkRecordsComponent,
     VerifyCertificateComponent,
