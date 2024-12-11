@@ -57,7 +57,6 @@ import { DocumentsComponent } from "./documents/documents.component";
 import { AddDocumentComponent } from "./documents/add-document/add-document.component";
 import { WebcamModule } from "ngx-webcam";
 import { ScanDocumentComponent } from "./documents/scan-document/scan-document.component";
-import { ScanQrCodeComponent } from "./documents/scan-qr-code/scan-qr-code.component";
 import { QuarModule } from "@altack/quar";
 import { BrowseDocumentsComponent } from "./documents/browse-documents/browse-documents.component";
 import { MenuComponent } from "../app/menu/menu.component";
@@ -176,7 +175,6 @@ import { VerifyIndentityCode } from "./forms/types/verify-identity-no.type";
 import { DashboardComponent } from "./issure/dashboard/dashboard.component";
 import { GetRecordsComponent } from "./issure/get-records/get-records.component";
 import { AddRecordsComponent } from "./issure/add-records/add-records.component";
-import { GraphDashboardComponent } from "./graph-dashboard/graph-dashboard.component";
 import { PreviewHtmlComponent } from "./issure/preview-html/preview-html.component";
 // import { CreateCertificateComponent } from './create-certificate/create-certificate.component';
 import { NgJsonEditorModule } from "ang-jsoneditor";
@@ -194,7 +192,7 @@ import { LoaderComponent } from "./loader/loader.component";
 import { DownloadSampleComponent } from "./download-sample/download-sample.component";
 import { LinkedinCallbackComponent } from "./linkedin-callback/linkedin-callback.component";
 import { DownloadcertificateComponent } from "./download-certificate/downloadcertificate.component";
-import { VcApprovedListComponent } from './vc-approved-list/vc-approved-list.component';
+import { VcApprovedListComponent } from "./vc-approved-list/vc-approved-list.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -226,13 +224,11 @@ import { VcApprovedListComponent } from './vc-approved-list/vc-approved-list.com
     DocumentsComponent,
     AddDocumentComponent,
     ScanDocumentComponent,
-    ScanQrCodeComponent,
     BrowseDocumentsComponent,
     AuthImagePipe,
     DashboardComponent,
     GetRecordsComponent,
     AddRecordsComponent,
-    GraphDashboardComponent,
     PreviewHtmlComponent,
     BulkRecordsComponent,
     VerifyCertificateComponent,
@@ -381,7 +377,7 @@ export class AppModule {
   constructor(translate: TranslateService, authConfig: AuthConfigService) {
     authConfig.getConfig().subscribe((config) => {
       this.languages = config.languages;
-      var installed_languages = [];
+      let installed_languages = [];
 
       for (let i = 0; i < this.languages.length; i++) {
         installed_languages.push({

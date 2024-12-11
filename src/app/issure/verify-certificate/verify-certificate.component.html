@@ -12,10 +12,6 @@
             <span class="mt-2" (click)="openScanner();"><a class="titleClr-g">Scan QR code </a> to verify</span>
             <br />
           </div>
-          <!-- <div *ngIf="verifyService?.scannerEnabled" id="vcSpinner">
-            <zxing-scanner (scanSuccess)="scanHandler($event)" class="vc-scanW"> </zxing-scanner>
-          </div> -->
-
         </div>
         <input type="file" #fileInput (change)="onFileSelected($event)" class="d-none">
       </div>
@@ -45,7 +41,7 @@
         <div class="modal-content pt-4">
 
           <div class="modal-body d-flex flex-column justify-content-center align-items-center text-center">
-            <img width="50" src="assets/images/success.png" /> <br />
+            <img width="50" src="assets/images/success.png" alt="success" /> <br />
             <p class="fs-18">Certificate Successfully Verified</p>
 
             <!-- <p class="fs-18">Detail View</p> -->
