@@ -9,10 +9,10 @@
     <div *ngIf="!confirmToupload" class="modal-content">
       <div class="d-flex flex-column align-items-center justify-content-center p-0">
         <div *ngIf="!uploadComplete" class="d-flex w-100">
-          <div class="bg-container rounded d-flex">
+          <div class="rounded d-flex">
             <div class="bordered-box p-4 mx-4 rounded w-100 pb-0">
               <div>
-                <label class="fs-16 lh-22 fw-bold text-primary-color mb-25">Upload Certificate</label>
+                <label class="fs-16 lh-22 fw-bold mb-25">Upload Certificate</label>
                 <img src="assets/images/cross.png" alt="Close" data-bs-dismiss="modal"
                   class="close-icon tn-close float-end mr-2" (click)="onCancel()" />
 
@@ -79,12 +79,11 @@
 
                 <div class="mt-2">
                   <input type="file" accept=".csv" #fileInput (change)="onFileSelected($event)" class="d-none" />
-                  <button [disabled]="!selectedFile || isUploading" class="btn btn-primary mt-2 fs-14 w-100"
+                  <button [disabled]="!selectedFile || isUploading" class="btn btn-primary mt-4 fs-14 w-100"
                     (click)="validateAndUpload()">
                     Upload File</button><br />
-                  <p class="my-4 text-center fs-14" data-bs-dismiss="modal" (click)="onCancel()">
-                    Cancel
-                  </p>
+                  <button type="button" class="w-100 btn fs-16 mb-4 lh-22 fw-700 mt-4" data-bs-dismiss="modal"
+                    (click)="onCancel()"> Cancel </button>
                 </div>
               </div>
             </div>
@@ -137,7 +136,7 @@
         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
       </div>
 
-      <div class="m-4 p-3 bordered-box">
+      <div class="m-4 p-3">
         <h5 class="modal-title fs-16 m-3 fw-700" [ngClass]="cmodalInfo?.titleCss" *ngIf="cmodalInfo?.title"
           id="modalTitle">
           {{ cmodalInfo?.title }}
