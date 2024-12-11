@@ -35,7 +35,7 @@
                                 class="nav-link  p14 {{header?.className}}  {{header?.activeTab}}"
                                 [routerLink]="[header.redirectTo]">{{header?.title | translate}}</a>
                             <a *ngIf="header?.image" class="nav-link" [routerLink]="[header.redirectTo]">
-                                <img style="width: 25px;" src={{header?.image}} alt="header image" />
+                                <img style="width: 25px;" src={{header?.image}} alt="header" />
                             </a>
                             <a *ngIf="header?.icon" class="nav-link" [routerLink]="[header.redirectTo]">
                                 <i style="font-size: 25px;" class="{{header?.icon}}" aria-hidden="true"></i>
@@ -64,7 +64,7 @@
                                 [routerLink]="[header.redirectTo]">{{header?.title | translate}} </a>
 
                             <a *ngIf="header?.image" class="nav-link" [routerLink]="[header.redirectTo]">
-                                <img style="width: 25px;" src={{header?.image}} alt="header image" />
+                                <img style="width: 25px;" src={{header?.image}} alt="header" />
                             </a>
                             <a *ngIf="header?.icon" class="nav-link" [routerLink]="[header.redirectTo]">
                                 <i style="font-size: 25px;" class="{{header?.icon}}" aria-hidden="true"></i>

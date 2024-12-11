@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { GeneralService } from "src/app/services/general/general.service";
-declare var grapesjs: any;
+declare let grapesjs: any;
 import "grapesjs-preset-webpage";
 import { JsonEditorComponent, JsonEditorOptions } from "ang-jsoneditor";
 import { ToastMessageService } from "src/app/services/toast-message/toast-message.service";
@@ -130,7 +130,7 @@ export class PreviewHtmlComponent implements OnInit {
   grapesJSDefine() {
     this.editor = this.initializeEditor();
     this.editor.on("load", () => {
-      var panelManager = this.editor.Panels;
+      let panelManager = this.editor.Panels;
 
       panelManager.removePanel("devices-c");
       panelManager.removeButton("options", "gjs-toggle-images");
@@ -151,7 +151,7 @@ export class PreviewHtmlComponent implements OnInit {
 
     // This will execute once asset manager will be open
     this.editor.on("run:select-assets", function () {
-      var dateNow = "img-" + Date.now();
+      let dateNow = "img-" + Date.now();
 
       // Using below line i am changing the id of img tag on which user has clicked.
       this.editor.getSelected().setId(dateNow);
@@ -210,25 +210,6 @@ export class PreviewHtmlComponent implements OnInit {
         run: function (editor) {
           if (editPanel == null) {
             const editMenuDiv = document.createElement("div");
-
-            const arr = [
-              "alpha",
-              "bravo",
-              "charlie",
-              "delta",
-              "echo",
-              "alpha",
-              "bravo",
-              "charlie",
-              "delta",
-              "echo",
-              "alpha",
-              "bravo",
-              "charlie",
-              "delta",
-              "echo",
-            ];
-
             const cardDiv = document.createElement("div");
             cardDiv.className = "pcard p-3";
             cardDiv.setAttribute("style", "text-align: left; color:white");
@@ -452,13 +433,13 @@ export class PreviewHtmlComponent implements OnInit {
   }
 
   stringToHTML(str) {
-    var parser = new DOMParser();
-    var doc = parser.parseFromString(str, "text/html");
+    let parser = new DOMParser();
+    let doc = parser.parseFromString(str, "text/html");
     return doc.body;
   }
 
   replaceAll(str, find, replace) {
-    var escapedFind = find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+    let escapedFind = find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
     return str.replace(new RegExp(escapedFind, "g"), replace);
   }
 
@@ -572,14 +553,14 @@ export class PreviewHtmlComponent implements OnInit {
     //   this.getCrtTempFields(this.schemaContent)
     // }
 
-    var htmlWithCss = this.editor.runCommand("gjs-get-inlined-html");
+    let htmlWithCss = this.editor.runCommand("gjs-get-inlined-html");
 
-    var parser = new DOMParser();
-    var htmlDoc = parser.parseFromString(htmlWithCss, "text/html");
+    let parser = new DOMParser();
+    let htmlDoc = parser.parseFromString(htmlWithCss, "text/html");
     this.userHtml = htmlDoc.documentElement.innerHTML;
 
     // Creating a file object with some content
-    var fileObj = new File(
+    let fileObj = new File(
       [this.userHtml],
       this.templateName.replace(/\s+/g, "") + ".html"
     );
@@ -648,15 +629,15 @@ export class PreviewHtmlComponent implements OnInit {
   }
 
   showPopup() {
-    var htmlWithCss = this.editor.runCommand("gjs-get-inlined-html");
+    let htmlWithCss = this.editor.runCommand("gjs-get-inlined-html");
 
-    var parser = new DOMParser();
-    var htmlDoc = parser.parseFromString(htmlWithCss, "text/html");
+    let parser = new DOMParser();
+    let htmlDoc = parser.parseFromString(htmlWithCss, "text/html");
     this.userHtml = htmlDoc.documentElement.innerHTML;
 
     this.iscredentialSubAdd = this.userHtml.includes("credentialSubject");
 
-    var button = document.createElement("button");
+    let button = document.createElement("button");
     button.setAttribute("data-toggle", "modal");
     button.setAttribute("data-target", `#saveDocumentData`);
     document.body.appendChild(button);
@@ -669,7 +650,7 @@ export class PreviewHtmlComponent implements OnInit {
       "iframe2"
     ) as HTMLIFrameElement;
 
-    var iframedoc;
+    let iframedoc;
     if (iframe.contentDocument) iframedoc = iframe.contentDocument;
     else if (iframe.contentWindow) iframedoc = iframe.contentWindow.document;
 

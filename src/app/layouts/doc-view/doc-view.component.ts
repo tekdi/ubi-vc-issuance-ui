@@ -1,7 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Pipe, PipeTransform } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { environment } from "src/environments/environment";
-import { Pipe, PipeTransform } from "@angular/core";
 import { GeneralService } from "src/app/services/general/general.service";
 import { KeycloakService } from "keycloak-angular";
 import { AppConfig } from "src/app/app.config";
