@@ -582,25 +582,14 @@ export class GeneralService {
   }
 
   formatDate(value: Date): string {
-    // Create a new Date object for the provided value
     const date = new Date(value);
-
-    // Convert the date to IST (UTC +5:30)
-    const offset = 5.5 * 60; // IST is UTC +5:30, i.e., 330 minutes
-    const localDate = new Date(date.getTime() + offset * 60 * 1000); // Add the offset to the original date
-
-    // Extract the components of the IST date
-    const dd = String(localDate.getDate()).padStart(2, "0");
-    const mm = String(localDate.getMonth() + 1).padStart(2, "0");
-    const yyyy = localDate.getFullYear();
-    let hh = localDate.getHours();
-    const min = String(localDate.getMinutes()).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const yyyy = date.getFullYear();
+    let hh = date.getHours();
+    const min = String(date.getMinutes()).padStart(2, "0");
     const ampm = hh >= 12 ? "PM" : "AM";
-
-    // Convert the hour to 12-hour format
     hh = hh % 12 || 12;
-
-    // Return the formatted date and time in the format: dd:mm:yyyy hh:mm AM/PM
-    return `${dd}:${mm}:${yyyy} ${hh}:${min} ${ampm}`;
+    return `${dd}-${mm}-${yyyy} ${hh}:${min} ${ampm}`;
   }
 }

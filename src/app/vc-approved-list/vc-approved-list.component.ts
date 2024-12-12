@@ -50,7 +50,7 @@ export class VcApprovedListComponent implements OnInit {
       { key: "certificateNo", label: "Certificate No." },
       {
         key: "issuanceDate",
-        label: "Issued Date & Time (IST)",
+        label: "Issued Date & Time",
         formatter: this.generalService.formatDate,
       },
       { key: "status", label: "Status" },

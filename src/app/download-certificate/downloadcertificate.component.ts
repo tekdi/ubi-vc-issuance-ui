@@ -43,7 +43,7 @@ export class DownloadcertificateComponent implements OnInit {
       { key: "status", label: "Status" },
       {
         key: "issuanceDate",
-        label: "Issued Date & Time (IST)",
+        label: "Issued Date & Time",
         formatter: this.generalService.formatDate,
       },
       {
