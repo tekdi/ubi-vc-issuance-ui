@@ -22,16 +22,24 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of certificateList">
+                <!-- Paginated table content -->
+                <tr *ngFor="let item of certificateList | paginate: { itemsPerPage: limit, currentPage: page }">
                     <ng-container *ngFor="let field of tableSchema?.fields">
                         <td *ngIf="!field.type || field.type !== 'button'; else buttonCell">
-                            {{ item[field.key] }}
+                            <ng-container *ngIf="field.formatter; else rawValue">
+                                {{ field.formatter(item[field.key]) }}
+                            </ng-container>
+                            <ng-template #rawValue>
+                                {{ item[field.key] }}
+                            </ng-template>
                         </td>
                     </ng-container>
                 </tr>
             </tbody>
         </table>
-
+        <pagination-controls *ngIf="certificateList.length > 0" class="my-4 text-center paginationWrapper"
+            (pageChange)="page = $event" previousLabel="{{'PREVIOUS' | translate}}" nextLabel="{{'NEXT' | translate}}">
+        </pagination-controls>
         <!-- Table to show "No Records Found" -->
         <table class="text-center w-100 mt-250" *ngIf="certificateList.length === 0">
             <tbody class="fs-5">
