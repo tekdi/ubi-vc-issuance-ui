@@ -118,8 +118,18 @@
   color: var(--primaryTextColor) !important;
 }
 
+.table {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: var(--bodyBackground) !important;
+}
+
+table h2 {
+  font-size: 20px;
+  text-align: center;
+  color: #000000;
 }
 
 .btn-success {
@@ -139,7 +149,7 @@
 }
 
 .ngx-pagination .current {
-  background: var(--primaryColor) !important;
+  background: #484848 !important;
   border-radius: 4px;
   padding: 6px 14px !important;
 }
@@ -269,7 +279,7 @@ form-group {
 // }
 .form-group label {
   // font-size: 12px;
-  font-family: Manrope;
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
   font-weight: 700;
   line-height: 21.86px;
@@ -364,7 +374,7 @@ body {
 }
 
 body {
-  font-family: 'Inter', sans-serif !important;
+  font-family: "Poppins", sans-serif;
   color: rgb(0, 0, 0);
   background: var(--bodyBackground) !important;
 }
@@ -542,7 +552,7 @@ button.calendar:active {
 
 .content-body {
   margin-left: 290px;
-  margin-top: 150px;
+  margin-top: 110px;
   padding: 20px 20px 20px 0;
 }
 
@@ -590,7 +600,7 @@ formly-field {
   color: blue;
   cursor: pointer;
   display: inline-block;
-  font-family: 'Rubik', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: inherit;
   font-weight: 500;
   margin-bottom: 1rem;
@@ -605,7 +615,7 @@ formly-field {
 
   #custom-text {
     margin-left: 10px;
-    font-family: sans-serif;
+    font-family: "Poppins", sans-serif;
     color: #aaa;
   }
 }
@@ -699,6 +709,7 @@ formly-autocomplete-type .ng-select {
   left: 0;
   text-align: center;
   margin: 0 auto;
+  font-family: "Poppins", sans-serif;
 }
 
 /* MM */
@@ -751,9 +762,11 @@ formly-autocomplete-type .ng-select {
 /* Button */
 
 .btn {
-  border-radius: 5px !important;
+  border-radius: 25px !important;
   text-transform: capitalize !important;
-  box-shadow: none !important;
+  padding: 8px 20px !important;
+  font-size: 14px;
+  font-weight: 400 !important;
 }
 
 .btn-size {
@@ -779,8 +792,7 @@ formly-autocomplete-type .ng-select {
 .btn-primary {
   background-color: var(--secondaryColor) !important;
   border-color: var(--secondaryColor) !important;
-  width: 423px;
-  height: 60px;
+  height: 50px;
   top: 1062px;
   left: 225px;
   // padding: 19px 0px 19px 0px;
@@ -954,10 +966,6 @@ label {
   background-color: var(--headerColor) !important;
 }
 
-.table td,
-.table th {
-  color: var(--primaryTextColor);
-}
 
 a,
 li {
@@ -1005,10 +1013,6 @@ li {
   border-radius: 4px;
   height: 141px;
   width: 326px;
-  left: 0px;
-  top: 0px;
-  border-radius: 4px;
-  min-width: 300px !important;
 }
 
 formly-field formly-object-type p {
@@ -1417,7 +1421,6 @@ textarea.jsoneditor-text {
 }
 
 .table-container {
-  background-color: #f1f5f8;
   padding: 18px;
   border-radius: 10px;
   // min-height: 500px !important;
@@ -1452,29 +1455,22 @@ textarea.jsoneditor-text {
 }
 
 .dsn-g-btn {
-  background: #366746 !important;
-  border-color: #366746 !important;
+  background: var(--secondarybgColor);
+  border-color: var(--secondarybgColor);
   color: #fff !important;
-}
-
-.titleClr-g {
-  color: #366746 !important;
 }
 
 .dsn-sb-btn {
-  background: #8fb7c1 !important;
-  color: #535875 !important;
+  background: #E7EBEF !important;
+  color: #3A3B43 !important;
 }
 
 .dsn-r-btn {
-  background: #ee7272 !important;
-  border-color: #ee7272 !important;
+  background: #8C1823 !important;
+  border-color: #8C1823 !important;
   color: #fff !important;
 }
 
-.titleClr-r {
-  color: #ee7272 !important;
-}
 
 .dsn-m-btn {
   background: #800000 !important;
@@ -1636,6 +1632,10 @@ textarea.jsoneditor-text {
   margin-top: 90px;
 }
 
+.mt-250 {
+  margin-top: 250px;
+}
+
 .mb-101 {
   margin-bottom: 101px;
 }
@@ -1656,10 +1656,9 @@ textarea.jsoneditor-text {
   .title {
     margin-bottom: 15px;
     font-size: 16px;
-    font-weight: 500;
-    line-height: 20px;
+    line-height: 25px;
     color: #252533;
-    font-family: 'Mulish', sans-serif;
+    font-family: "Poppins", sans-serif;
   }
 
   .desc {
@@ -1669,16 +1668,13 @@ textarea.jsoneditor-text {
     color: #92939c;
     margin-bottom: 13px;
     min-height: 50px;
-    font-family: 'Mulish', sans-serif;
+    font-family: "Poppins", sans-serif;
   }
 
   .button {
     a {
       font-size: 16px;
-      line-height: 19px;
-      font-weight: 500;
       color: var(--secondaryColor);
-      text-decoration: underline !important;
     }
   }
 }
@@ -1709,7 +1705,7 @@ textarea.jsoneditor-text {
   margin-top: 14px;
   height: 90px;
   overflow-y: scroll;
-  font-family: 'DM Sans', sans-serif;
+  font-family: "Poppins", sans-serif;
   /* Hide scrollbar for WebKit browsers */
   scrollbar-width: none;
   /* For Firefox */
@@ -1797,7 +1793,7 @@ textarea.jsoneditor-text {
 }
 
 .manRope-Font {
-  font-family: 'Manrope', sans-serif !important;
+  font-family: "Poppins", sans-serif;
 }
 
 .lh-40 {
@@ -1827,7 +1823,7 @@ textarea.jsoneditor-text {
       line-height: 21px;
       font-weight: 700;
       color: #696f79 !important;
-      font-family: 'Manrope', sans-serif;
+      font-family: "Poppins", sans-serif;
     }
   }
 
@@ -1920,19 +1916,23 @@ textarea.jsoneditor-text {
   }
 }
 
+.table>thead {
+  background-color: #DDE1FF;
+}
+
 .table thead th {
   font-size: 14px !important;
-  line-height: 16.59px;
   font-weight: 600;
-  color: #535875;
   opacity: 0.5;
+  color: #000000;
+  padding: 20px;
 }
 
 .table tbody td b {
   font-size: 14px !important;
   line-height: 16.59px !important;
   font-weight: 400 !important;
-  color: #535875 !important;
+  color: #1F1B13 !important;
 }
 
 .ngx-pagination {
@@ -1960,7 +1960,7 @@ textarea.jsoneditor-text {
 }
 
 .ff-rubik {
-  font-family: 'Rubik', sans-serif !important;
+  font-family: "Poppins", sans-serif;
 }
 
 .userCategoryTitle {
@@ -2008,4 +2008,8 @@ textarea.jsoneditor-text {
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: default;
+}
+
+.fa.fa-sign-out:before {
+  color: #fff;
 }

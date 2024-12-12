@@ -56,16 +56,9 @@ export class AppComponent implements OnInit {
       let user = this.keycloakService.getUsername();
       localStorage.setItem("loggedInUser", user);
     });
-
-    // this.ELOCKER_THEME = localStorage.getItem('ELOCKER_THEME');
-
-    // if (this.ELOCKER_THEME) {
-    //   this.themeService.setTheme(this.ELOCKER_THEME);
-    // }
   }
 
   async ngOnInit() {
-    // this.loadingService.show();
     setTimeout(() => {
       this.entityName = this.entityName
         ? this.entityName
@@ -81,7 +74,7 @@ export class AppComponent implements OnInit {
             localStorage.setItem("entity", this.entityName);
 
             this.schemaService.getMenuJSON().subscribe(async (menusSchema) => {
-              var filtered = menusSchema.menus.filter((obj) => {
+              const filtered = menusSchema.menus.filter((obj) => {
                 return Object.keys(obj)[0] === this.entityName;
               });
               this.menuJson = filtered[0][this.entityName];
@@ -97,8 +90,6 @@ export class AppComponent implements OnInit {
               if (!this.username || this.username.includes(undefined)) {
                 this.username = localStorage.getItem("loggedInUser");
               }
-              console.log(this.menuJson);
-              // this.loadingService.hide(); // Hide loader when done
             });
           }
         });

@@ -1,21 +1,20 @@
-import { Component, ElementRef, Input, NgModule, ViewChild } from '@angular/core';
-import { FieldType } from '@ngx-formly/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { GeneralService } from 'src/app/services/general/general.service';
+import { Component, ElementRef, ViewChild } from "@angular/core";
+import { FieldType } from "@ngx-formly/core";
 
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 
 @Component({
-  selector: 'formly-field-file',
+  selector: "formly-field-file",
   styleUrls: ["../forms.component.scss"],
   template: `
-      <div>
+    <div>
       <div (click)="openFileInput()">
         <div></div>
-          
-           <label class="p12 text-primary-color"> {{'UPLOAD_FILE' | translate}} </label>
-          
+
+        <label class="p12 text-primary-color">
+          {{ "UPLOAD_FILE" | translate }}
+        </label>
+
         <input
           #fileinput
           [multiple]="to.multiple"
@@ -28,24 +27,27 @@ import { DomSanitizer } from '@angular/platform-browser';
           style="visibility: hidden;"
         />
       </div>
-      <div>
-    </div>
+      <div></div>
     </div>
     <div *ngFor="let file of selectedFiles; let i = index">
-        <span class="badge badge-pill badge-primary"><i class="fa fa-paperclip" aria-hidden="true"></i> {{ file.name }}</span>
-      </div>
-    `,
+      <span class="badge badge-pill badge-primary"
+        ><i class="fa fa-paperclip" aria-hidden="true"></i>
+        {{ file.name }}</span
+      >
+    </div>
+  `,
 })
-
-
 export class FormlyFieldFile extends FieldType {
   data: any;
-  fileName = '';
-  lable = '+ Upload File';
-  color = 'blue'
-  icon = 'fa fa-plus'
+  fileName = "";
+  lable = "+ Upload File";
+  color = "blue";
+  icon = "fa fa-plus";
   @ViewChild("fileinput") el: ElementRef;
   selectedFiles: File[];
+  imageUrl: SafeUrl | null = null;
+  private objectUrl: string | null = null;
+
   constructor(public sanitizer: DomSanitizer) {
     super();
   }
@@ -68,90 +70,94 @@ export class FormlyFieldFile extends FieldType {
     this.selectedFiles = Array.from(event.target.files);
     console.log(this.selectedFiles);
   }
-  getSanitizedImageUrl(file: File) {
-    return this.sanitizer.bypassSecurityTrustUrl(
-      window.URL.createObjectURL(file)
-    );
+
+  getSanitizedImageUrl(file: File): void {
+    if (this.isValidImageFile(file)) {
+      this.objectUrl = window.URL.createObjectURL(file);
+      this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(this.objectUrl);
+    } else {
+      console.error("Invalid file type");
+    }
+  }
+  isValidImageFile(file: File): boolean {
+    const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
+    return allowedTypes.includes(file.type);
   }
   isImage(file: File): boolean {
     return /^image\//.test(file.type);
   }
+  ngOnDestroy(): void {
+    if (this.objectUrl) {
+      window.URL.revokeObjectURL(this.objectUrl);
+    }
+  }
 
   fileChanged(event: any) {
-  //   const file: File = event.target.files[0];
-
-  //   if (file) {
-  //     this.lable = 'Uploading ' + file.name
-  //     this.color = 'orange';
-  //     this.icon = 'fa fa-clock-o';
-  //     this.fileName = file.name;
-  //     const formData = new FormData();
-  //     formData.append("files", file);
-  //     var url = ['', localStorage.getItem('entity'), localStorage.getItem('osid'), localStorage.getItem('property'), 'documents']
-  //     this.generalService.postData(url.join('/'), formData).subscribe((res) => {
-  //       console.log('res', res);
-  //       var documents = [];
-  //       var documents_obj = {
-  //         "fileName": "",
-  //         "format": "file"
-  //       }
-  //       res.documentLocations.forEach(element => {
-  //         documents_obj.fileName = element;
-  //         documents.push(documents_obj);
-  //       });
-  //       localStorage.setItem('documents', JSON.stringify(documents));
-  //       this.lable = file.name
-  //       this.color = 'green';
-  //       this.icon = 'fa fa-check-circle'
-  //     }, (err) => {
-  //       this.lable = 'Something went wrong with ' + file.name
-  //     });
-  //   }
-
-  //   // if (event.target.files && event.target.files[0]) {
-  //   //   var filesAmount = event.target.files.length;
-  //   //   for (let i = 0; i < filesAmount; i++) {
-  //   //     var reader = new FileReader();
-  //   //     reader.onload = (event: any) => {
-  //   //       console.log(event.target.result);
-  //   //       this.data = event.target.result;
-  //   //       console.log(this.formControl);
-  //   //       console.log(this.field.templateOptions);
-  //   //       this.formControl.patchValue(event.target.result)
-  //   //       console.log('1', this.data);
-  //   //       var formData: FormData = new FormData();
-
-  //   //       formData.append('files', this.data);
-  //   //       console.log('Form Data', formData);
-  //   //       var url = ['', localStorage.getItem('entity'), localStorage.getItem('osid'), localStorage.getItem('property'), 'documents']
-  //   //       this.generalService.postData(url.join('/'), formData).subscribe((res) => {
-  //   //         console.log('res', res)
-  //   //         // if (res.params.status == 'SUCCESSFUL') {
-  //   //         //   console.log('res Success', res.params.status)
-  //   //         //   // this.router.navigate([this.redirectTo])
-  //   //         // }
-  //   //         // else if (res.params.errmsg != '' && res.params.status == 'UNSUCCESSFUL') {
-  //   //         //   console.log('error', res.params.errmsg)
-  //   //         // }
-  //   //       }, (err) => {
-  //   //         console.log('error2', err.error.params.errmsg)
-  //   //       });
-  //   //     }
-  //   //     reader.readAsDataURL(event.target.files[i]);
-  //   //     // this.data = event.target.result;
-
-  //   //   }
-
-  //   // }
+    //   const file: File = event.target.files[0];
+    //   if (file) {
+    //     this.lable = 'Uploading ' + file.name
+    //     this.color = 'orange';
+    //     this.icon = 'fa fa-clock-o';
+    //     this.fileName = file.name;
+    //     const formData = new FormData();
+    //     formData.append("files", file);
+    //     var url = ['', localStorage.getItem('entity'), localStorage.getItem('osid'), localStorage.getItem('property'), 'documents']
+    //     this.generalService.postData(url.join('/'), formData).subscribe((res) => {
+    //       console.log('res', res);
+    //       var documents = [];
+    //       var documents_obj = {
+    //         "fileName": "",
+    //         "format": "file"
+    //       }
+    //       res.documentLocations.forEach(element => {
+    //         documents_obj.fileName = element;
+    //         documents.push(documents_obj);
+    //       });
+    //       localStorage.setItem('documents', JSON.stringify(documents));
+    //       this.lable = file.name
+    //       this.color = 'green';
+    //       this.icon = 'fa fa-check-circle'
+    //     }, (err) => {
+    //       this.lable = 'Something went wrong with ' + file.name
+    //     });
+    //   }
+    //   // if (event.target.files && event.target.files[0]) {
+    //   //   var filesAmount = event.target.files.length;
+    //   //   for (let i = 0; i < filesAmount; i++) {
+    //   //     var reader = new FileReader();
+    //   //     reader.onload = (event: any) => {
+    //   //       console.log(event.target.result);
+    //   //       this.data = event.target.result;
+    //   //       console.log(this.formControl);
+    //   //       console.log(this.field.templateOptions);
+    //   //       this.formControl.patchValue(event.target.result)
+    //   //       console.log('1', this.data);
+    //   //       var formData: FormData = new FormData();
+    //   //       formData.append('files', this.data);
+    //   //       console.log('Form Data', formData);
+    //   //       var url = ['', localStorage.getItem('entity'), localStorage.getItem('osid'), localStorage.getItem('property'), 'documents']
+    //   //       this.generalService.postData(url.join('/'), formData).subscribe((res) => {
+    //   //         console.log('res', res)
+    //   //         // if (res.params.status == 'SUCCESSFUL') {
+    //   //         //   console.log('res Success', res.params.status)
+    //   //         //   // this.router.navigate([this.redirectTo])
+    //   //         // }
+    //   //         // else if (res.params.errmsg != '' && res.params.status == 'UNSUCCESSFUL') {
+    //   //         //   console.log('error', res.params.errmsg)
+    //   //         // }
+    //   //       }, (err) => {
+    //   //         console.log('error2', err.error.params.errmsg)
+    //   //       });
+    //   //     }
+    //   //     reader.readAsDataURL(event.target.files[i]);
+    //   //     // this.data = event.target.result;
+    //   //   }
+    //   // }
   }
 }
-  
 
-  // constructor(public generalService: GeneralService) {
-  //   super();
-  // }
-
-
- 
+// constructor(public generalService: GeneralService) {
+//   super();
+// }
 
 // }

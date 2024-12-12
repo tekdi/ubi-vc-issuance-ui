@@ -16,7 +16,6 @@ import { LogoutComponent } from "./authentication/logout/logout.component";
 import { SearchComponent } from "./discovery/search/search.component";
 import { DocumentsComponent } from "./documents/documents.component";
 import { AddDocumentComponent } from "./documents/add-document/add-document.component";
-import { ScanQrCodeComponent } from "./documents/scan-qr-code/scan-qr-code.component";
 import { BrowseDocumentsComponent } from "./documents/browse-documents/browse-documents.component";
 import { PagesComponent } from "./pages/pages.component";
 import { DocDetailViewComponent } from "./documents/doc-detail-view/doc-detail-view.component";
@@ -26,19 +25,16 @@ import { AddRecordsComponent } from "./issure/add-records/add-records.component"
 import { BulkRecordsComponent } from "./issure/bulk-records/bulk-records.component";
 import { PreviewHtmlComponent } from "./issure/preview-html/preview-html.component";
 import { PdfViewComponent } from "./issure/pdf-view/pdf-view.component";
-import { GraphDashboardComponent } from "./graph-dashboard/graph-dashboard.component";
-//import { PreviewHtmlComponent } from './issure/preview-html/preview-html.component';
 import { VerifyCertificateComponent } from "./issure/verify-certificate/verify-certificate.component";
 import { MenuComponent } from "./menu/menu.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 
 import { UploadResultCompoenent } from "../app/upload-result/upload-result.component";
 import { DownloadSampleComponent } from "./download-sample/download-sample.component";
-// import { UrlValidatorGuard } from './url-validator.guard';s
 import { LinkedinCallbackComponent } from "./linkedin-callback/linkedin-callback.component";
-// import { CreateCertificateComponent } from './create-certificate/create-certificate.component';
-// import { FaqComponent } from './custom-components/faq/faq.component';
 import { DownloadcertificateComponent } from "./download-certificate/downloadcertificate.component";
+import { VcApprovedListComponent } from "./vc-approved-list/vc-approved-list.component";
+
 const routes: Routes = [
   // Home
   { path: "", component: HomeComponent },
@@ -50,7 +46,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: "logout", component: LogoutComponent },
-  { path: "graph-dashboard", component: GraphDashboardComponent },
 
   // Forms
   { path: "form/:form", component: FormsComponent },
@@ -162,11 +157,6 @@ const routes: Routes = [
     component: AddDocumentComponent,
     canActivate: [AuthGuard],
   },
-  {
-    path: ":entity/documents/scan/vc",
-    component: ScanQrCodeComponent,
-    canActivate: [AuthGuard],
-  },
   // { path: 'document/detail', component: DocDetailViewComponent, canActivate: [AuthGuard] },
   // { path: 'document/view/:id', component: DocViewComponent, canActivate: [AuthGuard] },
   { path: "discovery", component: SearchComponent },
@@ -228,6 +218,10 @@ const routes: Routes = [
   {
     path: "download-certificate",
     component: DownloadcertificateComponent,
+  },
+  {
+    path: "vc-approved-list",
+    component: VcApprovedListComponent,
   },
 
   // Installation

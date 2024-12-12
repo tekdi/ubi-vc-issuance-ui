@@ -12,17 +12,10 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-8" *ngIf="certificateList.length > 0">
-                <button (click)="onDownloadAllIssuedCertificates()"
-                    class="float-right btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2 dsn-g-btn mb-20">
-                    Download All Issued Certificates
-                </button>
-            </div>
-
         </div>
     </div>
     <div class="table-container">
-        <table class="table" *ngIf="certificateList.length > 0">
+        <table class="table table-striped" *ngIf="certificateList.length > 0">
             <thead>
                 <tr>
                     <th *ngFor="let field of tableSchema?.fields">{{ field.label }}</th>
@@ -34,15 +27,6 @@
                         <td *ngIf="!field.type || field.type !== 'button'; else buttonCell">
                             {{ item[field.key] }}
                         </td>
-                        <ng-template #buttonCell>
-                            <div class="d-flex gap-2">
-                                <button
-                                    class="btn btn-bg btn-style text-primary-color text-end fw-bold text-capitalize dns-btn pt-2 dsn-g-btn"
-                                    *ngFor="let button of field.buttons" (click)="onDownloadButtonClick(item)">
-                                    Download
-                                </button>
-                            </div>
-                        </ng-template>
                     </ng-container>
                 </tr>
             </tbody>
@@ -51,13 +35,13 @@
         <!-- Table to show "No Records Found" -->
         <table class="text-center w-100 mt-250" *ngIf="certificateList.length === 0">
             <tbody class="fs-5">
-                <tr>
-                    <td [attr.colspan]="tableSchema?.fields?.length || 1" class="fs-20 fw-400 lh-27">
-                        <h2>{{ 'NO_RECORDS_FOUND' | translate }}</h2>
-                    </td>
-                </tr>
+                <td [attr.colspan]="tableSchema?.fields?.length || 1" class="fs-20 fw-400 lh-27">
+                    <h2>{{ 'NO_RECORDS_FOUND' | translate }}</h2>
+                </td>
             </tbody>
         </table>
+
+
     </div>
     <app-confirm-modal></app-confirm-modal>
 </div>

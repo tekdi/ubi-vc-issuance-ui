@@ -1,11 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { GeneralService } from "src/app/services/general/general.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { TranslateService } from "@ngx-translate/core";
 import { map } from "rxjs/operators";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { SafeUrl } from "@angular/platform-browser";
+import { DomSanitizer } from "@angular/platform-browser";
 import { AppConfig } from "src/app/app.config";
 declare var bootstrap: any;
 import { Location } from "@angular/common";
@@ -83,11 +82,6 @@ export class PdfViewComponent implements OnInit {
   }
 
   async ngOnInit() {
-    // if (this.vcOsid.includes('did')) {
-    //   this.injectHTML();
-    // } else {
-    //   this.getPreviewHtml();
-    // }
     this.route.params.subscribe((params) => {
       const paramKeys = Object.keys(params);
 
@@ -98,10 +92,6 @@ export class PdfViewComponent implements OnInit {
         this.injectHTML(this.vcOsid);
       }
     });
-  }
-
-  downloadPDF(fileType, tempId) {
-    // this.generalService.downloadFile(fileType, '/credentials/credentials/' + this.vcOsid, tempId, 'certificate');
   }
 
   injectHTML(cert: string) {
@@ -118,28 +108,31 @@ export class PdfViewComponent implements OnInit {
       headers: headerOptions,
       responseType: "blob" as "blob",
     };
-    // post or get depending on your requirement
 
-    // this.http.get(this.middleUrl  + '/' + this.documentName + '/' + this.vcOsid, requestOptions).pipe(map((data: any) => {
     this.http
-      .post(
-        this.middleUrl + "/api/inspector/preview",
-        {},
-        { headers: headerOptions, responseType: "blob" as "blob" }
-      )
+      .post(this.middleUrl + "/api/inspector/preview", {}, requestOptions)
       .pipe(
         map((data: any) => {
           let blob = new Blob([data], {
-            type: "application/pdf", // must match the Accept type
-            // type: 'application/octet-stream' // for excel
+            type: "application/pdf", // Ensure we are receiving a PDF
           });
 
-          this.pdfResponse = window.URL.createObjectURL(blob);
-          this.pdfResponse2 = this.sanitizer.bypassSecurityTrustResourceUrl(
-            this.pdfResponse
-          );
-          this.pdfResponse = this.readBlob(blob);
-          this.showModal();
+          // Check if the blob is of type 'application/pdf'
+          const contentType = blob.type;
+          if (contentType === "application/pdf") {
+            // Safe to proceed with the Blob URL and bypass sanitization
+            this.pdfResponse = window.URL.createObjectURL(blob);
+            this.pdfResponse2 = this.sanitizer.bypassSecurityTrustResourceUrl(
+              this.pdfResponse
+            );
+            this.pdfResponse = this.readBlob(blob);
+            this.showModal();
+          } else {
+            console.error(
+              "Received file is not a valid PDF. Type: ",
+              contentType
+            );
+          }
         })
       )
       .subscribe((result: any) => {});

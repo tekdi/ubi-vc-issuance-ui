@@ -1,6 +1,7 @@
 name: UAT EC2 Deployment on the Piramal-OU Tekdi
 
-on: [push]
+on:
+  workflow_dispatch:
 
 jobs:
   deploy_UAT_Issuer:

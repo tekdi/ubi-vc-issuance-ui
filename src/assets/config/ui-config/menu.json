@@ -79,7 +79,7 @@
             {
               "type": "button",
               "title": "Upload Certificate",
-              "icon": "fa fa-database",
+              "icon": "fa fa-upload",
               "cssClass": "dsn-g-btn ",
               "bodyVal": "*",
               "action": "redirect",
@@ -118,6 +118,12 @@
             "title": "Dashboard",
             "redirectTo": "/Inspector/list/Inspector",
             "icon": "fa fa-th-large",
+            "activeTab": "active"
+          },
+          {
+            "title": "Approved List",
+            "redirectTo": "/vc-approved-list",
+            "icon": "fa fa-check",
             "activeTab": "active"
           },
           {

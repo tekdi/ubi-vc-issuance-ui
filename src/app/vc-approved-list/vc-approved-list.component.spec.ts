@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ScanQrCodeComponent } from './scan-qr-code.component';
+import { VcApprovedListComponent } from './vc-approved-list.component';
 
-describe('ScanQrCodeComponent', () => {
-  let component: ScanQrCodeComponent;
-  let fixture: ComponentFixture<ScanQrCodeComponent>;
+describe('VcApprovedListComponent', () => {
+  let component: VcApprovedListComponent;
+  let fixture: ComponentFixture<VcApprovedListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ScanQrCodeComponent ]
+      declarations: [ VcApprovedListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ScanQrCodeComponent);
+    fixture = TestBed.createComponent(VcApprovedListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

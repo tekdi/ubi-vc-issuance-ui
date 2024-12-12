@@ -115,6 +115,8 @@ export class ConfirmModalComponent implements AfterViewInit, OnChanges, OnDestro
             console.log(this.successModalInfo);
               // this.successModalService.initializeModal('successModal');
               this.successModalService.updateModalData(this.successModalInfo);
+              console.log(this.successModalInfo);
+              
               setTimeout(() => {
                 this.successModalService.showModal();
 

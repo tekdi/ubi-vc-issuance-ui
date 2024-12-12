@@ -1,6 +1,5 @@
 {
   "LOGIN": "Login",
-
   "LOGOUT": "Logout",
   "HOME": "Home",
   "INSTITUTE": "School",
@@ -201,7 +200,7 @@
   "DOWNLOAD_NOT_UPLOADED": "Document Not Uploaded",
   "COULD_NOT_UPLOAD": "Could not upload",
   "UPLOAD_AGAIN": "Please upload again.",
-  "CV_PLATFORM": "Edo State Educational Certificate Generation and Verification Platform.",
+  "CV_PLATFORM": "Certificate Generation Platform",
   "CREACT_AN_ACCOUNT": "Create An Account",
   "PLEASE_ENTER_FOLLOWING_DETAILS": "Please enter the following details to create an account",
   "SIGNIN": " Sign in",
