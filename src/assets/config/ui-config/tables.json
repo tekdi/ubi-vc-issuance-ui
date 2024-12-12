@@ -648,6 +648,46 @@
                 "afterActionRemoveRow": true,
                 "replace": "certificateNo",
                 "redirectTo": "/pdf-view/credentials/"
+              },
+              {
+                "buttonText": "Decline",
+                "type": "button",
+                "classes": "dsn-r-btn",
+                "action": "confirmModal",
+                "modal": {
+                  "title": "Decline Result",
+                  "titleCss": "titleClr-r",
+                  "bodyVal": ["schoolName"],
+                  "message": "Confirm you are declining result for $schoolName",
+                  "buttons": [
+                    {
+                      "title": "Yes",
+                      "classes": "btn-primary dsn-r-btn",
+                      "action": "requestCall",
+                      "call": "post",
+                      "headers": {
+                        "Content-Type": "application/json"
+                      },
+                      "api": "api/inspector/decline",
+                      "successModal": true,
+                      "modal": {
+                        "bodyVal": ["schoolName"],
+                        "title": "You have successfully decline results for $schoolName",
+                        "redirectTo": "/Examiner/list/uploadstudents",
+                        "image": "assets/images/success.png",
+                        "Buttons": [
+                          {
+                            "title": "Done",
+                            "redirectTo": "/Examiner/list/uploadstudents"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "title": "Cancel"
+                    }
+                  ]
+                }
               }
             ]
           }
