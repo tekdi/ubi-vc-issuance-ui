@@ -39,6 +39,8 @@ export class VcApprovedListComponent implements OnInit {
   vcOsid: any;
   certid;
   middleUrl = environment.baseUrl;
+  page: number = 1;
+  limit: number = 20;
 
   // Table schema for rendering the certificate list
   tableSchema = {
@@ -46,6 +48,11 @@ export class VcApprovedListComponent implements OnInit {
       { key: "firstName", label: "First Name" },
       { key: "lastName", label: "Last Name" },
       { key: "certificateNo", label: "Certificate No." },
+      {
+        key: "issuanceDate",
+        label: "Issued Date & Time (IST)",
+        formatter: this.generalService.formatDate,
+      },
       { key: "status", label: "Status" },
     ],
   };
@@ -126,7 +133,6 @@ export class VcApprovedListComponent implements OnInit {
       }
     );
   }
-
   post(url: string, payload: any): Observable<any> {
     return this.http.post(url, payload);
   }

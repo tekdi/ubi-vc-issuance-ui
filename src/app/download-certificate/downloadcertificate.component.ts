@@ -31,6 +31,8 @@ export class DownloadcertificateComponent implements OnInit {
     ? localStorage.getItem("schoolId")
     : localStorage.getItem("selectedItem");
   subHeaderTitle = localStorage.getItem("subHeaderTitle");
+  page: number = 1;
+  limit: number = 20;
 
   // Table schema for rendering the certificate list
   tableSchema = {
@@ -39,6 +41,11 @@ export class DownloadcertificateComponent implements OnInit {
       { key: "lastName", label: "Last Name" },
       { key: "certificateNo", label: "Certificate No." },
       { key: "status", label: "Status" },
+      {
+        key: "issuanceDate",
+        label: "Issued Date & Time (IST)",
+        formatter: this.generalService.formatDate,
+      },
       {
         key: "actions",
         type: "button",
