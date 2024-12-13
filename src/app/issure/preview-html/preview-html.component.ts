@@ -105,7 +105,6 @@ export class PreviewHtmlComponent implements OnInit {
       let url = this.sampleData._osConfig["certificateTemplates"][
         "html"
       ].replace("minio://", "");
-      // let data = JSON.parse(res.schema);
       this.certificateTitle = this.sampleData["title"];
       this.templateName = this.certificateTitle;
       this.userJson = this.sampleData;
@@ -136,11 +135,6 @@ export class PreviewHtmlComponent implements OnInit {
       panelManager.removeButton("options", "gjs-toggle-images");
       panelManager.removeButton("options", "gjs-open-import-webpage");
       panelManager.removeButton("options", "undo");
-
-      // panelManager.removeButton("views", "open-layers");
-      // panelManager.removeButton("views", "settings");
-      //sw-visibility
-
       const um = this.editor.UndoManager;
       um.clear();
     });
@@ -227,8 +221,6 @@ export class PreviewHtmlComponent implements OnInit {
             const cardBContainer = document.createElement("div");
             cardBContainer.className = "card-body-container p-3";
             cardDiv.appendChild(cardBContainer);
-
-            // ul.setAttribute('id', 'theList');
             for (let i = 0; i <= self.propertyArr.length - 1; i++) {
               const cardBdiv = document.createElement("div"); // create li element.
 
@@ -372,8 +364,6 @@ export class PreviewHtmlComponent implements OnInit {
           this.schemaContent = data;
           data = JSON.parse(data);
           this.certificateTitle = data["title"];
-
-          //  this.templateName = this.certificateTitle;
           this.userJson = data;
           this.addCrtTemplateFields(this.schemaContent);
           this.getCrtTempFields(this.userJson);
@@ -387,7 +377,6 @@ export class PreviewHtmlComponent implements OnInit {
     } else {
       this.userHtml = doc.htmlContent;
       this.certificateTitle = "newSchema";
-      //  this.templateName = this.certificateTitle;
       this.userJson = newSchema.default;
       console.log(newSchema);
     }

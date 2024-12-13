@@ -1,10 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { FormlyFieldConfig, FormlyFormOptions } from "@ngx-formly/core";
 import { SchemaService } from "../../services/data/schema.service";
 import { FormlyJsonschema } from "@ngx-formly/core/json-schema";
 import { GeneralService } from "../../services/general/general.service";
-import { ChangeDetectionStrategy } from "@angular/core";
 import { of as observableOf } from "rxjs";
 import { TranslateService } from "@ngx-translate/core";
 

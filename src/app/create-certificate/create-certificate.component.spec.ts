@@ -1,17 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { CreateCertificateComponent } from './create-certificate.component';
-import { TranslateService } from '@ngx-translate/core';
+import { CreateCertificateComponent } from "./create-certificate.component";
 
-describe('CreateCertificateComponent', () => {
+describe("CreateCertificateComponent", () => {
   let component: CreateCertificateComponent;
   let fixture: ComponentFixture<CreateCertificateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateCertificateComponent ]
-    })
-    .compileComponents();
+      declarations: [CreateCertificateComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -20,7 +18,7 @@ describe('CreateCertificateComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

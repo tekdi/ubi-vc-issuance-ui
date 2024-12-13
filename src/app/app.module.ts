@@ -66,6 +66,7 @@ import { SideMenuComponent } from "../app/side-menu/side-menu.component";
 import { SuccessModalComponent } from "./modal/success/success.component";
 import { UploadResultCompoenent } from "./upload-result/upload-result.component";
 import { ConfirmModalComponent } from "./modal/confirmModal/confirmModal.component";
+import baseConfig from "../assets/config/config.json";
 
 import {
   TranslateLoader,
@@ -153,8 +154,6 @@ export function fieldMatchValidator(control: AbstractControl) {
 function initConfig(config: AppConfig) {
   return () => config.load();
 }
-
-let baseConfig = require("../assets/config/config.json");
 
 let configData = {
   baseUrl: baseConfig["baseUrl"],

@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  OnChanges,
-  SimpleChanges,
-} from "@angular/core";
+import { Component, Input, OnInit, OnChanges } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { SchemaService } from "../services/data/schema.service";
 import { GeneralService } from "../services/general/general.service";
@@ -362,14 +356,11 @@ export class LayoutsComponent implements OnInit, OnChanges {
               }
             } else {
               if (this.model[element]) {
-                // this.model[element].forEach((objects, i) => {
                 for (let i = 0; i < this.model[element].length; i++) {
                   let objects = this.model[element][i];
                   let osid;
                   let osState;
                   let temp_array = [];
-
-                  // alert(i + ' ----1--- ' + objects.osid);
 
                   let tempName =
                     localStorage.getItem("entity").toLowerCase() +
@@ -383,7 +374,6 @@ export class LayoutsComponent implements OnInit, OnChanges {
                   if (this.model.hasOwnProperty(tempName)) {
                     let objects1;
                     let tempObj = [];
-                    //this.model[tempName].forEach((objects1, j) => {
                     for (let j = 0; j < this.model[tempName].length; j++) {
                       objects1 = this.model[tempName][j];
                       console.log(
