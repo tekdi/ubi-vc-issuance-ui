@@ -11,6 +11,9 @@ import { TranslateService } from "@ngx-translate/core";
   selector: "app-layouts",
   templateUrl: "./layouts.component.html",
   styleUrls: ["./layouts.component.scss"],
+  selector: "app-layouts",
+  templateUrl: "./layouts.component.html",
+  styleUrls: ["./layouts.component.scss"],
 })
 export class LayoutsComponent implements OnInit, OnChanges {
   @Input() layout;
@@ -20,6 +23,7 @@ export class LayoutsComponent implements OnInit, OnChanges {
   @Input() public: boolean = false;
   claim: any;
   responseData;
+  tab: string = "profile";
   tab: string = "profile";
   schemaloaded = false;
   layoutSchema;

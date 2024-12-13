@@ -9,6 +9,7 @@ import { LoadingService } from "../../loader/loading.service";
 import { loadGapiInsideDOM, gapi } from "gapi-script";
 import { environment } from "src/environments/environment";
 declare let FB: any;
+declare let FB: any;
 @Injectable({
   providedIn: "root",
 })
@@ -579,5 +580,17 @@ export class GeneralService {
       req["header"] = wHeader;
     }
     return this.dataService.delete(req);
+  }
+
+  formatDate(value: Date): string {
+    const date = new Date(value);
+    const dd = String(date.getDate()).padStart(2, "0");
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const yyyy = date.getFullYear();
+    let hh = date.getHours();
+    const min = String(date.getMinutes()).padStart(2, "0");
+    const ampm = hh >= 12 ? "PM" : "AM";
+    hh = hh % 12 || 12;
+    return `${dd}-${mm}-${yyyy} ${hh}:${min} ${ampm}`;
   }
 }

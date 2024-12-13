@@ -7,8 +7,20 @@ import { JsonEditorComponent, JsonEditorOptions } from "ang-jsoneditor";
 import { ToastMessageService } from "src/app/services/toast-message/toast-message.service";
 import { SchemaService } from "../../services/data/schema.service";
 import * as newSchema from "./newSchema.json";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { GeneralService } from "src/app/services/general/general.service";
+declare let grapesjs: any;
+import "grapesjs-preset-webpage";
+import { JsonEditorComponent, JsonEditorOptions } from "ang-jsoneditor";
+import { ToastMessageService } from "src/app/services/toast-message/toast-message.service";
+import { SchemaService } from "../../services/data/schema.service";
+import * as newSchema from "./newSchema.json";
 
 @Component({
+  selector: "app-preview-html",
+  templateUrl: "./preview-html.component.html",
+  styleUrls: ["./preview-html.component.scss"],
   selector: "app-preview-html",
   templateUrl: "./preview-html.component.html",
   styleUrls: ["./preview-html.component.scss"],
@@ -18,9 +30,12 @@ export class PreviewHtmlComponent implements OnInit {
   public data: any;
   @ViewChild(JsonEditorComponent, { static: false })
   jsonEditor: JsonEditorComponent;
+  @ViewChild(JsonEditorComponent, { static: false })
+  jsonEditor: JsonEditorComponent;
   sampleData: any;
   schemaContent: any;
   userJson: any;
+  userHtml: any = "";
   userHtml: any = "";
   templateName: any;
   issuerOsid: string;
@@ -123,9 +138,22 @@ export class PreviewHtmlComponent implements OnInit {
           this.grapesJSDefine();
         }
       );
+      this.generalService.getData(url, false, {}).subscribe(
+        (res) => {
+          console.log(res);
+          this.userHtml = res;
+          this.grapesJSDefine();
+        },
+        (err) => {
+          console.log(err);
+          this.userHtml = err.error.text;
+          this.grapesJSDefine();
+        }
+      );
     });
   }
 
+  grapesJSDefine() {
   grapesJSDefine() {
     this.editor = this.initializeEditor();
     this.editor.on("load", () => {
@@ -142,9 +170,13 @@ export class PreviewHtmlComponent implements OnInit {
     this.editor.on("asset:add", () => {
       this.editor.runCommand("open-assets");
     });
+    this.editor.on("asset:add", () => {
+      this.editor.runCommand("open-assets");
+    });
 
     // This will execute once asset manager will be open
     this.editor.on("run:select-assets", function () {
+      let dateNow = "img-" + Date.now();
       let dateNow = "img-" + Date.now();
 
       // Using below line i am changing the id of img tag on which user has clicked.
@@ -369,6 +401,12 @@ export class PreviewHtmlComponent implements OnInit {
           this.getCrtTempFields(this.userJson);
         });
 
+      await fetch(doc.certificateUrl)
+        .then((response) => response.text())
+        .then((data) => {
+          this.userHtml = data;
+        });
+    } else {
       await fetch(doc.certificateUrl)
         .then((response) => response.text())
         .then((data) => {

@@ -12,6 +12,10 @@ import { TranslateService } from "@ngx-translate/core";
   templateUrl: "./search.component.html",
   styleUrls: ["./search.component.scss"],
   changeDetection: ChangeDetectionStrategy.Default,
+  selector: "app-search",
+  templateUrl: "./search.component.html",
+  styleUrls: ["./search.component.scss"],
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SearchComponent implements OnInit {
   header: string = null;
@@ -44,6 +48,9 @@ export class SearchComponent implements OnInit {
   searchFields = {
     tabs: [
       {
+        fields: [{}],
+      },
+    ],
         fields: [{}],
       },
     ],
