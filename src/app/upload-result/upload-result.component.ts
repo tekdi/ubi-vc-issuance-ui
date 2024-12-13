@@ -8,7 +8,6 @@ import { GeneralService } from "../services/general/general.service";
 import { ConfirmModalService } from "../modal/confirmModal/confirmModal.service";
 import { ToastMessageService } from "../services/toast-message/toast-message.service";
 import { HttpClient } from "@angular/common/http";
-import { log } from "console";
 
 @Component({
   selector: "upload-result",

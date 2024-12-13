@@ -1,29 +1,10 @@
-<!-- <app-header [headerFor]='header'></app-header> -->
 <div class="container mt-2">
-    <h6 class="font-weight-bold mt-3"><i onClick="history.go(-1); return false;" class="fas fa-chevron-left mr-2" aria-hidden="true"></i>
+    <h6 class="font-weight-bold mt-3"><i onClick="history.go(-1); return false;" class="fas fa-chevron-left mr-2"
+            aria-hidden="true"></i>
         <ng-template [ngIf]="certificate">{{certificate}}</ng-template>
     </h6>
     <div class="col-md-6 offset-md-3 mt-5">
-        <!-- <div style="text-align-last: center;color: #1987B6 !important">
-            <h3> <img style="display: -webkit-inline-box;" class="logo" src="assets/images/logo.png" />Sunbird eLocker</h3>
-        </div> -->
         <ng-template [ngIf]="isScan">
-            <!-- <webcam (initError)="handleInitError($event)" [width]="width" (imageCapture)="handleImage($event)"
-            [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
-            [videoOptions]="videoOptions"
-            [imageQuality]="1"
-            (cameraSwitched)="cameraWasSwitched($event)"
-            (initError)="handleInitError($event)"
-            ></webcam>
-            <div style="text-align: center;">
-                <button class="actionBtn" (click)="triggerSnapshot();">Capture</button>
-              
-                <button class="actionBtn" (click)="showNextWebcam(true);" [disabled]="!multipleWebcamsAvailable">Switch Camera</button>
-            </div>
-            <div class="snapshot" *ngIf="webcamImage">
-                <h2>Nice one!</h2>
-                <img [src]="webcamImage.imageAsDataUrl"/>
-              </div> -->
 
             <app-scan-document [width]="width" (pictureTaken)="handleImage($event)"></app-scan-document>
 
@@ -34,23 +15,6 @@
                 <div>
                     <form [formGroup]="form2" (ngSubmit)="submit()" *ngIf="fields">
                         <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form2"></formly-form>
-                        <!-- <ng-template [ngIf]="verify && osid">
-                            <button style="
-                            float: right;
-                            margin-top: -49px;
-                            position: relative;
-                        " type="button" class="btn btn-primary" data-toggle="modal" data-target="#verifyModal">
-                                {{ 'VERIFY' | translate }}
-                            </button>
-                        </ng-template> -->
-                        <!-- <ng-template [ngIf]="verified  && osid">
-                            <i class="fa fa-check-circle text-success" style="
-                            float: right;
-                            margin-top: -49px;
-                            position: relative;
-                        ">
-                            </i>
-                        </ng-template> -->
                         <div *ngIf="webcamImage">
                             <img width="100" [src]="webcamImage.imageAsDataUrl" />
                         </div>
@@ -97,7 +61,9 @@
 
                         <a src="/cf/sluid">{{'RESEND_OTP' |translate}}</a>
                     </div>
-                    <button type="button" aria-hidden="true" data-dismiss="modal" aria-label="Close" (click)="verifyFn()" class="btn btn-primary w-100 submit-button">{{'CONFIRM_OTP'|translate}}</button>
+                    <button type="button" aria-hidden="true" data-dismiss="modal" aria-label="Close"
+                        (click)="verifyFn()"
+                        class="btn btn-primary w-100 submit-button">{{'CONFIRM_OTP'|translate}}</button>
                 </div>
 
             </div>
@@ -105,7 +71,7 @@
     </div>
 </ng-template>
 <script>
-    $('#button').submit(function(e) {
+    $('#button').submit(function (e) {
         e.preventDefault();
         // Coding
         $('#verifyModal').modal('toggle'); //or  $('#IDModal').modal('hide');
