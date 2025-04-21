@@ -50,16 +50,30 @@ jobs:
           EC2_HOST_DEV: ${{ secrets.EC2_HOST_DEV }}
           EC2_USER_DEV: ${{ secrets.EC2_USER_DEV }}
         run: |
-          export SSH_OPTS="-o StrictHostKeyChecking=no"
+          echo "Cleaning up remote..."
           ssh $SSH_OPTS -i ec2_key.pem $EC2_USER_DEV@$EC2_HOST_DEV << 'EOF'
-          echo "Removing existing files..."
           sudo rm -rf /var/www/dev-uba-issuer.tekdinext.com/public/*
+          mkdir -p /home/ubuntu/tmp_upload
+          rm -rf /home/ubuntu/tmp_upload/*
           EOF
-          echo "Copying files..."
-          scp $SSH_OPTS -i ec2_key.pem -r dist/sunbird-rc-ui/* $EC2_USER_DEV@$EC2_HOST_DEV:/var/www/dev-uba-issuer.tekdinext.com/public
+          echo "Uploading files to temp dir..."
+          scp $SSH_OPTS -i ec2_key.pem -r dist/sunbird-rc-ui/* $EC2_USER_DEV@$EC2_HOST_DEV:/home/ubuntu/tmp_upload
+          echo "Moving files into /var/www with sudo..."
           ssh $SSH_OPTS -i ec2_key.pem $EC2_USER_DEV@$EC2_HOST_DEV << 'EOF'
-          echo "Setting permissions on the server..."
+          sudo cp -r /home/ubuntu/tmp_upload/* /var/www/dev-uba-issuer.tekdinext.com/public/
           sudo chown -R www-data:www-data /var/www/dev-uba-issuer.tekdinext.com
-          echo "Restarting Nginx..."
           sudo systemctl restart nginx
           EOF
+       #  export SSH_OPTS="-o StrictHostKeyChecking=no"
+         # ssh $SSH_OPTS -i ec2_key.pem $EC2_USER_DEV@$EC2_HOST_DEV << 'EOF'
+          # echo "Removing existing files..."
+        #  sudo rm -rf /var/www/dev-uba-issuer.tekdinext.com/public/*
+         # EOF
+         # echo "Copying files..."
+         # scp $SSH_OPTS -i ec2_key.pem -r dist/sunbird-rc-ui/* $EC2_USER_DEV@$EC2_HOST_DEV:/var/www/dev-uba-issuer.tekdinext.com/public
+         # ssh $SSH_OPTS -i ec2_key.pem $EC2_USER_DEV@$EC2_HOST_DEV << 'EOF'
+         # echo "Setting permissions on the server..."
+         # sudo chown -R www-data:www-data /var/www/dev-uba-issuer.tekdinext.com
+         # echo "Restarting Nginx..."
+         # sudo systemctl restart nginx
+         # EOF
