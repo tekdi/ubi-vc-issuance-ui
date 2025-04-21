@@ -50,20 +50,26 @@ jobs:
           EC2_HOST_DEV: ${{ secrets.EC2_HOST_DEV }}
           EC2_USER_DEV: ${{ secrets.EC2_USER_DEV }}
         run: |
-          echo "Cleaning up remote..."
-          ssh $SSH_OPTS -i ec2_key.pem $EC2_USER_DEV@$EC2_HOST_DEV << 'EOF'
-          sudo rm -rf /var/www/dev-uba-issuer.tekdinext.com/public/*
-          mkdir -p /home/ubuntu/tmp_upload
-          rm -rf /home/ubuntu/tmp_upload/*
-          EOF
-          echo "Uploading files to temp dir..."
-          scp $SSH_OPTS -i ec2_key.pem -r dist/sunbird-rc-ui/* $EC2_USER_DEV@$EC2_HOST_DEV:/home/ubuntu/tmp_upload
-          echo "Moving files into /var/www with sudo..."
-          ssh $SSH_OPTS -i ec2_key.pem $EC2_USER_DEV@$EC2_HOST_DEV << 'EOF'
-          sudo cp -r /home/ubuntu/tmp_upload/* /var/www/dev-uba-issuer.tekdinext.com/public/
-          sudo chown -R www-data:www-data /var/www/dev-uba-issuer.tekdinext.com
-          sudo systemctl restart nginx
-          EOF
+           echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ec2_key.pem
+           chmod 600 ec2_key.pem
+           export SSH_OPTS="-o StrictHostKeyChecking=no"
+
+           echo "Cleaning up remote..."
+           ssh $SSH_OPTS -i ec2_key.pem $EC2_USER_DEV@$EC2_HOST_DEV << EOF
+           sudo rm -rf /var/www/dev-uba-issuer.tekdinext.com/public/*
+           mkdir -p /home/${EC2_USER_DEV}/tmp_upload
+           rm -rf /home/${EC2_USER_DEV}/tmp_upload/*
+           EOF
+
+           echo "Uploading files to temp dir..."
+           scp $SSH_OPTS -i ec2_key.pem -r dist/sunbird-rc-ui/* $EC2_USER_DEV@$EC2_HOST_DEV:/home/${EC2_USER_DEV}/tmp_upload
+
+           echo "Moving files into /var/www with sudo..."
+           ssh $SSH_OPTS -i ec2_key.pem $EC2_USER_DEV@$EC2_HOST_DEV << EOF
+           sudo cp -r /home/${EC2_USER_DEV}/tmp_upload/* /var/www/dev-uba-issuer.tekdinext.com/public/
+           sudo chown -R www-data:www-data /var/www/dev-uba-issuer.tekdinext.com
+           sudo systemctl restart nginx
+           EOF
        #  export SSH_OPTS="-o StrictHostKeyChecking=no"
          # ssh $SSH_OPTS -i ec2_key.pem $EC2_USER_DEV@$EC2_HOST_DEV << 'EOF'
           # echo "Removing existing files..."
