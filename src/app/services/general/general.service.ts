@@ -1,13 +1,14 @@
 import { Injectable } from "@angular/core";
 import { DataService } from "../data/data-request.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable} from "rxjs";
 import { AppConfig } from "src/app/app.config";
 import { TranslateService } from "@ngx-translate/core";
 import { map } from "rxjs/operators";
 import { LoadingService } from "../../loader/loading.service";
 import { loadGapiInsideDOM, gapi } from "gapi-script";
 import { environment } from "src/environments/environment";
+declare let FB: any;
 declare let FB: any;
 @Injectable({
   providedIn: "root",

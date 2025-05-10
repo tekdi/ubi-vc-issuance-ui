@@ -56,8 +56,6 @@ h1 {
         transition: transform ease-out 200ms;
         display: inline-block;
         position: relative;
-        // width: 40px;
-        // height: 40px;
     }
 
     .menu-open {
@@ -75,14 +73,6 @@ h1 {
         margin-left: -9px;
         margin-top: -1px;
         transition: transform 200ms;
-
-        &.plus-1 {
-            // transform: rotate(90deg) translate3d(0, 0, 0);
-        }
-
-        &.plus-2 {
-            // transform: rotate(0) translate3d(0, 0, 0);
-        }
     }
 
     .menu-item {

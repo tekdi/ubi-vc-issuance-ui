@@ -12,7 +12,6 @@ import { ToastMessageService } from "src/app/services/toast-message/toast-messag
 @Component({
   selector: "app-add-document",
   templateUrl: "./add-document.component.html",
-  styleUrls: ["./add-document.component.scss"],
 })
 export class AddDocumentComponent implements OnInit {
   header = "documents";

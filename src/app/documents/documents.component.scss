@@ -1,12 +1,14 @@
 .search-area {
     .input-append {
         position: relative;
+
         .fa-search {
             position: absolute;
             right: 12px;
             top: 15px;
             color: var(--secondaryTextColor) !important;
         }
+
         input {
             border: 1px solid #EFEFEF;
             box-sizing: border-box;
@@ -17,7 +19,6 @@
 }
 
 .dash-card {
-    // max-width: 300px;
     display: inline-grid;
     position: relative;
     flex-direction: column;
@@ -34,9 +35,6 @@
     border-color: transparent;
 }
 
-//   .card-body>div {
-//     padding: 5px;
-//   }
 .modal-dialog {
     top: calc(100% - 300px);
 }
@@ -55,6 +53,7 @@
         bottom: -300 px;
         opacity: 0;
     }
+
     to {
         bottom: 0;
         opacity: 1;
@@ -65,6 +64,7 @@
     .card-body {
         display: flex;
     }
+
     .card-image {
         border: 1px solid #ddd;
         height: 50px;
@@ -72,13 +72,14 @@
         width: 50px;
         text-align: center;
         overflow: hidden;
+
         img {
             object-fit: cover;
-            // padding: 8px;
             height: 45px;
             border-radius: 100%;
         }
     }
+
     .card-intro-info {
         width: calc(100% - 45px);
         padding-right: 5px;
@@ -91,6 +92,7 @@
             color: var(--secondaryColor);
         }
     }
+
     .icon-color {
         color: var(--secondaryColor);
         margin-top: 5px;
